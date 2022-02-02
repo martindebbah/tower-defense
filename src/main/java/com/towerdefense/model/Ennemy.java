@@ -40,13 +40,13 @@ public class Ennemy {
         game.getPlayer().getHit();
     }
 
+    public int getHP() {
+        return health * 100 / maxHealth;
+    }
+
     public void move(int h, int v) {
         x += h * movementSpeed;
         y += v * movementSpeed;
-    }
-
-    public int getHP() {
-        return health * 100 / maxHealth;
     }
 
     public void moveUp() {
