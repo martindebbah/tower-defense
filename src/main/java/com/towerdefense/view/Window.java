@@ -7,10 +7,13 @@ public class Window extends JFrame {
     private BoardView board;
 
     public Window() {
-        setSize(600, 600);
-        setVisible(true);
+        setSize(640, 640);
+        setTitle("Tower Defense");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        board = new BoardView();
+        add(board);
+        setVisible(true);
     }
     
 }

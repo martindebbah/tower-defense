@@ -10,10 +10,5 @@ public class UnitsView extends JPanel {
     public UnitsView() {
         
     }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.BLACK);
-    }
     
 }
