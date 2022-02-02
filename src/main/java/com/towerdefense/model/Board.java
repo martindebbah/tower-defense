@@ -2,14 +2,22 @@ package com.towerdefense.model;
 
 public class Board {
 
-    private Units[][] cases;
+    private Tower[][] cases;
 
     public Board() {
-        createBoard(13, 11);
+        createBoard(20, 20);
     }
 
     public void createBoard(int n, int m) {
-        cases = new Units[n][m];
+        cases = new Tower[n][m];
+    }
+
+    public void addTower(Tower t, int x, int y) {
+        cases[x][y] = t;
+    }
+
+    public Tower getTower(int x, int y) {
+        return cases[x][y];
     }
 
     // plateau 26x22 cases (tour = 2x2)
