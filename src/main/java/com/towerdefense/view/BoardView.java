@@ -10,7 +10,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-public class BoardView extends JPanel implements {
+public class BoardView extends JPanel {
 
     private ArrayList<Ennemy> ennemies;
     private Board board;
