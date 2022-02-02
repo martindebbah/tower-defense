@@ -1,15 +1,17 @@
 package com.towerdefense.model;
 
-public class Ennemy extends Units {
+public class Ennemy {
 
     private Game game;
     private int health;
+    private int maxHealth;
     private int movementSpeed;
     private int x;
     private int y;
 
     public Ennemy(int health, int movementSpeed, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
         this.health = health;
+        this.maxHealth = health;
         this.movementSpeed = movementSpeed;
         this.x = x;
         this.y = y;
@@ -19,7 +21,6 @@ public class Ennemy extends Units {
         return game;
     }
 
-    @Override
     public int[] getCoord() { // Renvoie un tableau contenant les coordonnées de l'unité {x, y}
         int[] coord = new int[2];
         coord[0] = x;
@@ -40,8 +41,25 @@ public class Ennemy extends Units {
     }
 
     public void move(int h, int v) {
-        x += h;
-        y += v;
+        x += h * movementSpeed;
+        y += v * movementSpeed;
+    }
+
+    public int getHP() {
+        return health * 100 / maxHealth;
+    }
+
+    public void moveUp() {
+        move(0, -1);
+    }
+    public void moveDown() {
+        move(0, 1);
+    }
+    public void moveRight() {
+        move(1, 0);
+    }
+    public void moveLeft() {
+        move(-1, 0);
     }
     
 }
