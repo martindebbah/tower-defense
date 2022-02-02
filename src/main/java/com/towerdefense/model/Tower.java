@@ -1,6 +1,6 @@
 package com.towerdefense.model;
 
-public class Tower extends Units {
+public class Tower {
 
     private int range;
     private int damage;
