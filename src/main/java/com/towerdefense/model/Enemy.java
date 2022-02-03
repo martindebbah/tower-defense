@@ -6,10 +6,11 @@ public class Enemy {
     private int health;
     private int maxHealth;
     private int movementSpeed;
+    private int gold;
     private int x;
     private int y;
 
-    public Enemy(int health, int movementSpeed, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
+    public Enemy(int health, int movementSpeed, int gold, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
         this.health = health;
         this.maxHealth = health;
         this.movementSpeed = movementSpeed;
@@ -30,6 +31,10 @@ public class Enemy {
 
     public boolean isAlive() { // Vraiment la bonne méthode ?
         return health > 0;     // Comment faire disparaître l'unité ?
+    }
+
+    public int getGold() {
+        return gold;
     }
 
     public void getHit(int damage) { // Appelé par la tour qui inflige les dommages à l'unité

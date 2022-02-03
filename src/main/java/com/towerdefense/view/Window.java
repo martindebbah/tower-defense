@@ -2,6 +2,7 @@ package com.towerdefense.view;
 
 import javax.swing.JFrame;
 
+import com.towerdefense.model.BasicTower;
 import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Tower;
 
@@ -27,7 +28,7 @@ public class Window extends JFrame {
         // test
         Enemy e = new Enemy(100, 3, -32, 4*32);
         board.addEnnemy(e);
-        Tower t = new Tower(5, 10, 1);
+        Tower t = new BasicTower();
         board.addTower(t, 5, 0);
 
         while (true) {

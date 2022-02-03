@@ -6,7 +6,7 @@ public class Game {
     private Player player;
 
     public Game() {
-        this.board = new Board();
+        this.board = new Board(32);
     }
 
     public Player getPlayer() {

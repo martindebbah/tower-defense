@@ -12,7 +12,7 @@ public class Tower {
     private int[] coord;
     private boolean newTarget;
 
-    public Tower(int range, int damage, int attackSpeed) {
+    public Tower(int range, int damage, int attackSpeed, int price) {
         this.range = range;
         this.damage = damage;
         this.attackSpeed = attackSpeed;
