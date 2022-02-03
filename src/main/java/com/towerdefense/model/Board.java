@@ -7,14 +7,20 @@ public class Board {
 
     private Tower[][] cases;
     private List<Enemy> ennemies;
+    private int size;
 
-    public Board() {
+    public Board(int size) {
         createBoard(20, 20);
         this.ennemies = new ArrayList<Enemy>();
+        this.size = size;
     }
 
     public void createBoard(int n, int m) {
         cases = new Tower[n][m];
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public void addTower(Tower t, int x, int y) {

@@ -27,7 +27,7 @@ public class Window extends JFrame {
         // test
         Enemy e = new Enemy(100, 3, -32, 4*32);
         board.addEnnemy(e);
-        Tower t = new Tower(5, 5, 1);
+        Tower t = new Tower(5, 10, 1);
         board.addTower(t, 5, 0);
 
         while (true) {

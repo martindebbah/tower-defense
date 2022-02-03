@@ -58,13 +58,13 @@ public class Tower {
     public void focus(Board board) {
         if (target != null) {
             newTarget = false;
-            if (!isInRange(target.getCoord())) // Si l'unité sort de la range
+            if (!isInRange(target.getCoord(), board.getSize())) // Si l'unité sort de la range
                 target = null;
             return; // On ne change pas de cible
         }
         List<Enemy> ennemies = board.getEnnemies();
         for (Enemy e : ennemies) {
-            if (isInRange(e.getCoord())) {
+            if (isInRange(e.getCoord(), board.getSize())) {
                 target = e;
                 newTarget = true;
                 return;
@@ -74,9 +74,9 @@ public class Tower {
         }
     }
 
-    public boolean isInRange(int[] coordE) {
-        return Math.max(coordE[0] / 32, coord[0]) - Math.min(coordE[0] / 32, coord[0]) <= range 
-            && Math.max(coordE[1] / 32, coord[1]) - Math.min(coordE[1] / 32, coord[1]) <= range;
+    public boolean isInRange(int[] coordE, int size) {
+        return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0]) + (coordE[1] / size - coord[1]) * (coordE[1] / size - coord[1])
+                <= range * range;
     }
     
 }

@@ -18,7 +18,7 @@ public class BoardView extends JPanel {
     public BoardView() {
         setPreferredSize(new java.awt.Dimension(size * 20, size * 20));
         setBorder(new EmptyBorder(100, 100, 100, 100)); // Comment faire ?
-        this.board = new Board();
+        this.board = new Board(size);
     }
 
     public void addEnnemy(Enemy e) {
