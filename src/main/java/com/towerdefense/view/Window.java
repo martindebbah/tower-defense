@@ -25,21 +25,14 @@ public class Window extends JFrame {
         createBoard();
 
         // test
-        Ennemy e = new Ennemy(100, 2, 0, 0);
+        Ennemy e = new Ennemy(100, 3, -32, 4*32);
         board.addEnnemy(e);
-        Tower t = new Tower(1, 1, 1);
+        Tower t = new Tower(5, 5, 1);
         board.addTower(t, 5, 0);
 
         while (true) {
-            try {
-                Thread.sleep(50);
-            }catch (InterruptedException ie) {
-                ie.printStackTrace();
-            }
+            play();
             e.moveRight();
-            e.moveDown();
-            e.getHit(1);
-            refresh();
         }
 
     }
@@ -51,7 +44,12 @@ public class Window extends JFrame {
         repaint();
     }
 
-    private void refresh() {
+    public void play() {
+        try {
+            Thread.sleep(50);
+        }catch(InterruptedException ie) {
+            ie.printStackTrace();
+        }
         revalidate();
         repaint();
     }
