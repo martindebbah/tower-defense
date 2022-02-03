@@ -1,10 +1,12 @@
 package com.towerdefense.view;
 
+import javax.crypto.spec.GCMParameterSpec;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Enemy;
+import com.towerdefense.model.Game;
 import com.towerdefense.model.Tower;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,16 +15,17 @@ import java.awt.Graphics;
 public class BoardView extends JPanel {
 
     private Board board;
-    private int size = 32;
+    private int size;
 
-    public BoardView() {
-        setPreferredSize(new java.awt.Dimension(size * 20, size * 20));
-        setBorder(new EmptyBorder(100, 100, 100, 100)); // Comment faire ?
-        this.board = new Board(size);
+    public BoardView(Game game) {
+        // setBorder(new EmptyBorder(100, 100, 100, 100)); // Comment faire ?
+        this.board = game.getBoard();
+        size = board.getSize();
+        setPreferredSize(new java.awt.Dimension(size * board.getNbCases(), size * board.getNbCases()));
     }
 
-    public void addEnnemy(Enemy e) {
-        board.addEnnemy(e);
+    public void addEnemy(Enemy e) {
+        board.addEnemy(e);
     }
 
     public void addTower(Tower t, int x, int y) {
@@ -33,27 +36,23 @@ public class BoardView extends JPanel {
         super.paintComponent(g);
 
         /*
-        Combien de cases dans le tableau ?
+        Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création de Board)
         Est-ce qu'on dessine les cases quand le tableau est vide ?
         */
         
-        for(int x = 0; x < 20; x++) {
-        	for(int y = 0; y < 20; y++) {
+        for(int x = 0; x < board.getNbCases(); x++) {
+        	for(int y = 0; y < board.getNbCases(); y++) {
                 if (board.getTower(x, y) != null) {
                     Tower t = board.getTower(x, y);
                     g.setColor(Color.BLUE);
-                    g.fillRect(x * size, y * size, size, size);
-                    t.focus(board);
-                    if (t.canAttack() && t.isNewTarget()) {
-                        t.attack();
-                    }
+                    g.fillRect(x * size, y * size, size, size);                                 // Jusqu'ici
                 }
         		g.setColor(Color.BLACK);
                 g.drawRect(y * size, x * size, size, size);
         	}
         }
 
-        for (Enemy e : board.getEnnemies()) {
+        for (Enemy e : board.getEnemies()) {
             g.setColor(Color.RED);
             int[] coord = e.getCoord();
             g.fillOval(coord[0], coord[1], size, size);

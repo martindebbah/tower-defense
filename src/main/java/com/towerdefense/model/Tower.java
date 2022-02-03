@@ -62,8 +62,8 @@ public class Tower {
                 target = null;
             return; // On ne change pas de cible
         }
-        List<Enemy> ennemies = board.getEnnemies();
-        for (Enemy e : ennemies) {
+        List<Enemy> enemies = board.getEnemies();
+        for (Enemy e : enemies) {
             if (isInRange(e.getCoord(), board.getSize())) {
                 target = e;
                 newTarget = true;
@@ -74,7 +74,7 @@ public class Tower {
         }
     }
 
-    public boolean isInRange(int[] coordE, int size) {
+    public boolean isInRange(int[] coordE, int size) { // La range est un peu décalée sur le coin haut-gauche de l'unité
         return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0]) + (coordE[1] / size - coord[1]) * (coordE[1] / size - coord[1])
                 <= range * range;
     }

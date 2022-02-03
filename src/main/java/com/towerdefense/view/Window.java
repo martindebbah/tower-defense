@@ -2,8 +2,10 @@ package com.towerdefense.view;
 
 import javax.swing.JFrame;
 
+import com.towerdefense.model.BasicEnemy;
 import com.towerdefense.model.BasicTower;
 import com.towerdefense.model.Enemy;
+import com.towerdefense.model.Game;
 import com.towerdefense.model.Tower;
 
 import java.awt.BorderLayout;
@@ -11,6 +13,7 @@ import java.awt.BorderLayout;
 public class Window extends JFrame {
 
     private BoardView board;
+    private Game game;
 
     public Window() {
 
@@ -23,23 +26,23 @@ public class Window extends JFrame {
         setLayout(new BorderLayout());
 
         // Création du plateau de jeu
+        this.game = new Game(32, 20);
         createBoard();
 
         // test
-        Enemy e = new Enemy(100, 3, -32, 4*32);
-        board.addEnnemy(e);
+        Enemy e = new BasicEnemy(game.getBoard().getSize());
+        board.addEnemy(e);
         Tower t = new BasicTower();
-        board.addTower(t, 5, 0);
+        board.addTower(t, 5, 4);
 
         while (true) {
             play();
-            e.moveRight();
         }
 
     }
 
-    private void createBoard() { // Créer une vue pour le plateau (peut-être ajouter un modèle)
-        board = new BoardView();
+    private void createBoard() { // Créer une vue pour le plateau
+        board = new BoardView(game);
         add(board, BorderLayout.WEST);
         revalidate();
         repaint();
@@ -51,6 +54,7 @@ public class Window extends JFrame {
         }catch(InterruptedException ie) {
             ie.printStackTrace();
         }
+        game.play();
         revalidate();
         repaint();
     }
