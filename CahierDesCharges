@@ -1,0 +1,22 @@
+Cahier des charges td
+
+ECRAN TITRE:
+-Titre du jeu
+-button play (lance le jeu)->écran choix difficulté(easy,medium,hard,custom)
+-button option (param le son, bruitage)
+-button quit
+
+Gameboard:
+-plateau de jeu
+-arrivé des ennemie par la gauche sortie par la droite perds 1pdv si atteint + algo A*
+-button pause -> reprendre/quitter
+-shop achat tour et les poser à la souris 
+-upgrade des tours en cliquant dessus->ouvre petite interface pour up vitesse, damage
+-argent au départ et argent gagné à chaque kill enemy
+-point de vie du joueur/compteur de vague
+-temps max sur chaque vague puis lance la prochaine mm si tout les ennemis ne sont pas mort, vague délimité par le nbr d’ennemies
+-arrivé de Mo vague 10
+-fin du jeu point de vie = 0 -> affichage entrer son nom puis add au high score
+
+Sprite et univers:
+-médiéval fantastique->style CoC
