@@ -8,7 +8,7 @@ public class Tower {
     private int damage;
     private int attackSpeed;
     private int price;
-    private Ennemy target;
+    private Enemy target;
     private int[] coord;
     private boolean newTarget;
 
@@ -62,8 +62,8 @@ public class Tower {
                 target = null;
             return; // On ne change pas de cible
         }
-        List<Ennemy> ennemies = board.getEnnemies();
-        for (Ennemy e : ennemies) {
+        List<Enemy> ennemies = board.getEnnemies();
+        for (Enemy e : ennemies) {
             if (isInRange(e.getCoord())) {
                 target = e;
                 newTarget = true;

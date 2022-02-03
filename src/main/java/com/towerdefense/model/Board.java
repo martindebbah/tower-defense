@@ -6,11 +6,11 @@ import java.util.List;
 public class Board {
 
     private Tower[][] cases;
-    private List<Ennemy> ennemies;
+    private List<Enemy> ennemies;
 
     public Board() {
         createBoard(20, 20);
-        this.ennemies = new ArrayList<Ennemy>();
+        this.ennemies = new ArrayList<Enemy>();
     }
 
     public void createBoard(int n, int m) {
@@ -22,7 +22,7 @@ public class Board {
         t.setCoord(x, y);
     }
 
-    public void addEnnemy(Ennemy e) {
+    public void addEnnemy(Enemy e) {
         ennemies.add(e);
     }
 
@@ -30,7 +30,7 @@ public class Board {
         return cases[x][y];
     }
 
-    public List<Ennemy> getEnnemies() {
+    public List<Enemy> getEnnemies() {
         return ennemies;
     }
 

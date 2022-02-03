@@ -1,6 +1,6 @@
 package com.towerdefense.model;
 
-public class Ennemy {
+public class Enemy {
 
     private Game game;
     private int health;
@@ -9,7 +9,7 @@ public class Ennemy {
     private int x;
     private int y;
 
-    public Ennemy(int health, int movementSpeed, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
+    public Enemy(int health, int movementSpeed, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
         this.health = health;
         this.maxHealth = health;
         this.movementSpeed = movementSpeed;

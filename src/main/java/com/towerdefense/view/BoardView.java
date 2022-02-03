@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.towerdefense.model.Board;
-import com.towerdefense.model.Ennemy;
+import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Tower;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,7 +21,7 @@ public class BoardView extends JPanel {
         this.board = new Board();
     }
 
-    public void addEnnemy(Ennemy e) {
+    public void addEnnemy(Enemy e) {
         board.addEnnemy(e);
     }
 
@@ -53,7 +53,7 @@ public class BoardView extends JPanel {
         	}
         }
 
-        for (Ennemy e : board.getEnnemies()) {
+        for (Enemy e : board.getEnnemies()) {
             g.setColor(Color.RED);
             int[] coord = e.getCoord();
             g.fillOval(coord[0], coord[1], size, size);
