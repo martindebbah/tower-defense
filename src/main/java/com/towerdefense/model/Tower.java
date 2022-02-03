@@ -24,6 +24,10 @@ public class Tower {
         coord[1] = y;
     }
 
+    public int[] getCoord() {
+        return coord;
+    }
+
     public int getPrice() {
         return price;
     }
@@ -36,11 +40,19 @@ public class Tower {
         return newTarget;
     }
 
-    public void attack() {
+    public Tower getSource() {
+        return this;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void attack(Board board) {
         new Thread() {
             public void run() {
                 while (canAttack()) {
-                    target.getHit(damage);
+                    board.addProjectile(new Projectile(getSource(), target));
                     try{
                         sleep(attackSpeed * 1000);
                     }catch(InterruptedException ie) {
@@ -58,7 +70,7 @@ public class Tower {
     public void focus(Board board) {
         if (target != null) {
             newTarget = false;
-            if (!isInRange(target.getCoord(), board.getSize())) // Si l'unité sort de la range
+            if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou meurt
                 target = null;
             return; // On ne change pas de cible
         }

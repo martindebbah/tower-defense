@@ -33,7 +33,7 @@ public class Window extends JFrame {
         Enemy e = new BasicEnemy(game.getBoard().getSize());
         board.addEnemy(e);
         Tower t = new BasicTower();
-        board.addTower(t, 5, 4);
+        board.addTower(t, 5, 6);
 
         while (true) {
             play();

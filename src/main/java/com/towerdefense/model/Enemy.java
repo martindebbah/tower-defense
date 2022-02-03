@@ -49,6 +49,11 @@ public class Enemy {
         return health * 100 / maxHealth;
     }
 
+    public void kill() {
+        if (getHP() == 0)
+            game.getBoard().killEnemy(this);
+    }
+
     public void move(int h, int v) {
         x += h * movementSpeed;
         y += v * movementSpeed;

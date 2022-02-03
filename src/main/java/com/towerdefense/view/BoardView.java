@@ -1,12 +1,12 @@
 package com.towerdefense.view;
 
-import javax.crypto.spec.GCMParameterSpec;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Game;
+import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tower;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -59,6 +59,11 @@ public class BoardView extends JPanel {
             g.setColor(Color.GREEN);
             g.drawRect(coord[0], coord[1] - 10, size, 5);
             g.fillRect(coord[0], coord[1] - 10, e.getHP() * size / 100, 5);
+        }
+
+        for (Projectile p : board.getProjectiles()) {
+            g.setColor(p.getColor());
+            g.fillOval(p.getX(), p.getY(), size / 4, size / 4);
         }
     }
 
