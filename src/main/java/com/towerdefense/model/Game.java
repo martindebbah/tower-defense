@@ -21,12 +21,12 @@ public class Game {
     }
 
     public void play() {
-        for (Tower[] tab : board.getTowers()) { // Toutes les tours attaquent
-            for (Tower t : tab) {
-                if (t != null) {
-                    t.focus(board);
-                    if (t.canAttack() && t.isNewTarget()) {
-                        t.attack(board);
+        for (Tile[] tab : board.getBoard()) { // Toutes les tours attaquent
+            for (Tile t : tab) {
+                if (t.containsTower()) {
+                    t.getTower().focus(board);
+                    if (t.getTower().canAttack() && t.getTower().isNewTarget()) {
+                        t.getTower().attack(board);
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.towerdefense.launcher;
 
+import com.towerdefense.model.Enemy;
 import com.towerdefense.view.Window;
 
 public class Launcher {

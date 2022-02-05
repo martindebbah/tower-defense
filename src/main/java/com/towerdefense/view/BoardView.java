@@ -42,8 +42,8 @@ public class BoardView extends JPanel {
         
         for(int x = 0; x < board.getNbCases(); x++) {
         	for(int y = 0; y < board.getNbCases(); y++) {
-                if (board.getTower(x, y) != null) {
-                    Tower t = board.getTower(x, y);
+                if (board.getBoard()[x][y].containsTower()) {
+                    //Tower t = board.getBoard()[x][y].getTower();
                     g.setColor(Color.BLUE);
                     g.fillRect(x * size, y * size, size, size);                                 // Jusqu'ici
                 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Board {
 
-    private Tower[][] cases;
+    private Tile[][] cases;
     private List<Enemy> enemies;
     private List<Enemy> killEnemies;
     private List<Projectile> projectiles;
@@ -24,7 +24,19 @@ public class Board {
     }
 
     public void createBoard(int n, int m) {
-        cases = new Tower[n][m];
+        cases = new Tile[n][m];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                cases[i][j] = new Tile(i, j);
+            }
+        }
+    }
+
+    public boolean outOfBoard(int x, int y){
+        if(x < 0 || x > cases.length || y < 0 || y > cases[0].length){
+            return true;
+        }
+        return false;
     }
 
     public int getSize() {
@@ -36,7 +48,7 @@ public class Board {
     }
 
     public void addTower(Tower t, int x, int y) {
-        cases[x][y] = t;
+        cases[x][y].setTower(t);
         t.setCoord(x, y);
     }
 
@@ -48,11 +60,7 @@ public class Board {
         enemies.remove(enemy);
     }
 
-    public Tower getTower(int x, int y) {
-        return cases[x][y];
-    }
-
-    public Tower[][] getTowers() {
+    public Tile[][] getBoard() {
         return cases;
     }
 
