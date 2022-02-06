@@ -33,7 +33,7 @@ public class Game {
         }
 
         for (Enemy e : board.getEnemies()) { // Test : l'ennemi avance de gauche à droite
-            e.moveRight();
+            e.moveRight(); //e.movingWithAstar(e.shorterPath(19, 10, board)); (cette fonction bug)
             if (!e.isAlive())
                 board.addKillEnemy(e);
         }

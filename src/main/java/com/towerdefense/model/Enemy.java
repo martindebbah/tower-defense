@@ -1,10 +1,9 @@
 package com.towerdefense.model;
 
-import javax.xml.transform.stax.StAXResult;
-
 import static java.lang.Math.*;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Enemy {
 
@@ -94,85 +93,99 @@ public class Enemy {
         return (double)Math.sqrt(Math.pow(x2-x1, 2)+Math.pow(y2-y1, 2));
     }
 
-    public boolean validNode(int x, int y, Board board, ArrayList<Tile> closed){
-        Tile[][] copyBoard = board.getBoard();
-        if(!board.outOfBoard(x, y) && !copyBoard[x][y].containsTower() && !closed.contains(copyBoard[x][y])){
-            return true;
+    public void validNode(int x, int y, int fx, int fy, Board board, ArrayList<Tile> closed, ArrayList<Tile> open, Tile current){ // vérifie si une case n'est pas hors plateau, ne contient pas de tour et n'est pas dans la liste fermé
+        if(!board.outOfBoard(x, y) && !board.getBoard()[x][y].containsTower() && !closed.contains(board.getBoard()[x][y])){ // * vérifie si les noeuds voisins sont valide
+            if(open.contains(board.getBoard()[x][y])){ // si le noeud est deja dans la liste ouverte on vérifie sa qualité et on l a met à jour si elle est meilleure
+                for(Tile t : open){
+                    if(x == t.getX() && y == t.getY() && board.getBoard()[x][y].getQuality() < t.getQuality()){
+                        t.setParent(current);
+                        t.setQuality(board.getBoard()[x][y].getQuality());
+                    }
+                }
+            } else {
+                board.getBoard()[x][y].setParent(current); // ajout du noeud voisin dans la liste ouverte
+                board.getBoard()[x][y].setQuality(dist(x, y, fx, fy));
+                open.add(board.getBoard()[x][y]);
+            }
         }
-        return false;
     }
 
-    public void shorterPath(int x, int y, Board board){ // application de l'algo A*
-        ArrayList<Tile> open = new ArrayList<>();
-        ArrayList<Tile> closed = new ArrayList<>();
-        Tile[][] copyBoard = board.getBoard();
-        Tile current = copyBoard[this.x][this.y];
+    public Tile shorterPath(int fx, int fy, Board board){ // application de l'algo A*
+        ArrayList<Tile> open = new ArrayList<>(); // liste ouverte
+        ArrayList<Tile> closed = new ArrayList<>(); // liste fermée
+        Tile current = board.getBoard()[this.x][this.y]; // noeud actuel
 
-        closed.add(copyBoard[this.x][this.y]);
+        current.setQuality(dist(current.getX(), current.getY(), fx, fy));
+        closed.add(current);
 
-        while(current != copyBoard[x][y]){
-            if(validNode(current.getX(),current.getY()-1,board,closed)){
-                if(open.contains(copyBoard[current.getX()][current.getY()-1])){
+        while(current != board.getBoard()[fx][fy]){ // tant que le noeud actuel n'est pas le noeud de sortie
+            validNode(current.getX(), current.getY()-1, fx, fy, board, closed, open, current);
+            validNode(current.getX()+1, current.getY()-1, fx, fy, board, closed, open, current);
+            validNode(current.getX()-1, current.getY()-1, fx, fy, board, closed, open, current);
+            validNode(current.getX(), current.getY()+1, fx, fy, board, closed, open, current);
+            validNode(current.getX()+1, current.getY()+1, fx, fy, board, closed, open, current);
+            validNode(current.getX()-1, current.getY()+1, fx, fy, board, closed, open, current);
+            validNode(current.getX()+1, current.getY(), fx, fy, board, closed, open, current);
+            validNode(current.getX()-1, current.getY(), fx, fy, board, closed, open, current);
 
-                } else {
-                    copyBoard[current.getX()][current.getY()-1].setParent(current);
-                    open.add(copyBoard[current.getX()][current.getY()-1]);
+            Tile best = open.get(0);
+            for(int i = 1 ; i < open.size(); i++){ // check le noeud qui possède la meilleure qualité
+                if(open.get(i).getQuality() < best.getQuality()){
+                    best = open.get(i);
                 }
             }
-            if(validNode(current.getX()+1,current.getY()-1,board,closed)){
-                if(open.contains(copyBoard[current.getX()+1][current.getY()-1])){
 
-                } else {
-                    copyBoard[current.getX()+1][current.getY()-1].setParent(current);
-                    open.add(copyBoard[current.getX()+1][current.getY()-1]);
-                }
-            }
-            if(validNode(current.getX()-1,current.getY()-1,board,closed)){
-                if(open.contains(copyBoard[current.getX()-1][current.getY()-1])){
+            open.remove(best); // on le retire de la liste ouverte
+            closed.add(best);  // on l'ajoute à la liste fermée
 
-                } else {
-                    copyBoard[current.getX()-1][current.getY()-1].setParent(current);
-                    open.add(copyBoard[current.getX()-1][current.getY()-1]);
-                }
-            }
-            if(validNode(current.getX(),current.getY()+1,board,closed)){
-                if(open.contains(copyBoard[current.getX()][current.getY()+1])){
+            current = best;
+        }
 
-                } else {
-                    copyBoard[current.getX()][current.getY()+1].setParent(current);
-                    open.add(copyBoard[current.getX()][current.getY()+1]);
-                }
-            }
-            if(validNode(current.getX()+1,current.getY()+1,board,closed)){
-                if(open.contains(copyBoard[current.getX()+1][current.getY()+1])){
+        return current;
+    }
 
-                } else {
-                    copyBoard[current.getX()+1][current.getY()+1].setParent(current);
-                    open.add(copyBoard[current.getX()+1][current.getY()+1]);
-                }
-            }
-            if(validNode(current.getX()-1,current.getY()+1,board,closed)){
-                if(open.contains(copyBoard[current.getX()-1][current.getY()+1])){
+    public void movingWithAstar(Tile path){ // (non fonctionnel) problem : repaint
+        Stack<Tile> reversePath = new Stack<>();
+        while(path.getParent() != null){ // ajoute les noeuds et leurs parent pour retrouver le chemin (le noeud en argument est la sortie)
+            reversePath.add(path);
+            path = path.getParent();
+        }
 
+        while(!reversePath.isEmpty()){
+            Tile p = reversePath.pop();
+            if(p.getX() == this.x && p.getY()-1 == this.y){
+                moveUp();
+            } else {
+                if(p.getX()+1 == this.x && p.getY()-1 == this.y){
+                    moveUpRight();
                 } else {
-                    copyBoard[current.getX()-1][current.getY()+1].setParent(current);
-                    open.add(copyBoard[current.getX()-1][current.getY()+1]);
-                }
-            }
-            if(validNode(current.getX()+1,current.getY(),board,closed)){
-                if(open.contains(copyBoard[current.getX()+1][current.getY()])){
-
-                } else {
-                    copyBoard[current.getX()+1][current.getY()].setParent(current);
-                    open.add(copyBoard[current.getX()+1][current.getY()]);
-                }
-            }
-            if(validNode(current.getX()-1,current.getY(),board,closed)){
-                if(open.contains(copyBoard[current.getX()-1][current.getY()])){
-
-                } else {
-                    copyBoard[current.getX()-1][current.getY()].setParent(current);
-                    open.add(copyBoard[current.getX()-1][current.getY()]);
+                    if(p.getX()-1 == this.x && p.getY()-1 == this.y){
+                        moveUpLeft();
+                    } else {
+                        if(p.getX() == this.x && p.getY()+1 == this.y){
+                            moveDown();
+                        } else {
+                            if(p.getX()+1 == this.x && p.getY()+1 == this.y){
+                                moveDownRight();
+                            } else {
+                                if(p.getX()+1 == this.x && p.getY()+1 == this.y){
+                                    moveDownRight();
+                                } else {
+                                    if(p.getX()-1 == this.x && p.getY()+1 == this.y){
+                                        moveDownLeft();
+                                    } else {
+                                        if(p.getX()+1 == this.x && p.getY() == this.y){
+                                            moveRight();
+                                        } else {
+                                            if(p.getX()-1 == this.x && p.getY() == this.y){
+                                                moveLeft();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

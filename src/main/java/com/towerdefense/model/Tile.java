@@ -4,6 +4,7 @@ public class Tile {
     private Tower t;
     private int x,y;
     private Tile parent;
+    private double quality;
 
     public Tile(int x, int y){
         this.x = x;
@@ -46,5 +47,13 @@ public class Tile {
 
     public void setParent(Tile p){
         this.parent = p;
+    }
+
+    public double getQuality(){
+        return quality;
+    }
+
+    public void setQuality(double q){
+        this.quality = q;
     }
 }
