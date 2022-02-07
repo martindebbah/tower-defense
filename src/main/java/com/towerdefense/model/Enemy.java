@@ -14,6 +14,7 @@ public class Enemy {
     private int gold;
     private int x;
     private int y;
+    private Stack<Tile> path;
 
     public Enemy(int health, int movementSpeed, int gold, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
         this.health = health;
@@ -21,6 +22,7 @@ public class Enemy {
         this.movementSpeed = movementSpeed;
         this.x = x;
         this.y = y;
+        this.path = new Stack<>();
     }
 
     public Game getGame() {
@@ -52,6 +54,14 @@ public class Enemy {
 
     public int getHP() {
         return health * 100 / maxHealth;
+    }
+
+    public Stack<Tile> getPath(){
+        return path;
+    }
+
+    public void setPath(){
+        this.path = goodPath(shorterPath(19, 10, game.getBoard()));
     }
 
     public void kill() {
@@ -144,14 +154,14 @@ public class Enemy {
         return current;
     }
 
-    public void movingWithAstar(Tile path){ // (non fonctionnel) problem : repaint
-        Stack<Tile> reversePath = new Stack<>();
+    public Stack<Tile> goodPath(Tile path){ // (non fonctionnel) problem : repaint
+        Stack<Tile> reversePath = new Stack<Tile>();
         while(path.getParent() != null){ // ajoute les noeuds et leurs parent pour retrouver le chemin (le noeud en argument est la sortie)
             reversePath.add(path);
             path = path.getParent();
         }
 
-        while(!reversePath.isEmpty()){
+        /*while(!reversePath.isEmpty()){
             Tile p = reversePath.pop();
             if(p.getX() == this.x && p.getY()-1 == this.y){
                 moveUp();
@@ -188,7 +198,8 @@ public class Enemy {
                     }
                 }
             }
-        }
+        }*/
+        return reversePath;
     }
     
 }

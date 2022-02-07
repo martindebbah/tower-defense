@@ -33,6 +33,7 @@ public class Window extends JFrame {
 
         // test
         Enemy e = new BasicEnemy(game.getBoard().getSize());
+        //e.setPath();
         board.addEnemy(e);
         Tower t = new BasicTower();
         board.addTower(t, 5, 6);
