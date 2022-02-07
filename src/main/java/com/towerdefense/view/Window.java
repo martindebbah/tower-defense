@@ -7,8 +7,10 @@ import com.towerdefense.model.BasicTower;
 import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tower;
+import com.towerdefense.model.Tile;
 
 import java.awt.BorderLayout;
+import java.util.Stack;
 
 public class Window extends JFrame {
 
@@ -35,7 +37,7 @@ public class Window extends JFrame {
         Tower t = new BasicTower();
         board.addTower(t, 5, 6);
 
-        while (true) {
+        while(true){
             play();
         }
 

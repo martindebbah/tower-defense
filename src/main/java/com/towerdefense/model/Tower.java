@@ -87,7 +87,7 @@ public class Tower {
     }
 
     public boolean isInRange(int[] coordE, int size) { // La range est un peu décalée sur le coin haut-gauche de l'unité
-        return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0]) + (coordE[1] / size - coord[1]) * (coordE[1] / size - coord[1])
+        return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0]) + ((size*coordE[1]-size/2) / size - coord[1]) * ((size*coordE[1]-size/2) / size - coord[1])
                 <= range * range;
     }
     
