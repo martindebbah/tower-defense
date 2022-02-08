@@ -59,10 +59,10 @@ public class BoardView extends JPanel {
         for (Enemy e : board.getEnemies()) {
             g.setColor(Color.RED);
             int[] coord = e.getCoord();
-            g.fillOval(coord[0], size*coord[1]-size/2, size, size);
+            g.fillOval(coord[0], coord[1], size, size);
             g.setColor(Color.GREEN);
-            g.drawRect(coord[0], size*coord[1]-size/2 - 10, size, 5);
-            g.fillRect(coord[0], size*coord[1]-size/2 - 10, e.getHP() * size / 100, 5);
+            g.drawRect(coord[0], coord[1]- 10, size, 5);
+            g.fillRect(coord[0], coord[1]- 10, e.getHP() * size / 100, 5);
         }
 
         for (Projectile p : board.getProjectiles()) {

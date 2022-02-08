@@ -47,7 +47,7 @@ public class Projectile {
     }
 
     public void move() {
-        if (Math.abs(x - target.getCoord()[0]) < size && Math.abs(y - (size*target.getCoord()[1]-size/2)) < size) {
+        if (Math.abs(x - target.getCoord()[0]) < size && Math.abs(y - target.getCoord()[1]) < size) {
             target.getHit(source.getDamage());
             kill();
             return;
@@ -59,9 +59,9 @@ public class Projectile {
         }else {
             x -= size;
         }
-        if (Math.abs(y - (size*target.getCoord()[1]-size/2)) < size) {
-            y = (size*target.getCoord()[1]-size/2);
-        }else if (y - (size*target.getCoord()[1]-size/2) < 0) {
+        if (Math.abs(y - target.getCoord()[1]) < size) {
+            y = (target.getCoord()[1]);
+        }else if (y - target.getCoord()[1] < 0) {
             y += size;
         }else {
             y -= size;

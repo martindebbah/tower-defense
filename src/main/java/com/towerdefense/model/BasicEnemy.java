@@ -2,8 +2,8 @@ package com.towerdefense.model;
 
 public class BasicEnemy extends Enemy {
 
-    public BasicEnemy(int size) { // Changer la façon dont l'attribut size (la taille d'une case) est entrée en paramêtre
-        super(100, 1, 50, 0, 10); // size*10 - size/2
+    public BasicEnemy(Game game) { // Changer la façon dont l'attribut size (la taille d'une case) est entrée en paramêtre
+        super(100, 1, 50, game, 0, game.getBoard().getSize()*10);
     }
     
 }

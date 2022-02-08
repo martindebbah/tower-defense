@@ -2,8 +2,8 @@ package com.towerdefense.model;
 
 public class Mo extends Enemy {
 
-    public Mo() {
-        super(1, 1, 1, 1, 1);
+    public Mo(Game game) {
+        super(1, 1, 1, game, 1, 1);
     }
     
 }

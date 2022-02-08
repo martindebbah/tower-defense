@@ -7,8 +7,8 @@ public class Tile {
     private double quality;
 
     public Tile(int x, int y){
-        this.x = x;
-        this.y = y;
+        this.x = x*32;
+        this.y = y*32;
         this.t = null;
         this.parent = null;
     }
