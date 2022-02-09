@@ -34,8 +34,8 @@ public class Game {
 
         for (Enemy e : board.getEnemies()) { // Test : l'ennemi avance de gauche à droite
             // enemyMoving(e); //(cette fonction bug)
-            e.moveDownRight();
-            System.out.println(e.getCoord()[0]+" "+e.getCoord()[1]);
+            enemyMoving(e);
+            //System.out.println(e.getCoord()[0]+" "+e.getCoord()[1]);
             if (!e.isAlive()){
                 board.addKillEnemy(e);
             }    

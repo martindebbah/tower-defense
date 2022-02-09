@@ -77,7 +77,7 @@ public class Enemy {
     }
 
     public void setPath(){
-        this.path = goodPath(shorterPath(19*32-32/2, 10*32-32/2, game.getBoard()));
+        this.path = goodPath(shorterPath(19*32, 0*32, game.getBoard()));
     }
 
     public void kill() {
@@ -120,18 +120,21 @@ public class Enemy {
     }
 
     public void validNode(int x, int y, int fx, int fy, Board board, ArrayList<Tile> closed, ArrayList<Tile> open, Tile current){ // vérifie si une case n'est pas hors plateau, ne contient pas de tour et n'est pas dans la liste fermé
-        if(!board.outOfBoard(x, y) && !board.getBoard()[x][y].containsTower() && !closed.contains(board.getBoard()[x][y])){ // * vérifie si les noeuds voisins sont valide
-            if(open.contains(board.getBoard()[x][y])){ // si le noeud est deja dans la liste ouverte on vérifie sa qualité et on l a met à jour si elle est meilleure
-                for(Tile t : open){
-                    if(x == t.getX() && y == t.getY() && board.getBoard()[x][y].getQuality() < t.getQuality()){
-                        t.setParent(current);
-                        t.setQuality(board.getBoard()[x][y].getQuality());
+        if(!board.outOfBoard(x, y)){
+            //System.out.println(x+" "+y);
+            if(!board.getBoard()[x][y].containsTower() && !closed.contains(board.getBoard()[x][y])){ // * vérifie si les noeuds voisins sont valide
+                if(open.contains(board.getBoard()[x][y])){ // si le noeud est deja dans la liste ouverte on vérifie sa qualité et on l a met à jour si elle est meilleure
+                    for(Tile t : open){
+                        if(x == t.getX() && y == t.getY() && board.getBoard()[x][y].getQuality() < t.getQuality()){
+                            t.setParent(current);
+                            t.setQuality(board.getBoard()[x][y].getQuality());
+                        }
                     }
+                } else {
+                    board.getBoard()[x][y].setParent(current); // ajout du noeud voisin dans la liste ouverte
+                    board.getBoard()[x][y].setQuality(dist(x, y, fx, fy));
+                    open.add(board.getBoard()[x][y]);
                 }
-            } else {
-                board.getBoard()[x][y].setParent(current); // ajout du noeud voisin dans la liste ouverte
-                board.getBoard()[x][y].setQuality(dist(x, y, fx, fy));
-                open.add(board.getBoard()[x][y]);
             }
         }
     }
@@ -145,6 +148,7 @@ public class Enemy {
         closed.add(current);
 
         while(current != board.getBoard()[fx/game.getBoard().getSize() + (fx%game.getBoard().getSize() == 0 ? 0 : 1)][fy/game.getBoard().getSize() + (fy%game.getBoard().getSize() == 0 ? 0 : 1)]){ // tant que le noeud actuel n'est pas le noeud de sortie
+            //System.out.println(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)+" "+current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1));
             validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1), current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)-1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
             validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)+1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)-1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
             validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)-1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)-1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);

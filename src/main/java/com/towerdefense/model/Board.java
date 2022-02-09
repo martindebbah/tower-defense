@@ -33,7 +33,7 @@ public class Board {
     }
 
     public boolean outOfBoard(int x, int y){
-        if(x < 0 || x > cases.length || y < 0 || y > cases[0].length){
+        if(x < 0 || x >= cases.length || y < 0 || y >= cases.length){
             return true;
         }
         return false;
