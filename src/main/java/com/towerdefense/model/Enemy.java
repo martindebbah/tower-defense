@@ -122,23 +122,35 @@ public class Enemy {
     }
 
     public void validNode(int x, int y, int fx, int fy, Board board, ArrayList<Tile> closed, ArrayList<Tile> open, Tile current){ // vérifie si une case n'est pas hors plateau, ne contient pas de tour et n'est pas dans la liste fermé
-        if(!board.outOfBoard(x, y)){
+        if(board.outOfBoard(x, y) || board.getBoard()[x][y].containsTower() || closed.contains(board.getBoard()[x][y]) || wall(current, x, y, board))
+            return;
             //System.out.println(x+" "+y);
-            if(!board.getBoard()[x][y].containsTower() && !closed.contains(board.getBoard()[x][y])){ // * vérifie si les noeuds voisins sont valide
-                if(open.contains(board.getBoard()[x][y])){ // si le noeud est deja dans la liste ouverte on vérifie sa qualité et on l a met à jour si elle est meilleure
-                    for(Tile t : open){
-                        if(x == t.getX() && y == t.getY() && board.getBoard()[x][y].getQuality() < t.getQuality()){
-                            t.setParent(current);
-                            t.setQuality(board.getBoard()[x][y].getQuality());
-                        }
+        if(!board.getBoard()[x][y].containsTower() && !closed.contains(board.getBoard()[x][y])){ // * vérifie si les noeuds voisins sont valide
+            if(open.contains(board.getBoard()[x][y])){ // si le noeud est deja dans la liste ouverte on vérifie sa qualité et on l a met à jour si elle est meilleure
+                for(Tile t : open){
+                    if(x == t.getX() && y == t.getY() && board.getBoard()[x][y].getQuality() < t.getQuality()){
+                        t.setParent(current);
+                        t.setQuality(board.getBoard()[x][y].getQuality());
                     }
-                } else {
-                    board.getBoard()[x][y].setParent(current); // ajout du noeud voisin dans la liste ouverte
-                    board.getBoard()[x][y].setQuality(dist(x, y, fx, fy));
-                    open.add(board.getBoard()[x][y]);
                 }
+            } else {
+                board.getBoard()[x][y].setParent(current); // ajout du noeud voisin dans la liste ouverte
+                board.getBoard()[x][y].setQuality(dist(x, y, fx, fy));
+                open.add(board.getBoard()[x][y]);
             }
         }
+    }
+
+    public boolean wall(Tile current, int x, int y, Board board) { // fonction non fonctionnelle !!
+        if (current.getX() / board.getSize() == x + 1 && current.getY() / board.getSize() == y + 1)
+            return board.getBoard()[x][y+1].containsTower() && board.getBoard()[x+1][y].containsTower();
+        if (current.getX() / board.getSize() == x - 1 && current.getY() / board.getSize() == y + 1)
+            return board.getBoard()[x][y+1].containsTower() && board.getBoard()[x-1][y].containsTower();
+        if (current.getX() / board.getSize() == x + 1 && current.getY() / board.getSize() == y - 1)
+            return board.getBoard()[x][y-1].containsTower() && board.getBoard()[x+1][y].containsTower();
+        if (current.getX() / board.getSize() == x - 1 && current.getY() / board.getSize() == y - 1)
+            return board.getBoard()[x][y-1].containsTower() && board.getBoard()[x-1][y].containsTower();
+        return false;
     }
 
     public Tile shorterPath(int fx, int fy, Board board){ // application de l'algo A*
@@ -186,43 +198,45 @@ public class Enemy {
     }
 
     public void move(){
-        if(path.isEmpty()){
-            return;
-        }
-        Tile p = path.peek();
-        if (p.getX() == x && p.getY() == y)
-            path.pop();
-        if(p.getX() == x && p.getY() == y-32){
-            lastDir = 1;
-            path.pop();
-        } else {
-            if(p.getX() == x+32 && p.getY() == y-32){
-                lastDir = 2;
+        // if(path.isEmpty()){
+        //     return;
+        // }
+        if (!path.isEmpty()) {
+            Tile p = path.peek();
+            if (p.getX() == x && p.getY() == y)
+                path.pop();
+            if(p.getX() == x && p.getY() == y-32){
+                lastDir = 1;
                 path.pop();
             } else {
-                if(p.getX() == x-32 && p.getY() == y-32){
-                    lastDir = 3;
+                if(p.getX() == x+32 && p.getY() == y-32){
+                    lastDir = 2;
                     path.pop();
                 } else {
-                    if(p.getX() == x && p.getY() == y+32){
-                        lastDir = 4;
+                    if(p.getX() == x-32 && p.getY() == y-32){
+                        lastDir = 3;
                         path.pop();
                     } else {
-                        if(p.getX() == x+32 && p.getY() == y+32){
-                            lastDir = 5;
+                        if(p.getX() == x && p.getY() == y+32){
+                            lastDir = 4;
                             path.pop();
                         } else {
-                            if(p.getX() == x-32 && p.getY() == y+32){
-                                lastDir = 6;
+                            if(p.getX() == x+32 && p.getY() == y+32){
+                                lastDir = 5;
                                 path.pop();
                             } else {
-                                if(p.getX() == x+32 && p.getY() == y){
-                                    lastDir = 7;
+                                if(p.getX() == x-32 && p.getY() == y+32){
+                                    lastDir = 6;
                                     path.pop();
                                 } else {
-                                    if(p.getX() == x-32 && p.getY() == y){
-                                        lastDir = 8;
+                                    if(p.getX() == x+32 && p.getY() == y){
+                                        lastDir = 7;
                                         path.pop();
+                                    } else {
+                                        if(p.getX() == x-32 && p.getY() == y){
+                                            lastDir = 8;
+                                            path.pop();
+                                        }
                                     }
                                 }
                             }
@@ -251,6 +265,7 @@ public class Enemy {
             case 7: moveRight();
                 break;
             case 8: moveLeft();
+                break;
         }
     }
     

@@ -50,6 +50,8 @@ public class Board {
     public void addTower(Tower t, int x, int y) {
         cases[x][y].setTower(t);
         t.setCoord(x, y);
+        for (Enemy e : enemies)
+            e.setPath();
     }
 
     public void addEnemy(Enemy e) {
