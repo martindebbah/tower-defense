@@ -32,9 +32,8 @@ public class Game {
             }
         }
 
-        for (Enemy e : board.getEnemies()) { // Test : l'ennemi avance de gauche à droite
-            // enemyMoving(e); //(cette fonction bug)
-            enemyMoving(e);
+        for (Enemy e : board.getEnemies()) {
+            e.move();
             //System.out.println(e.getCoord()[0]+" "+e.getCoord()[1]);
             if (!e.isAlive()){
                 board.addKillEnemy(e);
@@ -48,69 +47,6 @@ public class Game {
         }
 
         board.kill();
-    }
-
-    public void enemyMoving(Enemy e){
-        if(e.getPath().isEmpty()){
-            return;
-        }
-        Tile p = e.getPath().pop();
-        //System.out.println(p.getX()+" "+p.getY());
-            if(p.getX() == e.getCoord()[0] && p.getY() == e.getCoord()[1]-32){
-                for(int i = 0; i < 32 ; i++){
-                    e.moveUp();
-                }
-                System.out.println("a");
-            } else {
-                if(p.getX() == e.getCoord()[0]+32 && p.getY() == e.getCoord()[1]-32){
-                    for(int i = 0; i < 32; i++){
-                        e.moveUpRight();
-                    }
-                    System.out.println("b");
-                } else {
-                    if(p.getX() == e.getCoord()[0]-32 && p.getY() == e.getCoord()[1]-32){
-                        for(int i = 0; i < 32; i++){
-                            e.moveUpLeft();
-                        }
-                        System.out.println("c");
-                    } else {
-                        if(p.getX() == e.getCoord()[0] && p.getY() == e.getCoord()[1]+32){
-                            for(int i = 0; i < 32; i++){
-                                e.moveDown();
-                            }
-                            System.out.println("d");
-                        } else {
-                            if(p.getX() == e.getCoord()[0]+32 && p.getY() == e.getCoord()[1]+32){
-                                for(int i = 0; i < 32; i++){
-                                    e.moveDownRight();
-                                }
-                                System.out.println("e");
-                            } else {
-                                    if(p.getX() == e.getCoord()[0]-32 && p.getY() == e.getCoord()[1]+32){
-                                        for(int i = 0; i < 32; i++){
-                                            e.moveDownLeft();
-                                        }
-                                        System.out.println("f");
-                                    } else {
-                                        if(p.getX() == e.getCoord()[0]+32 && p.getY() == e.getCoord()[1]){
-                                            for(int i = 0; i < 32; i++){
-                                                e.moveRight();
-                                            }
-                                            System.out.println("g");
-                                        } else {
-                                            if(p.getX() == e.getCoord()[0]-32 && p.getY() == e.getCoord()[1]){
-                                                for(int i = 0; i < 32; i++){
-                                                    e.moveLeft();
-                                                }
-                                                System.out.println("h");
-                                            }
-                                        }
-                                    }
-                            }
-                        }
-                    }
-                }
-            }
     }
     
 }

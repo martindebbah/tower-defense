@@ -15,6 +15,7 @@ public class Enemy {
     private int x;
     private int y;
     private Stack<Tile> path;
+    private int lastDir;
 
     public Enemy(int health, int movementSpeed, int gold, Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
         this.health = health;
@@ -23,6 +24,7 @@ public class Enemy {
         this.game = game;
         this.x = x;
         this.y = y;
+        this.lastDir = 0;
     }
 
     public Game getGame() {
@@ -52,8 +54,8 @@ public class Enemy {
         return coord;
     }
 
-    public boolean isAlive() { // Vraiment la bonne méthode ?
-        return health > 0;     // Comment faire disparaître l'unité ?
+    public boolean isAlive() {
+        return health > 0;
     }
 
     public int getGold() {
@@ -142,21 +144,21 @@ public class Enemy {
     public Tile shorterPath(int fx, int fy, Board board){ // application de l'algo A*
         ArrayList<Tile> open = new ArrayList<>(); // liste ouverte
         ArrayList<Tile> closed = new ArrayList<>(); // liste fermée
-        Tile current = board.getBoard()[this.x/game.getBoard().getSize() + (this.x%game.getBoard().getSize() == 0 ? 0 : 1)][this.y/game.getBoard().getSize() + (this.y%game.getBoard().getSize() == 0 ? 0 : 1)];
+        Tile current = board.getBoard()[this.x/board.getSize() + (this.x%board.getSize() == 0 ? 0 : 1)][this.y/board.getSize() + (this.y%board.getSize() == 0 ? 0 : 1)];
         
-        current.setQuality(dist(current.getX()/game.getBoard().getSize() + (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1), current.getY()/game.getBoard().getSize() + (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1), fx/game.getBoard().getSize() + (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize() + (fy%game.getBoard().getSize() == 0 ? 0 : 1)));
+        current.setQuality(dist(current.getX()/board.getSize() + (current.getX()%board.getSize() == 0 ? 0 : 1), current.getY()/board.getSize() + (current.getY()%board.getSize() == 0 ? 0 : 1), fx/board.getSize() + (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize() + (fy%board.getSize() == 0 ? 0 : 1)));
         closed.add(current);
 
-        while(current != board.getBoard()[fx/game.getBoard().getSize() + (fx%game.getBoard().getSize() == 0 ? 0 : 1)][fy/game.getBoard().getSize() + (fy%game.getBoard().getSize() == 0 ? 0 : 1)]){ // tant que le noeud actuel n'est pas le noeud de sortie
-            //System.out.println(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)+" "+current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1));
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1), current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)-1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)+1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)-1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)-1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)-1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1), current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)+1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)+1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)+1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)-1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1)+1, fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)+1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1), fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
-            validNode(current.getX()/game.getBoard().getSize()+ (current.getX()%game.getBoard().getSize() == 0 ? 0 : 1)-1, current.getY()/game.getBoard().getSize()+ (current.getY()%game.getBoard().getSize() == 0 ? 0 : 1), fx/game.getBoard().getSize()+ (fx%game.getBoard().getSize() == 0 ? 0 : 1), fy/game.getBoard().getSize()+ (fy%game.getBoard().getSize() == 0 ? 0 : 1), board, closed, open, current);
+        while(current != board.getBoard()[fx/board.getSize() + (fx%board.getSize() == 0 ? 0 : 1)][fy/board.getSize() + (fy%board.getSize() == 0 ? 0 : 1)]){ // tant que le noeud actuel n'est pas le noeud de sortie
+            //System.out.println(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)+" "+current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1));
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1), current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)-1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)+1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)-1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)-1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)-1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1), current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)+1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)+1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)+1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)-1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)+1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)+1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1), fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
+            validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)-1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1), fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
 
             Tile best = open.get(0);
             for(int i = 1 ; i < open.size(); i++){ // check le noeud qui possède la meilleure qualité
@@ -180,37 +182,47 @@ public class Enemy {
             reversePath.add(path);
             path = path.getParent();
         }
+        return reversePath;
+    }
 
-        /*while(!reversePath.isEmpty()){
-            Tile p = reversePath.pop();
-            if(p.getX() == this.x && p.getY()-1 == this.y){
-                moveUp();
+    public void move(){
+        if(path.isEmpty()){
+            return;
+        }
+        Tile p = path.peek();
+        if (p.getX() == x && p.getY() == y)
+            path.pop();
+        if(p.getX() == x && p.getY() == y-32){
+            lastDir = 1;
+            path.pop();
+        } else {
+            if(p.getX() == x+32 && p.getY() == y-32){
+                lastDir = 2;
+                path.pop();
             } else {
-                if(p.getX()+1 == this.x && p.getY()-1 == this.y){
-                    moveUpRight();
+                if(p.getX() == x-32 && p.getY() == y-32){
+                    lastDir = 3;
+                    path.pop();
                 } else {
-                    if(p.getX()-1 == this.x && p.getY()-1 == this.y){
-                        moveUpLeft();
+                    if(p.getX() == x && p.getY() == y+32){
+                        lastDir = 4;
+                        path.pop();
                     } else {
-                        if(p.getX() == this.x && p.getY()+1 == this.y){
-                            moveDown();
+                        if(p.getX() == x+32 && p.getY() == y+32){
+                            lastDir = 5;
+                            path.pop();
                         } else {
-                            if(p.getX()+1 == this.x && p.getY()+1 == this.y){
-                                moveDownRight();
+                            if(p.getX() == x-32 && p.getY() == y+32){
+                                lastDir = 6;
+                                path.pop();
                             } else {
-                                if(p.getX()+1 == this.x && p.getY()+1 == this.y){
-                                    moveDownRight();
+                                if(p.getX() == x+32 && p.getY() == y){
+                                    lastDir = 7;
+                                    path.pop();
                                 } else {
-                                    if(p.getX()-1 == this.x && p.getY()+1 == this.y){
-                                        moveDownLeft();
-                                    } else {
-                                        if(p.getX()+1 == this.x && p.getY() == this.y){
-                                            moveRight();
-                                        } else {
-                                            if(p.getX()-1 == this.x && p.getY() == this.y){
-                                                moveLeft();
-                                            }
-                                        }
+                                    if(p.getX() == x-32 && p.getY() == y){
+                                        lastDir = 8;
+                                        path.pop();
                                     }
                                 }
                             }
@@ -218,8 +230,28 @@ public class Enemy {
                     }
                 }
             }
-        }*/
-        return reversePath;
+        }
+        direction();
+    }
+
+    public void direction() {
+        switch(lastDir) {
+            case 1: moveUp();
+                break;
+            case 2: moveUpRight();
+                break;
+            case 3: moveUpLeft();
+                break;
+            case 4: moveDown();
+                break;
+            case 5: moveDownRight();
+                break;
+            case 6: moveDownLeft();
+                break;
+            case 7: moveRight();
+                break;
+            case 8: moveLeft();
+        }
     }
     
 }
