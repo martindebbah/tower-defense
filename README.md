@@ -1,6 +1,6 @@
 # Tower Defense
 
-## Lancement du prgramme :
+## Lancement du programme :
 
 Lancez les deux lignes suivantes pour lancer l'application.
 
