@@ -8,7 +8,7 @@ public class WaveView extends JPanel {
 
     public WaveView() {
         setPreferredSize(new java.awt.Dimension(1000, 112));
-        setBackground(Color.GREEN);
+        //setBackground(Color.GREEN);
     }
     
 }

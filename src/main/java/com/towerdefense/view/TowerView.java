@@ -14,11 +14,12 @@ public class TowerView extends JPanel {
     private Tower tower;
     private Shop shop;
 
-    public TowerView(Tower tower, Shop shop) {
+    public TowerView(Tower tower, Shop shop) { // L'affichage des tours se fera sûrement depuis cette classe.
         this.tower = tower;
         this.shop = shop;
 
         setPreferredSize(new java.awt.Dimension(32, 32));
+        setBackground(Color.BLACK);
         
         addMouseListener(new MouseInputAdapter() {
             @Override
