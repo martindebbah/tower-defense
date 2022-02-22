@@ -19,7 +19,7 @@ public class BasicTower extends Tower {
 
     @Override
     public int getDamage() {
-        return 5;
+        return 0;
     }
 
     public int getRange() {

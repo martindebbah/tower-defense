@@ -9,10 +9,13 @@ import com.towerdefense.model.Board;
 import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Projectile;
+import com.towerdefense.model.Tile;
 import com.towerdefense.model.Tower;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BoardView extends JPanel implements MouseInputListener {
@@ -20,7 +23,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     private Board board;
     private int size;
     private Shop shop;
-    int[] preview;
+    private int[] preview;
 
     public BoardView(Game game, Shop shop) {
         // setBorder(new EmptyBorder(100, 100, 100, 100)); // Comment faire ?
@@ -28,6 +31,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         size = board.getSize();
         setPreferredSize(new java.awt.Dimension(size * board.getNbCases(), size * board.getNbCases()));
         this.shop = shop;
+
         addMouseListener(this);
         addMouseMotionListener(this);
     }
@@ -55,7 +59,6 @@ public class BoardView extends JPanel implements MouseInputListener {
         for(int x = 0; x < board.getNbCases(); x++) {
         	for(int y = 0; y < board.getNbCases(); y++) {
                 if (board.getBoard()[x][y].containsTower()) {
-                    //Tower t = board.getBoard()[x][y].getTower();
                     g.setColor(Color.BLUE);
                     g.fillRect(x * size, y * size, size, size);
                 }
@@ -73,10 +76,13 @@ public class BoardView extends JPanel implements MouseInputListener {
             g.fillRect(coord[0], coord[1]- 10, e.getHP() * size / 100, 5);
         }
 
-        for (Projectile p : board.getProjectiles()) {
-            g.setColor(p.getColor());
-            g.fillOval(p.getX(), p.getY(), size / 4, size / 4);
-        }
+        for (Tile[] tab : board.getBoard())
+            for (Tile t : tab)
+                if (t.containsTower())
+                    for (Projectile p : t.getTower().getProjectiles()) {
+                        g.setColor(p.getColor());
+                        g.fillOval(p.getX(), p.getY(), size / 4, size / 4);
+                    }
 
         if (preview != null) {
             g.setColor(Color.PINK);

@@ -1,5 +1,6 @@
 package com.towerdefense.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tower {
@@ -7,9 +8,10 @@ public class Tower {
     private Enemy target;
     private int[] coord;
     private boolean newTarget;
+    private List<Projectile> projectiles;
 
     public Tower() {
-
+        this.projectiles = new ArrayList<Projectile>();
     }
 
     public String toString() {  // Fonction définie dans chaque classe héritant de Tower
@@ -54,7 +56,7 @@ public class Tower {
         new Thread() {
             public void run() {
                 while (canAttack()) {
-                    board.addProjectile(new Projectile(getSource(), target));
+                    addProjectile(new Projectile(getSource(), target));
                     try{
                         sleep(getAttackSpeed() * 1000);
                     }catch(InterruptedException ie) {
@@ -63,6 +65,14 @@ public class Tower {
                 }
             }
         }.start();
+    }
+
+    public void addProjectile(Projectile p) {
+        projectiles.add(p);
+    }
+
+    public List<Projectile> getProjectiles() {
+        return projectiles;
     }
 
     public boolean canAttack() {

@@ -82,7 +82,9 @@ public class Enemy {
     }
 
     public void setPath(){
-        this.path = goodPath(shorterPath(19*32, 0*32, game.getBoard()));
+        int fx = (game.getBoard().getNbCases() - 1) * game.getBoard().getSize();
+        int fy = game.getBoard().getNbCases() / 2 * game.getBoard().getSize();
+        this.path = goodPath(shorterPath(fx, fy, game.getBoard()));
     }
 
     public void kill() {
@@ -194,16 +196,23 @@ public class Enemy {
     public Stack<Tile> goodPath(Tile path){ // (non fonctionnel) problem : repaint
         Stack<Tile> reversePath = new Stack<Tile>();
         while(path != null){ // ajoute les noeuds et leurs parent pour retrouver le chemin (le noeud en argument est la sortie)
-            reversePath.add(path);
+            addToPath(path, reversePath);
             path = path.getParent();
         }
+        System.out.println(reversePath.size());
         return reversePath;
     }
 
+    private void addToPath(final Tile t, Stack<Tile> path) {
+        new Thread() {  // new Thread to avoid java heap space
+            @Override
+            public void run() {
+                path.add(t);
+            }
+        }.start();
+    }
+
     public void move(){
-        // if(path.isEmpty()){
-        //     return;
-        // }
         if (!path.isEmpty()) {
             Tile p = path.peek();
             if (p.getX() == x && p.getY() == y)

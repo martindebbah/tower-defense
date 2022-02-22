@@ -8,16 +8,16 @@ public class Board {
     private Tile[][] cases;
     private List<Enemy> enemies;
     private List<Enemy> killEnemies;
-    private List<Projectile> projectiles;
-    private List<Projectile> killProjectiles;
+    private List<Enemy> toSet;
     private int size;
     private int nbCases;
+    private List<Tower> towersToAdd;
 
     public Board(int size, int nbCases, Game game) {
         this.enemies = new ArrayList<Enemy>();
         this.killEnemies = new ArrayList<Enemy>();
-        this.projectiles = new ArrayList<Projectile>();
-        this.killProjectiles = new ArrayList<Projectile>();
+        this.towersToAdd = new ArrayList<Tower>();
+        this.toSet = new ArrayList<Enemy>();
         this.size = size;
         this.nbCases = nbCases;
         createBoard(nbCases, nbCases);
@@ -48,18 +48,32 @@ public class Board {
     }
 
     public void addTower(Tower t, int x, int y) {
-        cases[x][y].setTower(t);
+        new Thread() {  // new Thread to avoid java heap space
+            @Override
+            public void run() {
+                System.out.println(enemies.size());
+                for (Enemy e : enemies)
+                    e.setPath();
+            }
+        }.start();
+
         t.setCoord(x, y);
-        for (Enemy e : enemies)
-            e.setPath();
+        towersToAdd.add(t);
+        
+    }
+
+    public void addTowers() {
+        for (Tower t : towersToAdd)
+            cases[t.getCoord()[0]][t.getCoord()[1]].setTower(t);
+        towersToAdd.clear();
     }
 
     public void addEnemy(Enemy e) {
         enemies.add(e);
     }
 
-    public void killEnemy(Enemy enemy) {
-        enemies.remove(enemy);
+    public void killEnemy(Enemy e) {
+        enemies.remove(e);
     }
 
     public Tile[][] getBoard() {
@@ -70,25 +84,13 @@ public class Board {
         return enemies;
     }
 
-    public void addProjectile(Projectile projectile) {
-        projectiles.add(projectile);
-    }
-
-    public List<Projectile> getProjectiles() {
-        return projectiles;
-    }
-
-    public void addKillProjectile(Projectile projectile) {
-        killProjectiles.add(projectile);
-    }
-
     public void addKillEnemy(Enemy enemy) {
         killEnemies.add(enemy);
     }
 
     public void kill() {
         enemies.removeAll(killEnemies);
-        projectiles.removeAll(killProjectiles);
+        killEnemies.clear();
     }
 
     // plateau 26x22 cases (tour = 2x2)

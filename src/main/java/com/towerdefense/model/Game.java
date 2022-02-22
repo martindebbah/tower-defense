@@ -1,5 +1,7 @@
 package com.towerdefense.model;
 
+import java.util.Iterator;
+
 public class Game {
 
     private Board board;
@@ -37,13 +39,27 @@ public class Game {
             }    
         }
 
-        for (Projectile p : board.getProjectiles()) { // Les projectiles se déplacent
-            p.move();
-            if (p.hit())
-                board.addKillProjectile(p);
-        }
+        // for (Projectile p : board.getProjectiles()) { // Les projectiles se déplacent + ConcurrentModificationException
+        //     p.move();
+        //     if (p.hit())
+        //         board.addKillProjectile(p);
+        // }
+
+        for (Tile[] tab : board.getBoard())
+            for (Tile t : tab) {
+                if (t.containsTower()) {
+                    Iterator<Projectile> i = t.getTower().getProjectiles().iterator();
+                    while (i.hasNext()) {
+                        Projectile p = i.next();
+                        p.move();
+                        if (p.hit())
+                            i.remove();
+                    }
+                }
+            }
 
         board.kill();
+        board.addTowers();
     }
     
 }
