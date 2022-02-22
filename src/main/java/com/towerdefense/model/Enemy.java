@@ -1,7 +1,5 @@
 package com.towerdefense.model;
 
-import static java.lang.Math.*;
-
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -10,21 +8,18 @@ public class Enemy {
     private Game game;
     private int health;
     private int maxHealth;
-    private int movementSpeed;
-    private int gold;
     private int x;
     private int y;
     private Stack<Tile> path;
-    private int lastDir;
+    private int direction;
 
-    public Enemy(int health, int movementSpeed, int gold, Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
+    public Enemy(int health, Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
         this.health = health;
         this.maxHealth = health;
-        this.movementSpeed = movementSpeed;
         this.game = game;
         this.x = x;
         this.y = y;
-        this.lastDir = 0;
+        this.direction = 0;
     }
 
     public Game getGame() {
@@ -46,7 +41,7 @@ public class Enemy {
     public void setY(int y){
         this.y = y;
     }
-
+    
     public int[] getCoord() { // Renvoie un tableau contenant les coordonnées de l'unité {x, y}
         int[] coord = new int[2];
         coord[0] = x;
@@ -58,8 +53,16 @@ public class Enemy {
         return health > 0;
     }
 
-    public int getGold() {
-        return gold;
+    public int getGold() {// Fonction définie dans chaque classe qui hérite de Enemy
+        return 0;
+    }
+
+    public int getMovementSpeed() { // Dans les classes
+        return 0;
+    }
+
+    public String toString() { // Fonction définie dans chaque classe qui hérite de Enemy
+        return "";
     }
 
     public void getHit(int damage) { // Appelé par la tour qui inflige les dommages à l'unité
@@ -88,8 +91,8 @@ public class Enemy {
     }
 
     public void move(int h, int v) {
-        x += h * movementSpeed;
-        y += v * movementSpeed;
+        x += h * getMovementSpeed();
+        y += v * getMovementSpeed();
     }
 
     public void moveUp() {
@@ -206,35 +209,35 @@ public class Enemy {
             if (p.getX() == x && p.getY() == y)
                 path.pop();
             if(p.getX() == x && p.getY() == y-32){
-                lastDir = 1;
+                direction = 1;
                 path.pop();
             } else {
                 if(p.getX() == x+32 && p.getY() == y-32){
-                    lastDir = 2;
+                    direction = 2;
                     path.pop();
                 } else {
                     if(p.getX() == x-32 && p.getY() == y-32){
-                        lastDir = 3;
+                        direction = 3;
                         path.pop();
                     } else {
                         if(p.getX() == x && p.getY() == y+32){
-                            lastDir = 4;
+                            direction = 4;
                             path.pop();
                         } else {
                             if(p.getX() == x+32 && p.getY() == y+32){
-                                lastDir = 5;
+                                direction = 5;
                                 path.pop();
                             } else {
                                 if(p.getX() == x-32 && p.getY() == y+32){
-                                    lastDir = 6;
+                                    direction = 6;
                                     path.pop();
                                 } else {
                                     if(p.getX() == x+32 && p.getY() == y){
-                                        lastDir = 7;
+                                        direction = 7;
                                         path.pop();
                                     } else {
                                         if(p.getX() == x-32 && p.getY() == y){
-                                            lastDir = 8;
+                                            direction = 8;
                                             path.pop();
                                         }
                                     }
@@ -249,7 +252,7 @@ public class Enemy {
     }
 
     public void direction() {
-        switch(lastDir) {
+        switch(direction) {
             case 1: moveUp();
                 break;
             case 2: moveUpRight();

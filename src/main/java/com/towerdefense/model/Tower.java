@@ -4,18 +4,16 @@ import java.util.List;
 
 public class Tower {
 
-    private int range;
-    private int damage;
-    private int attackSpeed;
-    private int price;
     private Enemy target;
     private int[] coord;
     private boolean newTarget;
 
-    public Tower(int range, int damage, int attackSpeed, int price) {
-        this.range = range;
-        this.damage = damage;
-        this.attackSpeed = attackSpeed;
+    public Tower() {
+
+    }
+
+    public String toString() {  // Fonction définie dans chaque classe héritant de Tower
+        return "";
     }
 
     public void setCoord(int x, int y) {
@@ -28,12 +26,16 @@ public class Tower {
         return coord;
     }
 
-    public int getPrice() {
-        return price;
+    public int getRange() {
+        return 0;
     }
 
-    public int getAttackSpeed() {
-        return attackSpeed;
+    public int getPrice() { // Dans chaque classe
+        return 0;
+    }
+
+    public int getAttackSpeed() {   // Dans chaque classe
+        return 0;
     }
 
     public boolean isNewTarget() {
@@ -44,8 +46,8 @@ public class Tower {
         return this;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getDamage() {    // Dans chaque classe
+        return 0;
     }
 
     public void attack(Board board) {
@@ -54,7 +56,7 @@ public class Tower {
                 while (canAttack()) {
                     board.addProjectile(new Projectile(getSource(), target));
                     try{
-                        sleep(attackSpeed * 1000);
+                        sleep(getAttackSpeed() * 1000);
                     }catch(InterruptedException ie) {
                         ie.printStackTrace();
                     }
@@ -75,7 +77,7 @@ public class Tower {
             return; // On ne change pas de cible
         }
         List<Enemy> enemies = board.getEnemies();
-        for (Enemy e : enemies) {
+        for (Enemy e : enemies) { // Comment choisir le plus proche de la sortie
             if (isInRange(e.getCoord(), board.getSize())) {
                 target = e;
                 newTarget = true;
@@ -88,7 +90,7 @@ public class Tower {
 
     public boolean isInRange(int[] coordE, int size) { // La range est un peu décalée sur le coin haut-gauche de l'unité
         return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0]) + (coordE[1] / size - coord[1]) * (coordE[1] / size - coord[1])
-                <= range * range;
+                <= getRange() * getRange();
     }
     
 }

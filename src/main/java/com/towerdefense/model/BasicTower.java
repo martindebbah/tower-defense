@@ -2,8 +2,28 @@ package com.towerdefense.model;
 
 public class BasicTower extends Tower {
 
-    public BasicTower() {
-        super(5, 0, 1, 10);
+    @Override
+    public String toString() {
+        return "Tour de base";
+    }
+
+    @Override
+    public int getAttackSpeed() {
+        return 1;
+    }
+
+    @Override
+    public int getPrice() {
+        return 10;
+    }
+
+    @Override
+    public int getDamage() {
+        return 5;
+    }
+
+    public int getRange() {
+        return 5;
     }
     
 }
