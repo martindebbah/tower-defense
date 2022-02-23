@@ -221,43 +221,43 @@ public class Enemy {
     }
 
     public void move(){ // Cette fonction a un problème
-        if (!path.isEmpty()) {  // Elle calcule mal les déplacements que doit faire l'unité.
-            Tile p = path.peek();
+        if (!path.isEmpty()) {  // Elle calcule mal les déplacements que doit faire l'unité. (Sans les path.pop() c'est déjà mieux)
+            Tile p = path.peek();   // Mais encore des erreurs (des fois l'ennemi passe par dessus une tour)
             // System.out.println("e.x : " + x + " e.y : " + y);
             // System.out.println("p.x : " + p.getX() + " p.y : " + p.getY());
             if (p.getX() == x && p.getY() == y)
                 path.pop();
-            if(p.getX() == x && p.getY() == y-32){
+            if(p.getX() == x && p.getY() < y){
                 direction = 1;
-                path.pop();
+                //path.pop();
             } else {
-                if(p.getX() == x+32 && p.getY() == y-32){
+                if(p.getX() > x && p.getY() < y){
                     direction = 2;
-                    path.pop();
+                    //path.pop();
                 } else {
-                    if(p.getX() == x-32 && p.getY() == y-32){
+                    if(p.getX() < x && p.getY() < y){
                         direction = 3;
                         path.pop();
                     } else {
-                        if(p.getX() == x && p.getY() == y+32){
+                        if(p.getX() == x && p.getY() > y){
                             direction = 4;
-                            path.pop();
+                            //path.pop();
                         } else {
-                            if(p.getX() == x+32 && p.getY() == y+32){
+                            if(p.getX() > x && p.getY() > y){
                                 direction = 5;
-                                path.pop();
+                                //path.pop();
                             } else {
-                                if(p.getX() == x-32 && p.getY() == y+32){
+                                if(p.getX() < x && p.getY() > y){
                                     direction = 6;
-                                    path.pop();
+                                    //path.pop();
                                 } else {
-                                    if(p.getX() == x+32 && p.getY() == y){
+                                    if(p.getX() > x && p.getY() == y){
                                         direction = 7;
-                                        path.pop();
+                                        //path.pop();
                                     } else {
-                                        if(p.getX() == x-32 && p.getY() == y){
+                                        if(p.getX() < x && p.getY() == y){
                                             direction = 8;
-                                            path.pop();
+                                            //path.pop();
                                         }
                                     }
                                 }

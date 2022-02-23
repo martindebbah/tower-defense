@@ -100,7 +100,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour
-            addTower(new BasicTower(), x / size, y / size);
+            addTower(new BasicTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
         }
     }
 

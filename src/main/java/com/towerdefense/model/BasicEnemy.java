@@ -18,7 +18,7 @@ public class BasicEnemy extends Enemy { // Peut-être en faire une classe intern
 
     @Override
     public String toString() {
-        return "Tour basique"; // Peut-être nom à changer
+        return "Ennemi de base"; // Peut-être nom à changer
     }
     
 }
