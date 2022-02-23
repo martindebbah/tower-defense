@@ -8,16 +8,15 @@ public class Board {
     private Tile[][] cases;
     private List<Enemy> enemies;
     private List<Enemy> killEnemies;
-    private List<Enemy> toSet;
     private int size;
     private int nbCases;
     private List<Tower> towersToAdd;
+    private boolean setPath = true;
 
     public Board(int size, int nbCases, Game game) {
         this.enemies = new ArrayList<Enemy>();
         this.killEnemies = new ArrayList<Enemy>();
         this.towersToAdd = new ArrayList<Tower>();
-        this.toSet = new ArrayList<Enemy>();
         this.size = size;
         this.nbCases = nbCases;
         createBoard(nbCases, nbCases);
@@ -48,18 +47,10 @@ public class Board {
     }
 
     public void addTower(Tower t, int x, int y) {
-        new Thread() {  // new Thread to avoid java heap space
-            @Override
-            public void run() {
-                System.out.println(enemies.size());
-                for (Enemy e : enemies)
-                    e.setPath();
-            }
-        }.start();
+        setPath = true;
 
         t.setCoord(x, y);
         towersToAdd.add(t);
-        
     }
 
     public void addTowers() {
@@ -91,6 +82,23 @@ public class Board {
     public void kill() {
         enemies.removeAll(killEnemies);
         killEnemies.clear();
+    }
+
+    public void setPath() {
+        if (setPath) {
+            for (Tile[] tab : cases)
+                for (Tile t : tab)
+                    t.setParent(null);  // On remet à null les parents de chaque tuile
+            for (Enemy e : enemies)
+                e.setPath();
+        }
+        setPath = false;
+    }
+
+    public void refresh() {
+        addTowers();
+        kill();
+        setPath();
     }
 
     // plateau 26x22 cases (tour = 2x2)

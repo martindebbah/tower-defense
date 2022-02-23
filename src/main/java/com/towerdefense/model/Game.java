@@ -33,17 +33,10 @@ public class Game {
 
         for (Enemy e : board.getEnemies()) {
             e.move();
-            //System.out.println(e.getCoord()[0]+" "+e.getCoord()[1]);
             if (!e.isAlive()){
                 board.addKillEnemy(e);
             }    
         }
-
-        // for (Projectile p : board.getProjectiles()) { // Les projectiles se déplacent + ConcurrentModificationException
-        //     p.move();
-        //     if (p.hit())
-        //         board.addKillProjectile(p);
-        // }
 
         for (Tile[] tab : board.getBoard())
             for (Tile t : tab) {
@@ -58,8 +51,7 @@ public class Game {
                 }
             }
 
-        board.kill();
-        board.addTowers();
+        board.refresh();
     }
     
 }

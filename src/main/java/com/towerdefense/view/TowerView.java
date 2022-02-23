@@ -19,7 +19,7 @@ public class TowerView extends JPanel {
         this.shop = shop;
 
         setPreferredSize(new java.awt.Dimension(32, 32));
-        setBackground(Color.BLACK);
+        setBackground(Color.BLUE);
         
         addMouseListener(new MouseInputAdapter() {
             @Override
