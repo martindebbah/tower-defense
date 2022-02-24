@@ -55,9 +55,17 @@ public class BoardView extends JPanel implements MouseInputListener {
         Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création de Board)
         Est-ce qu'on dessine les cases quand le tableau est vide ?
         */
-        
+
         for(int x = 0; x < board.getNbCases(); x++) {
         	for(int y = 0; y < board.getNbCases(); y++) {
+                if(x == 10 && y == 0){
+                    g.setColor(Color.PINK);
+                    g.fillRect(y*size, x*size, size, size);
+                }
+                if(x == 10 && y == 19){
+                    g.setColor(Color.GREEN);
+                    g.fillRect(y*size, x*size, size, size);
+                }
                 if (board.getBoard()[x][y].containsTower()) {
                     g.setColor(Color.BLUE);
                     g.fillRect(x * size, y * size, size, size);

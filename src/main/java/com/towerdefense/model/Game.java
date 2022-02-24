@@ -32,10 +32,10 @@ public class Game {
         }
 
         for (Enemy e : board.getEnemies()) {
-            e.move();
-            if (!e.isAlive()){
+            if (!e.isAlive() || board.outOfBoard(e.getX()/32, e.getY()/32)){
                 board.addKillEnemy(e);
-            }    
+            }
+            e.move();    
         }
 
         for (Tile[] tab : board.getBoard())
