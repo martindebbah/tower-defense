@@ -7,20 +7,19 @@ import com.towerdefense.model.BasicTower;
 import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tower;
-import com.towerdefense.model.Tile;
 
 import java.awt.BorderLayout;
-import java.util.Stack;
 
 public class Window extends JFrame {
 
     private BoardView board;
+    private Shop shop;
     private Game game;
 
     public Window() {
 
         //Définition de la fenêtre
-        setSize(700, 700);
+        setSize(1000, 1000);
         setTitle("Tower Defense");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -29,7 +28,9 @@ public class Window extends JFrame {
 
         // Création du plateau de jeu
         this.game = new Game(32, 20);
+        createShop();
         createBoard();
+        add(new WaveView(), BorderLayout.NORTH);
 
         // test
         Enemy e = new BasicEnemy(game);
@@ -47,8 +48,15 @@ public class Window extends JFrame {
     }
 
     private void createBoard() { // Créer une vue pour le plateau
-        board = new BoardView(game);
+        board = new BoardView(game, shop);
         add(board, BorderLayout.WEST);
+        revalidate();
+        repaint();
+    }
+
+    private void createShop() {
+        shop = new Shop();
+        add(shop, BorderLayout.EAST);
         revalidate();
         repaint();
     }

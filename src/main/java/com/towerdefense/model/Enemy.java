@@ -1,8 +1,7 @@
 package com.towerdefense.model;
 
-import static java.lang.Math.*;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 public class Enemy {
@@ -10,21 +9,18 @@ public class Enemy {
     private Game game;
     private int health;
     private int maxHealth;
-    private int movementSpeed;
-    private int gold;
     private int x;
     private int y;
     private Stack<Tile> path;
-    private int lastDir;
+    private int direction;
 
-    public Enemy(int health, int movementSpeed, int gold, Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
+    public Enemy(int health, Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
         this.health = health;
         this.maxHealth = health;
-        this.movementSpeed = movementSpeed;
         this.game = game;
         this.x = x;
         this.y = y;
-        this.lastDir = 0;
+        this.direction = 0;
     }
 
     public Game getGame() {
@@ -46,7 +42,7 @@ public class Enemy {
     public void setY(int y){
         this.y = y;
     }
-
+    
     public int[] getCoord() { // Renvoie un tableau contenant les coordonnées de l'unité {x, y}
         int[] coord = new int[2];
         coord[0] = x;
@@ -58,8 +54,16 @@ public class Enemy {
         return health > 0;
     }
 
-    public int getGold() {
-        return gold;
+    public int getGold() {// Fonction définie dans chaque classe qui hérite de Enemy
+        return 0;
+    }
+
+    public int getMovementSpeed() { // Dans les classes
+        return 0;
+    }
+
+    public String toString() { // Fonction définie dans chaque classe qui hérite de Enemy
+        return "";
     }
 
     public void getHit(int damage) { // Appelé par la tour qui inflige les dommages à l'unité
@@ -79,7 +83,9 @@ public class Enemy {
     }
 
     public void setPath(){
-        this.path = goodPath(shorterPath(19*32, 0*32, game.getBoard()));
+        int fx = (game.getBoard().getNbCases() - 1) * game.getBoard().getSize();
+        int fy = game.getBoard().getNbCases() / 2 * game.getBoard().getSize();
+        this.path = goodPath(shorterPath(fx, fy, game.getBoard()));
     }
 
     public void kill() {
@@ -88,8 +94,8 @@ public class Enemy {
     }
 
     public void move(int h, int v) {
-        x += h * movementSpeed;
-        y += v * movementSpeed;
+        x += h * getMovementSpeed();
+        y += v * getMovementSpeed();
     }
 
     public void moveUp() {
@@ -124,7 +130,7 @@ public class Enemy {
     public void validNode(int x, int y, int fx, int fy, Board board, ArrayList<Tile> closed, ArrayList<Tile> open, Tile current){ // vérifie si une case n'est pas hors plateau, ne contient pas de tour et n'est pas dans la liste fermé
         if(board.outOfBoard(x, y) || board.getBoard()[x][y].containsTower() || closed.contains(board.getBoard()[x][y]) || wall(current, x, y, board))
             return;
-            //System.out.println(x+" "+y);
+            
         if(!board.getBoard()[x][y].containsTower() && !closed.contains(board.getBoard()[x][y])){ // * vérifie si les noeuds voisins sont valide
             if(open.contains(board.getBoard()[x][y])){ // si le noeud est deja dans la liste ouverte on vérifie sa qualité et on l a met à jour si elle est meilleure
                 for(Tile t : open){
@@ -157,12 +163,16 @@ public class Enemy {
         ArrayList<Tile> open = new ArrayList<>(); // liste ouverte
         ArrayList<Tile> closed = new ArrayList<>(); // liste fermée
         Tile current = board.getBoard()[this.x/board.getSize() + (this.x%board.getSize() == 0 ? 0 : 1)][this.y/board.getSize() + (this.y%board.getSize() == 0 ? 0 : 1)];
+        System.out.println(current.getX() + " : " + current.getY());
+
+        /*
+        Pourquoi ajouter +1 dans les coordonnées de current ??
+        */
         
         current.setQuality(dist(current.getX()/board.getSize() + (current.getX()%board.getSize() == 0 ? 0 : 1), current.getY()/board.getSize() + (current.getY()%board.getSize() == 0 ? 0 : 1), fx/board.getSize() + (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize() + (fy%board.getSize() == 0 ? 0 : 1)));
         closed.add(current);
 
         while(current != board.getBoard()[fx/board.getSize() + (fx%board.getSize() == 0 ? 0 : 1)][fy/board.getSize() + (fy%board.getSize() == 0 ? 0 : 1)]){ // tant que le noeud actuel n'est pas le noeud de sortie
-            //System.out.println(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)+" "+current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1));
             validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1), current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)-1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
             validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)+1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)-1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
             validNode(current.getX()/board.getSize()+ (current.getX()%board.getSize() == 0 ? 0 : 1)-1, current.getY()/board.getSize()+ (current.getY()%board.getSize() == 0 ? 0 : 1)-1, fx/board.getSize()+ (fx%board.getSize() == 0 ? 0 : 1), fy/board.getSize()+ (fy%board.getSize() == 0 ? 0 : 1), board, closed, open, current);
@@ -185,57 +195,69 @@ public class Enemy {
             current = best;
         }
 
+        System.out.println(current.getX() + " : " + current.getY());
+
         return current;
     }
 
-    public Stack<Tile> goodPath(Tile path){ // (non fonctionnel) problem : repaint
+    public Stack<Tile> goodPath(Tile path){
         Stack<Tile> reversePath = new Stack<Tile>();
-        while(path != null){ // ajoute les noeuds et leurs parent pour retrouver le chemin (le noeud en argument est la sortie)
-            reversePath.add(path);
+        while(path != null){ // ajoute les noeuds et leurs parents pour retrouver le chemin (le noeud en argument est la sortie)
+            addToPath(path, reversePath);
+            System.out.println("Path : p.x : " + path.getX() + " p.y : " + path.getY());
+            //reversePath.push(path);
             path = path.getParent();
         }
         return reversePath;
+    } // appel récursif pour gagner de l'espace ?
+
+    private void addToPath(final Tile t, Stack<Tile> path) {
+        new Thread() {  // new Thread to avoid java heap space
+            @Override
+            public void run() {
+                path.push(t);
+            }
+        }.start();
     }
 
-    public void move(){
-        // if(path.isEmpty()){
-        //     return;
-        // }
-        if (!path.isEmpty()) {
-            Tile p = path.peek();
+    public void move(){ // Cette fonction a un problème
+        if (!path.isEmpty()) {  // Elle calcule mal les déplacements que doit faire l'unité. (Sans les path.pop() c'est déjà mieux)
+            Tile p = path.peek();   // Mais encore des erreurs (des fois l'ennemi passe par dessus une tour)
+            // System.out.println("e.x : " + x + " e.y : " + y);
+            // System.out.println("p.x : " + p.getX() + " p.y : " + p.getY());
             if (p.getX() == x && p.getY() == y)
                 path.pop();
-            if(p.getX() == x && p.getY() == y-32){
-                lastDir = 1;
-                path.pop();
+            if(p.getX() == x && p.getY() < y){
+                direction = 1;
+                //path.pop();
             } else {
-                if(p.getX() == x+32 && p.getY() == y-32){
-                    lastDir = 2;
-                    path.pop();
+                if(p.getX() > x && p.getY() < y){
+                    direction = 2;
+                    //path.pop();
                 } else {
-                    if(p.getX() == x-32 && p.getY() == y-32){
-                        lastDir = 3;
+                    if(p.getX() < x && p.getY() < y){
+                        direction = 3;
                         path.pop();
                     } else {
-                        if(p.getX() == x && p.getY() == y+32){
-                            lastDir = 4;
-                            path.pop();
+                        if(p.getX() == x && p.getY() > y){
+                            direction = 4;
+                            //path.pop();
                         } else {
-                            if(p.getX() == x+32 && p.getY() == y+32){
-                                lastDir = 5;
-                                path.pop();
+                            if(p.getX() > x && p.getY() > y){
+                                direction = 5;
+                                //path.pop();
                             } else {
-                                if(p.getX() == x-32 && p.getY() == y+32){
-                                    lastDir = 6;
-                                    path.pop();
+                                if(p.getX() < x && p.getY() > y){
+                                    direction = 6;
+                                    //path.pop();
                                 } else {
-                                    if(p.getX() == x+32 && p.getY() == y){
-                                        lastDir = 7;
-                                        path.pop();
+                                    if(p.getX() > x && p.getY() == y){
+                                        direction = 7;
+                                        //path.pop();
                                     } else {
-                                        if(p.getX() == x-32 && p.getY() == y){
-                                            lastDir = 8;
-                                            path.pop();
+                                        if(p.getX() < x && p.getY() == y){
+                                            direction = 8;
+                                            //path.pop();
                                         }
                                     }
                                 }
@@ -245,11 +267,20 @@ public class Enemy {
                 }
             }
         }
+        //printPath();
         direction();
     }
 
+    public void printPath() {
+        Iterator<Tile> i = path.iterator();
+        while (i.hasNext()) {
+            Tile p = i.next();
+            System.out.println("p.x : " + p.getX() + " p.y : " + p.getY());
+        }
+    }
+
     public void direction() {
-        switch(lastDir) {
+        switch(direction) {
             case 1: moveUp();
                 break;
             case 2: moveUpRight();
@@ -266,6 +297,7 @@ public class Enemy {
                 break;
             case 8: moveLeft();
                 break;
+            // default : System.out.println("Path vide");
         }
     }
     
