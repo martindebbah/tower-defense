@@ -9,9 +9,11 @@ public class Tower {
     private int[] coord;
     private boolean newTarget;
     private List<Projectile> projectiles;
+    private List<Projectile> killProjectiles;
 
     public Tower() {
         this.projectiles = new ArrayList<Projectile>();
+        this.killProjectiles = new ArrayList<Projectile>();
     }
 
     public String toString() {  // Fonction définie dans chaque classe héritant de Tower
@@ -101,6 +103,15 @@ public class Tower {
     public boolean isInRange(int[] coordE, int size) { // La range est un peu décalée sur le coin haut-gauche de l'unité
         return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0]) + (coordE[1] / size - coord[1]) * (coordE[1] / size - coord[1])
                 <= getRange() * getRange();
+    }
+
+    public void addKillProjectile(Projectile p) {
+        killProjectiles.add(p);
+    }
+
+    public void killProjectiles() {
+        projectiles.removeAll(killProjectiles);
+        killProjectiles.clear();
     }
     
 }

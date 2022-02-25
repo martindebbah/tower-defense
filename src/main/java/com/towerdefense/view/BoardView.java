@@ -82,6 +82,7 @@ public class BoardView extends JPanel implements MouseInputListener {
             g.setColor(Color.GREEN);
             g.drawRect(coord[0], coord[1]- 10, size, 5);
             g.fillRect(coord[0], coord[1]- 10, e.getHP() * size / 100, 5);
+            System.out.println(e.getCoord()[0] + " : " + e.getCoord()[1]);
         }
 
         for (Tile[] tab : board.getBoard())

@@ -1,7 +1,5 @@
 package com.towerdefense.model;
 
-import java.util.Iterator;
-
 public class Game {
 
     private Board board;
@@ -20,38 +18,32 @@ public class Game {
     }
 
     public void play() {
-        for (Tile[] tab : board.getBoard()) { // Toutes les tours attaquent
-            for (Tile t : tab) {
+        for (Tile[] tab : board.getBoard()) // Toutes les tours attaquent
+            for (Tile t : tab)
                 if (t.containsTower()) {
                     t.getTower().focus(board);
-                    if (t.getTower().canAttack() && t.getTower().isNewTarget()) {
+                    if (t.getTower().canAttack() && t.getTower().isNewTarget())
                         t.getTower().attack(board);
-                    }
                 }
-            }
-        }
 
-        for (Enemy e : board.getEnemies()) {
-            if (!e.isAlive() || board.outOfBoard(e.getX()/32, e.getY()/32)){
+        for (Enemy e : board.getEnemies()) {    // Tous les ennemis se déplacent
+            if (!e.isAlive() || board.outOfBoard(e.getX() / board.getSize(), e.getY() / board.getSize()))
                 board.addKillEnemy(e);
-            }
-            e.move();    
+            e.move();
         }
 
-        for (Tile[] tab : board.getBoard())
-            for (Tile t : tab) {
+        for (Tile[] tab : board.getBoard()) // Tous les projectiles se déplacent
+            for (Tile t : tab)
                 if (t.containsTower()) {
-                    Iterator<Projectile> i = t.getTower().getProjectiles().iterator();
-                    while (i.hasNext()) {
-                        Projectile p = i.next();
+                    Tower tower = t.getTower();
+                    for (Projectile p : tower.getProjectiles()) {
                         p.move();
                         if (p.hit())
-                            i.remove();
+                            tower.addKillProjectile(p);
                     }
                 }
-            }
 
-        board.refresh();
+        board.refresh();    // On met le board à jour (kill les ennemis/projectiles et refresh les chemins ennemis)
     }
     
 }

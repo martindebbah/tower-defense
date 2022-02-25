@@ -80,18 +80,19 @@ public class Board {
     }
 
     public void kill() {
-        enemies.removeAll(killEnemies);
+        enemies.removeAll(killEnemies); // Ne pas oublier de faire les dégâts au joueur
         killEnemies.clear();
+
+        for (Tile tab[] : cases)
+            for (Tile t : tab)
+                if (t.containsTower())
+                    t.getTower().killProjectiles();
     }
 
     public void setPath() {
-        if (setPath) {
-            for (Tile[] tab : cases)
-                for (Tile t : tab)
-                    t.setParent(null);  // On remet à null les parents de chaque tuile
+        if (setPath)
             for (Enemy e : enemies)
                 e.setPath();
-        }
         setPath = false;
     }
 
@@ -99,6 +100,47 @@ public class Board {
         addTowers();
         kill();
         setPath();
+    }
+
+    public List<Tile> neighbors(Tile current) { // Renvoie les tuiles voisines accessibles de current
+        List<Tile> neighbors = new ArrayList<Tile>();
+
+        int x = current.getX() / size;
+        int y = current.getY() / size;
+
+        add(current, x - 1, y - 1, neighbors);
+        add(current, x, y - 1, neighbors);
+        add(current, x + 1, y - 1, neighbors);
+        add(current, x - 1, y, neighbors);
+        add(current, x + 1, y, neighbors);
+        add(current, x - 1, y + 1, neighbors);
+        add(current, x, y + 1, neighbors);
+        add(current, x + 1, y + 1, neighbors);
+
+        return neighbors;
+    }
+
+    public void add(Tile current, int x, int y, List<Tile> list) {
+        if (outOfBoard(x, y) || wall(current, x, y) || cases[x][y].containsTower())
+            return;
+        list.add(cases[x][y]);
+    }
+
+    public boolean wall(Tile current, int x, int y) {
+        /*
+            Cette fonction renvoie true si il y a des tours en diagonale
+            Par exemple, on cherche à atteindre la case située en haut à droite à partir de la case current :
+            Si il y a une tour en haut et une tour à droite o empêche l'ennemi de passer entre les deux.
+        */
+        if (current.getX() / size == x + 1 && current.getY() / size == y + 1)
+            return cases[x][y+1].containsTower() && cases[x+1][y].containsTower();
+        if (current.getX() / size == x - 1 && current.getY() / size == y + 1)
+            return cases[x][y+1].containsTower() && cases[x-1][y].containsTower();
+        if (current.getX() / size == x + 1 && current.getY() / size == y - 1)
+            return cases[x][y-1].containsTower() && cases[x+1][y].containsTower();
+        if (current.getX() / size == x - 1 && current.getY() / size == y - 1)
+            return cases[x][y-1].containsTower() && cases[x-1][y].containsTower();
+        return false;
     }
 
     // plateau 26x22 cases (tour = 2x2)
