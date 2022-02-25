@@ -181,7 +181,7 @@ public class Enemy {
         /*
             Donne la première case que l'ennemi doit visiter
             en fonction de la direction dans laquelle il se dirige
-            !! non fonctionnel : si la tuile retournée contient une tour n'en prend pas compte !!
+            !! non fonctionnel : si la tuile retournée contient une tour, n'en prend pas compte !!
         */
         switch (direction) {
             case 1: return board.getBoard()[x / board.getSize()][y / board.getSize()];
@@ -203,13 +203,7 @@ public class Enemy {
         return goodPath(tile.getParent(), path);
     }
 
-    public void move(){         
-        /*
-            Cette fonction a un problème
-            Elle calcule mal les déplacements que doit faire l'unité.
-            Lorsqu'on pose une tour l'unité fait des fois demi tour si il a déjà un peu
-            dépassé la case de départ.
-        */
+    public void move(){
         if (!path.isEmpty()) {
             Tile p = path.peek();
             if (p.getX() == x && p.getY() == y)
