@@ -8,15 +8,13 @@ public class Enemy {
 
     private Game game;
     private int health;
-    private int maxHealth;
     private int x;
     private int y;
     private Stack<Tile> path;
     private int direction;
 
-    public Enemy(int health, Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
-        this.health = health;
-        this.maxHealth = health;
+    public Enemy(Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
+        this.health = getMaxHealth();
         this.game = game;
         this.x = x;
         this.y = y;
@@ -54,6 +52,10 @@ public class Enemy {
         return health > 0;
     }
 
+    public int getMaxHealth() {
+        return 0;
+    }
+
     public int getGold() {// Fonction définie dans chaque classe qui hérite de Enemy
         return 0;
     }
@@ -75,7 +77,7 @@ public class Enemy {
     }
 
     public int getHP() {
-        return health * 100 / maxHealth;
+        return health * 100 / getMaxHealth();
     }
 
     public Stack<Tile> getPath(){
