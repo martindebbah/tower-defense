@@ -28,7 +28,7 @@ public class Game {
                 }
 
         for (Enemy e : board.getEnemies()) {    // Tous les ennemis se déplacent
-            if(board.outOfBoard(e.getX()/32, e.getY()/32)){// si l'ennemi arrive au point d arrivé on appelle enemy.crossedboard
+            if(board.outOfBoard(e.getX() / board.getSize(), e.getY() / board.getSize())){// si l'ennemi arrive au point d arrivé on appelle enemy.crossedboard
                 e.crossedBoard();
                 board.addKillEnemy(e);
             }
