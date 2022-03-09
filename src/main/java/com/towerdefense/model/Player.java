@@ -4,14 +4,20 @@ public class Player {
 
     private int health;
     private int money;
+    private String name;
 
-    public Player() {
-        this.health = 25;
+    public Player(String name) {
+        this.health = 1000;
         this.money = 100; // Combien ?
+        this.name = name;
     }
 
-    public void getHit() {
-        health -= 1;
+    public int getHP(){
+        return health;
+    }
+
+    public void getHit(Enemy enemy) {
+        health -= enemy.getHP();
     }
 
     public boolean isAlive() {

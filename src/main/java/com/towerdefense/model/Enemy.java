@@ -71,7 +71,8 @@ public class Enemy {
     }
 
     public void crossedBoard() { // L'unité a traversé le plateau (fait perdre un pdv au joueur)
-        game.getPlayer().getHit();
+        game.getPlayer().getHit(this);
+        health = 0;
     }
 
     public int getHP() {
@@ -224,6 +225,8 @@ public class Enemy {
                 direction = 7;
             else if(p.getX() < x && p.getY() == y)
                 direction =8;
+            else if(x/32 == game.getBoard().getNbCases()-1 && y/32 == game.getBoard().getNbCases()/2)
+                direction = 7;
         }
         direction();
     }

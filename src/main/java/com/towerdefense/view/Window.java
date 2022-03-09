@@ -6,7 +6,9 @@ import com.towerdefense.model.BasicEnemy;
 import com.towerdefense.model.BasicTower;
 import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Game;
+import com.towerdefense.model.Player;
 import com.towerdefense.model.Tower;
+import com.towerdefense.model.Wave;
 
 import java.awt.BorderLayout;
 
@@ -27,22 +29,23 @@ public class Window extends JFrame {
         setLayout(new BorderLayout());
 
         // Création du plateau de jeu
-        this.game = new Game(32, 20);
+        Player player = new Player("Martin");
+        this.game = new Game(32, 20, player);
         createShop();
         createBoard();
-        add(new WaveView(), BorderLayout.NORTH);
+        add(new WaveView(new Wave(player)), BorderLayout.NORTH);
 
         // test
-        Enemy e = new BasicEnemy(game);
-        e.setPath();
-        board.addEnemy(e);
-        Tower t = new BasicTower();
-        Tower t2 = new BasicTower();
-        board.addTower(t, 5, 5);
-        board.addTower(t2, 6, 6);
+        int r = 0;
 
-        while(true){
+        while(player.isAlive()){
+            if(r == 0){
+                Enemy e1 = new BasicEnemy(game);
+                e1.setPath();
+                board.addEnemy(e1);
+            }
             play();
+            r++;
         }
 
     }

@@ -5,8 +5,9 @@ public class Game {
     private Board board;
     private Player player;
 
-    public Game(int size, int nbCases) {
+    public Game(int size, int nbCases, Player player) {
         this.board = new Board(size, nbCases, this);
+        this.player = player;
     }
 
     public Player getPlayer() {
@@ -27,8 +28,13 @@ public class Game {
                 }
 
         for (Enemy e : board.getEnemies()) {    // Tous les ennemis se déplacent
-            if (!e.isAlive() || board.outOfBoard(e.getX() / board.getSize(), e.getY() / board.getSize()))
+            if(board.outOfBoard(e.getX()/32, e.getY()/32)){// si l'ennemi arrive au point d arrivé on appelle enemy.crossedboard
+                e.crossedBoard();
                 board.addKillEnemy(e);
+            }
+            if (!e.isAlive()){
+                board.addKillEnemy(e);
+            }
             e.move();
         }
 
