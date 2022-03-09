@@ -227,7 +227,7 @@ public class Enemy {
                 direction = 7;
             else if(p.getX() < x && p.getY() == y)
                 direction =8;
-            else if(x/32 == game.getBoard().getNbCases()-1 && y/32 == game.getBoard().getNbCases()/2)
+            else if(x/game.getBoard().getSize() == game.getBoard().getNbCases()-1 && y/game.getBoard().getSize() == game.getBoard().getNbCases()/2)
                 direction = 7;
         }
         direction();

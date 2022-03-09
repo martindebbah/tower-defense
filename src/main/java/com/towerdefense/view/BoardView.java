@@ -82,7 +82,7 @@ public class BoardView extends JPanel implements MouseInputListener {
             g.setColor(Color.GREEN);
             g.drawRect(coord[0], coord[1]- 10, size, 5);
             g.fillRect(coord[0], coord[1]- 10, e.getHP() * size / 100, 5);
-            System.out.println(e.getX()/32 + " : " + e.getY()/32);
+            //System.out.println(e.getX()/32 + " : " + e.getY()/32);
         }
 
         for (Tile[] tab : board.getBoard())
@@ -106,6 +106,11 @@ public class BoardView extends JPanel implements MouseInputListener {
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
+        for(Enemy enemy : board.getEnemies()){
+            if(enemy.getX()/size == x/size && enemy.getY()/size == y/size){ // Pour ne pas pouvoir poser une tour sur un ennemi
+                return;
+            }
+        }
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour
