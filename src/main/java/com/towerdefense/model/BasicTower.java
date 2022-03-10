@@ -1,10 +1,12 @@
 package com.towerdefense.model;
 
+import java.awt.Color;
+
 public class BasicTower extends Tower {
 
     @Override
     public String toString() {
-        return "Tour de base";
+        return "Tour basique";
     }
 
     @Override
@@ -22,8 +24,19 @@ public class BasicTower extends Tower {
         return 0;
     }
 
+    @Override
     public int getRange() {
         return 5;
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.BLUE;
+    }
+
+    @Override
+    public boolean canFocus(Enemy e) {
+        return !e.isAerial();
     }
     
 }

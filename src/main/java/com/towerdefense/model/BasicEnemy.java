@@ -1,8 +1,8 @@
 package com.towerdefense.model;
 
-public class BasicEnemy extends Enemy { // Peut-être en faire une classe interne
+public class BasicEnemy extends Enemy {
 
-    public BasicEnemy(Game game) { // Changer la façon dont l'attribut size (la taille d'une case) est entrée en paramêtre
+    public BasicEnemy(Game game) {
         super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
     }
 
