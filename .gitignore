@@ -1,0 +1,7 @@
+# Les fichiers à ignorer lors des push
+
+# Le dossier target contenant les .class
+target/*
+
+# Le fichier créé par MacOS
+.DS_Store
