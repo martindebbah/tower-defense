@@ -18,6 +18,7 @@ public class newGame {
     private JButton hard ;
     private JButton medium ;
     private JButton easy ;
+    private JButton back ;
     
     public newGame(){
     	img= new ImageIcon(this.getClass().getResource("/accueil2.jpeg"));
@@ -60,7 +61,16 @@ public class newGame {
 			   }	   
 		}
 				     );
-
+		back= new JButton("Back");
+		back.setBackground(Color.BLUE); 
+	    back.setBounds(60,300,80,40);
+		labelnewGame.add(back);
+		back.addActionListener(new ActionListener() {
+				   public void actionPerformed(ActionEvent e) {
+					 new MenuEssai();
+				   }	   
+			}
+					 );
 		
 		newGame=new JFrame("New Game on , how hard do you want it to be?");
 		newGame.setSize(650,450);
