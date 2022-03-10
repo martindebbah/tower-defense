@@ -1,6 +1,8 @@
 package com.towerdefense.view;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import com.towerdefense.model.BasicEnemy;
 import com.towerdefense.model.BasicTower;
@@ -52,7 +54,10 @@ public class Window extends JFrame {
 
     private void createBoard() { // Créer une vue pour le plateau
         board = new BoardView(game, shop);
-        add(board, BorderLayout.WEST);
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 30));
+        panel.add(board);
+        add(panel, BorderLayout.WEST);
         revalidate();
         repaint();
     }

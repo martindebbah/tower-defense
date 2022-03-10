@@ -143,6 +143,13 @@ public class Board {
         return false;
     }
 
+    public boolean containsEnemyOn(int x, int y) {  // Renvoie true si la case contient un ennemi
+        for (Enemy e : enemies)
+            if (e.getPath().peek() == cases[x][y])
+                return true;
+        return false;
+    }
+
     // plateau 26x22 cases (tour = 2x2)
     // 13 tours par ligne
     // 11 tours par colonne

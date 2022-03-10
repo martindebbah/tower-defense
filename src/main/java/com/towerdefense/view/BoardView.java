@@ -1,5 +1,6 @@
 package com.towerdefense.view;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputListener;
@@ -26,7 +27,6 @@ public class BoardView extends JPanel implements MouseInputListener {
     private int[] preview;
 
     public BoardView(Game game, Shop shop) {
-        // setBorder(new EmptyBorder(100, 100, 100, 100)); // Comment faire ?
         this.board = game.getBoard();
         size = board.getSize();
         setPreferredSize(new java.awt.Dimension(size * board.getNbCases(), size * board.getNbCases()));
@@ -106,11 +106,10 @@ public class BoardView extends JPanel implements MouseInputListener {
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        for(Enemy enemy : board.getEnemies()){
-            if(enemy.getX()/size == x/size && enemy.getY()/size == y/size){ // Pour ne pas pouvoir poser une tour sur un ennemi
-                return;
-            }
-        }
+        
+        if(board.containsEnemyOn(x / size, y / size))  // Pour ne pas pouvoir poser une tour sur un ennemi
+            return;
+
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour

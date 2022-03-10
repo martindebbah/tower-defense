@@ -1,9 +1,14 @@
 package com.towerdefense.model;
 
+import java.awt.Color;
+
 public class AerialTower extends Tower {
 
     private boolean Aerial; // pour faciliter l'insertion sur une autre dimension du plateau
                             // et éviter la confusion, ça peut être utile
+
+                            // Au lieu de faire un boolean juste le fait d'être de type AerialTower permet
+                            // d'éviter la confusion
     public AerialTower(){
         super();
         this.Aerial = true;
@@ -11,7 +16,7 @@ public class AerialTower extends Tower {
 
     @Override
     public String toString() {
-        return "Tour aérienne de base";
+        return "Tour anti-aérienne";
     }
 
     @Override
@@ -29,8 +34,19 @@ public class AerialTower extends Tower {
         return 0;
     }
 
+    @Override
     public int getRange() {
         return 5;
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.YELLOW;
+    }
+
+    @Override
+    public boolean canFocus(Enemy e) {
+        return e.isAerial();
     }
 
 }

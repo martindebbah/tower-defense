@@ -19,15 +19,12 @@ public class TowerView extends JPanel {
         this.shop = shop;
 
         setPreferredSize(new java.awt.Dimension(32, 32));
-        setBackground(Color.BLUE);
+        setBackground(tower.getColor());
         
         addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createMatteBorder(2,  2,  2,  2, Color.BLACK),
-                    BorderFactory.createMatteBorder(3,  3,  3,  3, Color.WHITE)));
                 select();
             }
         });
@@ -40,7 +37,14 @@ public class TowerView extends JPanel {
 
     public void select() {
         shop.refreshDesc(tower);
+        setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createMatteBorder(2,  2,  2,  2, Color.BLACK),
+                    BorderFactory.createMatteBorder(3,  3,  3,  3, Color.WHITE)));
         shop.purchase();
+    }
+
+    public void deselect() {
+        setBorder(null);
     }
     
 }

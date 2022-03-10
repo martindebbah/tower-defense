@@ -68,6 +68,10 @@ public class Enemy {
         return "";
     }
 
+    public boolean isAerial() {
+        return false;
+    }
+
     public void getHit(int damage) { // Appelé par la tour qui inflige les dommages à l'unité
         health -= damage;
     }
