@@ -16,7 +16,7 @@ public class parametres implements Music , Sound {
 	private JLabel labelparametres ;
 	private ImageIcon img;
 	private JButton sound ;
-	private JLabel music ;
+	private JButton music ;
 	//private JProgressBar soundBar ;
 	//private JProgressBar musicBar ;
 	private static int minimum=0;
@@ -27,15 +27,27 @@ public class parametres implements Music , Sound {
     img= new ImageIcon(this.getClass().getResource("/accueil2.jpeg"));
 	labelparametres=new JLabel(img);
 	labelparametres.setSize(650,450);
+	
 	sound= new JButton("SOUND");
-
-	sound.setBackground(Color.BLUE); 
-	sound.setBounds(500,150,100,50);
+    sound.setBackground(Color.BLUE); 
+	sound.setBounds(200,150,100,50);
 	labelparametres.add(sound);
 	sound.addActionListener(new ActionListener() {
 		   public void actionPerformed(ActionEvent e) {
 			   //Définir muteSound dans l'interface Sound
 			 //mutesound();
+		   }	   
+	}
+			 );
+	
+	music= new JButton("MUSIC");
+    music.setBackground(Color.BLUE); 
+	music.setBounds(200,200,100,50);
+	labelparametres.add(music);
+	music.addActionListener(new ActionListener() {
+		   public void actionPerformed(ActionEvent e) {
+			   //Définir muteMusic dans l'interface Music
+			 //muteMusic();
 		   }	   
 	}
 			 );
