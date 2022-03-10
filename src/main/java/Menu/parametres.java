@@ -17,6 +17,7 @@ public class parametres implements Music , Sound {
 	private ImageIcon img;
 	private JButton sound ;
 	private JButton music ;
+	private JButton back ;
 	//private JProgressBar soundBar ;
 	//private JProgressBar musicBar ;
 	private static int minimum=0;
@@ -63,6 +64,17 @@ public class parametres implements Music , Sound {
 	labelparametres.add(musicBar);
 	
 	*/ 
+	
+	back= new JButton("Back");
+    back.setBackground(Color.BLUE); 
+	back.setBounds(60,300,80,40);
+	labelparametres.add(back);
+	back.addActionListener(new ActionListener() {
+		   public void actionPerformed(ActionEvent e) {
+			 new MenuEssai();
+		   }	   
+	}
+			 );
 	parametres=new JFrame("Settings");
 	parametres.setSize(650,450);
 	parametres.add(labelparametres);
