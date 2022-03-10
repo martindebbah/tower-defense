@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import com.towerdefense.view.Window;
+
 public class newGame {
 	private JFrame newGame ; 
 	private ImageIcon img;
@@ -29,6 +31,8 @@ public class newGame {
 		hard.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {
 				   //hard game launch
+				   //Pour le moment on va lancer window
+				   new Window();
 			   }	   
 		}
 				     );
@@ -40,6 +44,7 @@ public class newGame {
 		medium.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {
 				  // medium game launch
+				   new Window();
 			   }	   
 		}
 				     );
@@ -51,12 +56,11 @@ public class newGame {
 		easy.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {
 				//easy game launch
+				   new Window();
 			   }	   
 		}
 				     );
 
-		
-		
 		
 		newGame=new JFrame("New Game on , how hard do you want it to be?");
 		newGame.setSize(650,450);
@@ -65,6 +69,8 @@ public class newGame {
 	    newGame.setLocationRelativeTo(null);
 	    newGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    newGame.setVisible(true);
+	    
+	    
     }
 
 }
