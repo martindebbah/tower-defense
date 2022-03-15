@@ -17,6 +17,7 @@ public class Window extends JFrame {
     private BoardView board;
     private Shop shop;
     private Game game;
+    private Wave wave;
 
     public Window() {
 
@@ -31,21 +32,18 @@ public class Window extends JFrame {
         // Création du plateau de jeu
         Player player = new Player("Martin");
         this.game = new Game(32, 20, player);
+        this.wave = new Wave(this.game,180);
         createShop();
         createBoard();
-        add(new WaveView(new Wave(player)), BorderLayout.NORTH);
+        add(new WaveView(wave), BorderLayout.NORTH);
 
         // test
-        int r = 0;
 
-        while(player.isAlive()){
-            if(r == 0){
-                Enemy e1 = new BasicEnemy(game);
-                e1.setPath();
-                board.addEnemy(e1);
+        while(player.isAlive() && wave.getCurrentWave() <= wave.getNbWaves()){
+            if(wave.getFinChrono()){
+                wave.incrementWave();
             }
             play();
-            r++;
         }
 
     }
@@ -70,7 +68,7 @@ public class Window extends JFrame {
         }catch(InterruptedException ie) {
             ie.printStackTrace();
         }
-        game.play();
+        wave.play();
         revalidate();
         repaint();
     }

@@ -6,14 +6,18 @@ import javax.swing.JLabel;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Wave {
-    private int enemyPerWaves;
-    private Player player;
+    private Game game;
     private JLabel chrono;
-    final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private int timeWave;
+    private boolean finChrono = false;
+    private int currentWave = 1;
+    private final int nbWaves = 20;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    public Wave(Player player){
+    public Wave(Game game, int time){
         chrono = new JLabel();
-        this.player = player;
+        this.game = game;
+        this.timeWave = time;
     }
 
     public JLabel getChrono(){
@@ -21,26 +25,68 @@ public class Wave {
     }
 
     public Player getPlayer(){
-        return player;
+        return game.getPlayer();
+    }
+
+    public int getCurrentWave(){
+        return currentWave;
+    }
+
+    public void incrementWave(){
+        currentWave++;
+    }
+
+    public int getNbWaves(){
+        return nbWaves;
+    }
+
+    public boolean getFinChrono(){
+        return finChrono;
     }
 
     public void chrono(){
         final Runnable runnable = new Runnable() {
-            int countdownStarter = 20;
+            int countdownStarter = timeWave;
 
             public void run() {
 
-                chrono.setText(countdownStarter+" ");
+                chrono.setText(convertSecondToMinute(countdownStarter));
                 // Ce qui se passe pendant que le minuteur tourne
-                countdownStarter--;
+                if(countdownStarter%2 == 0){ // toutes les 2 secondes un ennemi est crée 
+                    createEnemy(0);
+                }
+                countdownStarter--; // une seconde passe
 
                 if (countdownStarter < 0) {
-                    chrono.setText("Timer Over!");
-                    scheduler.shutdown();
+                    chrono.setText("Next Wave");
+                    //scheduler.shutdown();
+                    countdownStarter = timeWave;
+                    finChrono = true;
                 }
             }
         };
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
+
+    public String convertSecondToMinute(int second){
+        return second/60+":"+second%60+" ";
+    }
     
+    public void play(){
+        game.towerAction();
+        game.enemyAction();
+        game.projectileAction();
+        game.getBoard().refresh();
+    }
+
+    public void createEnemy(int enemy){ // Créer l'ennemi en fonction de son type (notée par un int)
+        switch(enemy){
+            default :
+                Enemy e = new BasicEnemy(game);
+                e.setPath();
+                game.getBoard().addEnemy(e);
+                break;
+        }
+    }
+
 }

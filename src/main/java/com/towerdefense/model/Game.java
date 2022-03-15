@@ -18,7 +18,7 @@ public class Game {
         return board;
     }
 
-    public void play() {
+    public void towerAction(){
         for (Tile[] tab : board.getBoard()) // Toutes les tours attaquent
             for (Tile t : tab)
                 if (t.containsTower()) {
@@ -26,7 +26,9 @@ public class Game {
                     if (t.getTower().canAttack() && t.getTower().isNewTarget())
                         t.getTower().attack(board);
                 }
+    }
 
+    public void enemyAction(){
         for (Enemy e : board.getEnemies()) {    // Tous les ennemis se déplacent
             if(board.outOfBoard(e.getX() / board.getSize(), e.getY() / board.getSize())){// si l'ennemi arrive au point d arrivé on appelle enemy.crossedboard
                 e.crossedBoard();
@@ -37,7 +39,9 @@ public class Game {
             }
             e.move();
         }
+    }
 
+    public void projectileAction() {
         for (Tile[] tab : board.getBoard()) // Tous les projectiles se déplacent
             for (Tile t : tab)
                 if (t.containsTower()) {
@@ -49,7 +53,7 @@ public class Game {
                     }
                 }
 
-        board.refresh();    // On met le board à jour (kill les ennemis/projectiles et refresh les chemins ennemis)
+        //board.refresh();    // On met le board à jour (kill les ennemis/projectiles et refresh les chemins ennemis)
     }
     
 }

@@ -2,6 +2,7 @@ package com.towerdefense.view;
 
 import java.awt.Color;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.towerdefense.model.Player;
@@ -17,6 +18,7 @@ public class WaveView extends JPanel {
         this.wave = wave;
         setPreferredSize(new java.awt.Dimension(1000, 112));
         wave.chrono();
+        add(new JLabel("Wave "+wave.getCurrentWave()+" /"));
         add(wave.getChrono());
     }
 
