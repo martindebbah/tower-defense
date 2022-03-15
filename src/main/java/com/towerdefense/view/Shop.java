@@ -1,14 +1,19 @@
 package com.towerdefense.view;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.towerdefense.model.AerialTower;
 import com.towerdefense.model.BasicTower;
 import com.towerdefense.model.Tower;
 
@@ -54,11 +59,27 @@ public class Shop extends JPanel {
 
     public class TowerPanel extends JPanel {
 
+        private List<TowerView> towers; // La liste des tours dans le shop
+        private JPanel panel;
+
         public TowerPanel() {
+            this.towers = new ArrayList<TowerView>();
             setPreferredSize(new Dimension(300, 200));
-            //setBackground(Color.BLACK);
-            add(new TowerView(new BasicTower(), Shop.this));
+            this.panel = new JPanel();
+            panel.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
+            add(panel);
+            addTower(new TowerView(new BasicTower(), Shop.this));
+            addTower(new TowerView(new AerialTower(), Shop.this));
             setOpaque(false);
+        }
+
+        private void addTower(TowerView t) {
+            panel.add(t);
+            towers.add(t);
+        }
+
+        public List<TowerView> getTowers() {
+            return towers;
         }
 
     }
@@ -71,12 +92,12 @@ public class Shop extends JPanel {
         private JLabel attackSpeed;
         private JLabel price;
         private JButton cancel;
+        private JPanel labels;
 
         public Description() {
             setPreferredSize(new Dimension(300, 500));
+            setLayout(new FlowLayout(FlowLayout.CENTER, 0, 200));
             //setBackground(Color.YELLOW);
-
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
             this.name = new JLabel();
             this.damage = new JLabel();
@@ -88,28 +109,41 @@ public class Shop extends JPanel {
                 Shop.this.refreshDesc(null);
             });
 
-            add(name);
-            add(damage);
-            add(range);
-            add(attackSpeed);
-            add(price);
-            add(cancel);
+            this.labels = new JPanel();
+            labels.setLayout(new BoxLayout(labels, BoxLayout.Y_AXIS));
+
+            labels.add(name);
+            labels.add(damage);
+            labels.add(range);
+            labels.add(attackSpeed);
+            labels.add(price);
+            labels.add(cancel);
+
+            JPanel border = new JPanel();
+            border.setPreferredSize(new Dimension(150, 120));
+            border.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            border.add(labels);
+
+            add(border);
 
             refresh(null);
         }
 
         public void refresh(Tower t) {
             if (t == null) {
-                setVisible(false);
+                labels.setVisible(false);
             }else {
-                name.setText("Tour : " + t);
+                name.setText(t.toString());
                 damage.setText("Dégâts : " + t.getDamage());
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
                 price.setText("Prix : " + t.getPrice());
 
-                setVisible(true);
+                labels.setVisible(true);
             }
+
+            for (TowerView tower : Shop.this.towerPanel.getTowers())
+                tower.deselect();
         }
 
     }

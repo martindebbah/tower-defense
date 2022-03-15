@@ -3,6 +3,8 @@ package com.towerdefense.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.awt.Color;
+
 public class Tower {
 
     private Enemy target;
@@ -81,6 +83,10 @@ public class Tower {
         return target != null;
     }
 
+    public boolean canFocus(Enemy e) {
+        return false;
+    }
+
     public void focus(Board board) {
         if (target != null) {
             newTarget = false;
@@ -90,7 +96,7 @@ public class Tower {
         }
         List<Enemy> enemies = board.getEnemies();
         for (Enemy e : enemies) { // Comment choisir le plus proche de la sortie
-            if (isInRange(e.getCoord(), board.getSize())) {
+            if (isInRange(e.getCoord(), board.getSize()) && canFocus(e)) {
                 target = e;
                 newTarget = true;
                 return;
@@ -112,6 +118,10 @@ public class Tower {
     public void killProjectiles() {
         projectiles.removeAll(killProjectiles);
         killProjectiles.clear();
+    }
+
+    public Color getColor() {   // Première méthode pour afficher une tour
+        return null;
     }
     
 }
