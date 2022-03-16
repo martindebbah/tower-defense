@@ -34,20 +34,24 @@ public class Window extends JFrame {
         // Création du plateau de jeu
         Player player = new Player("Martin");
         this.game = new Game(32, 20, player);
-        this.wave = new Wave(this.game,180);
+        this.wave = new Wave(this.game,60);
+        WaveView w = new WaveView(wave);
         createShop();
         createBoard();
-        add(new WaveView(wave), BorderLayout.NORTH);
+        add(w, BorderLayout.NORTH);
 
         // test
 
         while(player.isAlive() && wave.getCurrentWave() <= wave.getNbWaves()){
             if(wave.getFinChrono()){
                 wave.incrementWave();
+                System.out.println(wave.getCurrentWave());
+                wave.setFinChrono(false);
             }
             play();
         }
 
+        wave.setFinishGame(true);
     }
 
     private void createBoard() { // Créer une vue pour le plateau

@@ -41,12 +41,12 @@ public class Game {
         }
     }
 
-    public void projectileAction() {
+    public void projectileAction() { // * = bug concurrentModificationException
         for (Tile[] tab : board.getBoard()) // Tous les projectiles se déplacent
             for (Tile t : tab)
                 if (t.containsTower()) {
                     Tower tower = t.getTower();
-                    for (Projectile p : tower.getProjectiles()) {
+                    for (Projectile p : tower.getProjectiles()) { //*
                         p.move();
                         if (p.hit())
                             tower.addKillProjectile(p);

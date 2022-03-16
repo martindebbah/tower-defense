@@ -8,14 +8,21 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class Wave {
     private Game game;
     private JLabel chrono;
+    private JLabel cptWave;
+
     private int timeWave;
+
     private boolean finChrono = false;
+    private boolean finishGame = false;
+
     private int currentWave = 1;
-    private final int nbWaves = 20;
+
+    private final int nbWaves = 10;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public Wave(Game game, int time){
         chrono = new JLabel();
+        cptWave = new JLabel();
         this.game = game;
         this.timeWave = time;
     }
@@ -24,12 +31,12 @@ public class Wave {
         return chrono;
     }
 
-    public Player getPlayer(){
-        return game.getPlayer();
+    public JLabel getCptWave(){
+        return cptWave;
     }
 
-    public int getCurrentWave(){
-        return currentWave;
+    public Player getPlayer(){
+        return game.getPlayer();
     }
 
     public void incrementWave(){
@@ -38,6 +45,18 @@ public class Wave {
 
     public int getNbWaves(){
         return nbWaves;
+    }
+
+    public int getCurrentWave(){
+        return currentWave;
+    }
+
+    public void setFinChrono(boolean finChrono){
+        this.finChrono = finChrono;
+    }
+
+    public void setFinishGame(boolean fin){
+        finishGame = fin;
     }
 
     public boolean getFinChrono(){
@@ -49,19 +68,26 @@ public class Wave {
             int countdownStarter = timeWave;
 
             public void run() {
-
+                
+                cptWave.setText("Wave "+currentWave+" /");
                 chrono.setText(convertSecondToMinute(countdownStarter));
-                // Ce qui se passe pendant que le minuteur tourne
-                if(countdownStarter%2 == 0){ // toutes les 2 secondes un ennemi est crée 
-                    createEnemy(0);
-                }
+                wave(currentWave, countdownStarter);
                 countdownStarter--; // une seconde passe
 
                 if (countdownStarter < 0) {
                     chrono.setText("Next Wave");
-                    //scheduler.shutdown();
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     countdownStarter = timeWave;
                     finChrono = true;
+                    return;
+                }
+
+                if(currentWave > nbWaves || finishGame){
+                    scheduler.shutdown();
                 }
             }
         };
@@ -85,6 +111,61 @@ public class Wave {
                 Enemy e = new BasicEnemy(game);
                 e.setPath();
                 game.getBoard().addEnemy(e);
+                break;
+        }
+    }
+
+    public void wave(int currentWave, int countdownStarter){
+        switch(currentWave){
+            case 1 :
+                if(countdownStarter%20 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 2 :
+                if(countdownStarter%20 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 3 :
+                if(countdownStarter%15 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 4 :
+                if(countdownStarter%15 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 5 :
+                if(countdownStarter%10 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 6 :
+                if(countdownStarter%10 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 7 :
+                if(countdownStarter%5 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 8 :
+                if(countdownStarter%4 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 9 :
+                if(countdownStarter%3 == 0){
+                    createEnemy(0);
+                }
+                break;
+            case 10 :
+                if(countdownStarter%2 == 0){
+                    createEnemy(0);
+                }
                 break;
         }
     }
