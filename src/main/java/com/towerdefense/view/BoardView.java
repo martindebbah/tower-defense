@@ -1,8 +1,6 @@
 package com.towerdefense.view;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputListener;
 
 import com.towerdefense.model.BasicTower;
@@ -15,8 +13,6 @@ import com.towerdefense.model.Tower;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class BoardView extends JPanel implements MouseInputListener {

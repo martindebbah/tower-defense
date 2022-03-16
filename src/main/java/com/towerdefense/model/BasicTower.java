@@ -21,7 +21,7 @@ public class BasicTower extends Tower {
 
     @Override
     public int getDamage() {
-        return 0;
+        return 10;
     }
 
     @Override

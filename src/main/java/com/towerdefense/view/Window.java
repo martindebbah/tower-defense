@@ -4,8 +4,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.towerdefense.model.BasicEnemy;
-import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Wave;
@@ -15,10 +13,10 @@ import java.awt.BorderLayout;
 
 public class Window extends JFrame {
 
-    private JPanel mainPanel;
     private BoardView board;
     private Shop shop;
     private Game game;
+    private Wave wave;
 
     public Window() {
 
@@ -77,26 +75,25 @@ public class Window extends JFrame {
         // Création du plateau de jeu
         Player player = new Player("Martin");
         this.game = new Game(32, 20, player);
-        // mainPanel = new JPanel();
         setLayout(new BorderLayout());
-        // setContentPane(mainPanel);
+        this.wave = new Wave(this.game,60);
+        WaveView w = new WaveView(wave);
         createShop();
         createBoard();
-        add(new WaveView(new Wave(player)), BorderLayout.NORTH);
+        add(w, BorderLayout.NORTH);
         revalidate();
         repaint();
 
-        int r = 0;
-        
-        while(game.getPlayer().isAlive()) {
-            if(r == 0){
-                Enemy e1 = new BasicEnemy(game);
-                e1.setPath();
-                board.addEnemy(e1);
+        while(player.isAlive() && wave.getCurrentWave() <= wave.getNbWaves()){
+            if(wave.getFinChrono()){
+                wave.incrementWave();
+                System.out.println(wave.getCurrentWave());
+                wave.setFinChrono(false);
             }
-            playRound();
-            r++;
+            play();
         }
+
+        wave.setFinishGame(true);
     }
 
     public void playRound() {
@@ -105,7 +102,7 @@ public class Window extends JFrame {
         }catch(InterruptedException ie) {
             ie.printStackTrace();
         }
-        game.play();
+        wave.play();
         revalidate();
         repaint();
     }

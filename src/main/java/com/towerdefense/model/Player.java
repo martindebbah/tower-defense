@@ -27,5 +27,10 @@ public class Player {
     public boolean canAfford(Tower tower) {
         return money >= tower.getPrice();
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
     
 }
