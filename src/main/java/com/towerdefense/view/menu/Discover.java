@@ -1,4 +1,4 @@
-package Menu;
+package com.towerdefense.view.menu;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -17,7 +17,7 @@ public class Discover {
 	
 	public Discover(){
 		
-		 img= new ImageIcon(this.getClass().getResource("/accueil2.jpeg"));
+		 img= new ImageIcon("src/main/resources/images/accueil2.jpeg");
 		   labelDisc=new JLabel(img);
 		   labelDisc.setSize(650,450);
 		   
@@ -27,7 +27,7 @@ public class Discover {
 			labelDisc.add(back);
 			back.addActionListener(new ActionListener() {
 				   public void actionPerformed(ActionEvent e) {
-					 new MenuEssai();
+					 //new MenuEssai();
 				   }	   
 			}
 					 );
@@ -36,10 +36,9 @@ public class Discover {
 		   disco.add(labelDisc);
 		   disco.setLayout(null);
 		   disco.setLocationRelativeTo(null);
-		   disco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		   disco.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		   disco.setVisible(true);
 		
 	}
-
 
 }

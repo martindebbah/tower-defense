@@ -4,14 +4,14 @@ import java.awt.Color;
 
 public class AerialTower extends Tower {
 
-    private boolean Aerial; // pour faciliter l'insertion sur une autre dimension du plateau
+    private boolean aerial; // pour faciliter l'insertion sur une autre dimension du plateau
                             // et éviter la confusion, ça peut être utile
 
                             // Au lieu de faire un boolean juste le fait d'être de type AerialTower permet
                             // d'éviter la confusion
     public AerialTower(){
         super();
-        this.Aerial = true;
+        this.aerial = true;
     }
 
     @Override
