@@ -27,10 +27,10 @@ public class Window extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        setAccueil();
+        //setAccueil();
 
         // test
-        //play();
+        play();
 
     }
 
@@ -90,7 +90,7 @@ public class Window extends JFrame {
                 System.out.println(wave.getCurrentWave());
                 wave.setFinChrono(false);
             }
-            play();
+            playRound();
         }
 
         wave.setFinishGame(true);
