@@ -45,8 +45,8 @@ public class WaveView extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.GREEN);
-        g.drawRect(230, 40, 500, 20); // affiche la barre de vie du joueur (peut etre il faudrait l aligner au centre)
-        g.fillRect(230, 40, wave.getPlayer().getHP() * 500 / 1000, 20);
+        g.drawRect(230, 50, 500, 20); // affiche la barre de vie du joueur (peut etre il faudrait l aligner au centre)
+        g.fillRect(230, 50, wave.getPlayer().getHP() * 500 / 1000, 20);
     }    
     
 }
