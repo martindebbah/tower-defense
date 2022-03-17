@@ -64,8 +64,8 @@ public class GameView extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (player.isAlive() && wave.getCurrentWave() <= wave.getNbWaves()){
-            if (wave.getFinChrono()){
+        if (player.isAlive() && wave.getCurrentWave() < wave.getNbWaves()){ // condition d arreter wave superieur au max de wave + aucun enemy sur le board
+            if (wave.getFinChrono()){ // check si le chrono est fini pour passer a la wave suivante
                 wave.incrementWave();
                 wave.setFinChrono(false);
             }
