@@ -97,7 +97,7 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         if (preview != null) {
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {
-                g.setColor(Color.PINK);
+                g.setColor(shop.getPreviewColor());
                 g.fillRect(preview[0], preview[1], size, size);
             }
         }

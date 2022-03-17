@@ -28,7 +28,7 @@ public class AerialTower extends Tower {
 
     @Override
     public int getDamage() {
-        return 0;
+        return 10;
     }
 
     @Override
@@ -38,7 +38,12 @@ public class AerialTower extends Tower {
 
     @Override
     public Color getColor() {
-        return Color.YELLOW;
+        return new Color(245, 241, 4);
+    }
+
+    @Override
+    public Color getPreviewColor() {
+        return new Color(234, 232, 104);
     }
 
     @Override
