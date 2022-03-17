@@ -35,6 +35,10 @@ public class TowerView extends JPanel {
         return tower.newTower();
     }
 
+    public Tower getTower() {
+        return tower;
+    }
+
     public void select() {
         shop.refreshDesc(tower);
         setBorder(BorderFactory.createCompoundBorder(

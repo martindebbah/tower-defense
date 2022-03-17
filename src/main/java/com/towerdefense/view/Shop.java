@@ -21,7 +21,7 @@ public class Shop extends JPanel {
 
     private TowerPanel towerPanel;
     private Description description;
-    private Tower selected;
+    //private Tower selected;
     private boolean wantPurchase;
 
     public Shop() {
@@ -41,7 +41,7 @@ public class Shop extends JPanel {
     }
 
     public void deselect() {
-        selected = null;
+        //selected = null;
         wantPurchase = false;
         towerPanel.select(null);
     }
@@ -55,12 +55,16 @@ public class Shop extends JPanel {
         return wantPurchase;
     }
 
-    public Tower getSelected() {
-        return selected;
-    }
+    // public Tower getSelected() {
+    //     return selected;
+    // }
 
     public Tower addNewTower() {
         return towerPanel.getSelected().newTower();
+    }
+
+    public Color getPreviewColor() {
+        return towerPanel.getSelected().getTower().getPreviewColor();
     }
 
     public class TowerPanel extends JPanel {

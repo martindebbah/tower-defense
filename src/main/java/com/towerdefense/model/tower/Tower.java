@@ -131,5 +131,9 @@ public class Tower {
     public Color getColor() {   // Première méthode pour afficher une tour
         return null;
     }
+
+    public Color getPreviewColor() {
+        return null;
+    }
     
 }

@@ -38,7 +38,12 @@ public class BasicTower extends Tower {
 
     @Override
     public Color getColor() {
-        return Color.BLUE;
+        return new Color(19, 84, 173);
+    }
+
+    @Override
+    public Color getPreviewColor() {
+        return new Color(47, 125, 231);
     }
 
     @Override
