@@ -23,6 +23,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     private int size;
     private Shop shop;
     private int[] preview;
+    private boolean isPaused = false;
 
     public BoardView(Game game, Shop shop) {
         this.board = game.getBoard();
@@ -120,9 +121,17 @@ public class BoardView extends JPanel implements MouseInputListener {
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour
-            if (shop.wantPurchase())
+            if (shop.wantPurchase() && !isPaused)
                 addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
         }
+    }
+
+    public void pause() {
+        isPaused = true;
+    }
+
+    public void start() {
+        isPaused = false;
     }
 
     @Override
