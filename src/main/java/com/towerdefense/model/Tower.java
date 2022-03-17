@@ -18,6 +18,10 @@ public class Tower {
         this.killProjectiles = new ArrayList<Projectile>();
     }
 
+    public Tower newTower() {
+        return null;
+    }
+
     public String toString() {  // Fonction définie dans chaque classe héritant de Tower
         return "";
     }

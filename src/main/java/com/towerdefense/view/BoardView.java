@@ -63,7 +63,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                     g.fillRect(y*size, x*size, size, size);
                 }
                 if (board.getBoard()[x][y].containsTower()) {
-                    g.setColor(Color.BLUE);
+                    g.setColor(board.getBoard()[x][y].getTower().getColor());
                     g.fillRect(x * size, y * size, size, size);
                 }
         		g.setColor(Color.BLACK);
@@ -100,6 +100,11 @@ public class BoardView extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // Ne fait rien
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
         
@@ -109,13 +114,9 @@ public class BoardView extends JPanel implements MouseInputListener {
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour
-            addTower(new BasicTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
+            if (shop.wantPurchase())
+                addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // Ne fait rien
     }
 
     @Override

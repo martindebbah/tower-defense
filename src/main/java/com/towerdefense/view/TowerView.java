@@ -31,8 +31,8 @@ public class TowerView extends JPanel {
         
     }
 
-    public Tower getTower() {
-        return tower;
+    public Tower newTower() {
+        return tower.newTower();
     }
 
     public void select() {
@@ -40,7 +40,7 @@ public class TowerView extends JPanel {
         setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createMatteBorder(2,  2,  2,  2, Color.BLACK),
                     BorderFactory.createMatteBorder(3,  3,  3,  3, Color.WHITE)));
-        shop.purchase();
+        shop.purchase(this);
     }
 
     public void deselect() {

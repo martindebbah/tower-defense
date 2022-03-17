@@ -43,10 +43,12 @@ public class Shop extends JPanel {
     public void deselect() {
         selected = null;
         wantPurchase = false;
+        towerPanel.select(null);
     }
 
-    public void purchase() {
+    public void purchase(TowerView t) {
         wantPurchase = true;
+        towerPanel.select(t);
     }
 
     public boolean wantPurchase() {
@@ -57,10 +59,15 @@ public class Shop extends JPanel {
         return selected;
     }
 
+    public Tower addNewTower() {
+        return towerPanel.getSelected().newTower();
+    }
+
     public class TowerPanel extends JPanel {
 
         private List<TowerView> towers; // La liste des tours dans le shop
         private JPanel panel;
+        private TowerView selected;
 
         public TowerPanel() {
             this.towers = new ArrayList<TowerView>();
@@ -80,6 +87,14 @@ public class Shop extends JPanel {
 
         public List<TowerView> getTowers() {
             return towers;
+        }
+
+        public TowerView getSelected() {
+            return selected;
+        }
+
+        public void select(TowerView t) {
+            selected = t;
         }
 
     }

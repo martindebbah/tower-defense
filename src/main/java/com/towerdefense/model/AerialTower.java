@@ -5,6 +5,11 @@ import java.awt.Color;
 public class AerialTower extends Tower {
 
     @Override
+    public Tower newTower() {
+        return new AerialTower();
+    }
+
+    @Override
     public String toString() {
         return "Tour anti-aérienne";
     }

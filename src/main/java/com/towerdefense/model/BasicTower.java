@@ -5,6 +5,11 @@ import java.awt.Color;
 public class BasicTower extends Tower {
 
     @Override
+    public Tower newTower() {
+        return new BasicTower();
+    }
+
+    @Override
     public String toString() {
         return "Tour basique";
     }
