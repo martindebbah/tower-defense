@@ -46,7 +46,7 @@ public class Window extends JFrame {
         repaint();
     }
 
-    public void refresh() {
+    public void refresh(){
         revalidate();
         repaint();
     }

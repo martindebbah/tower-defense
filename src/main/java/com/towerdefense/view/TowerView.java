@@ -7,7 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
-import com.towerdefense.model.Tower;
+import com.towerdefense.model.tower.Tower;
 
 public class TowerView extends JPanel {
 

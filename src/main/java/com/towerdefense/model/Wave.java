@@ -3,6 +3,11 @@ package com.towerdefense.model;
 import java.util.concurrent.*;
 
 import javax.swing.JLabel;
+
+import com.towerdefense.model.enemy.BasicEnemy;
+import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.enemy.Mo;
+
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Wave {
@@ -68,7 +73,6 @@ public class Wave {
             int countdownStarter = timeWave;
 
             public void run() {
-                
                 cptWave.setText("Wave "+currentWave+" /");
                 chrono.setText(convertSecondToMinute(countdownStarter));
                 wave(currentWave, countdownStarter);
@@ -76,11 +80,11 @@ public class Wave {
 
                 if (countdownStarter < 0) {
                     chrono.setText("Next Wave");
-                    try {
-                        Thread.sleep(5000);
+                    /*try {
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                     countdownStarter = timeWave;
                     finChrono = true;
                     return;
@@ -111,6 +115,11 @@ public class Wave {
                 Enemy e = new BasicEnemy(game);
                 e.setPath();
                 game.getBoard().addEnemy(e);
+                break;
+            case 10 :
+                Enemy e10 = new Mo(game);
+                e10.setPath();
+                game.getBoard().addEnemy(e10);
                 break;
         }
     }
@@ -165,6 +174,9 @@ public class Wave {
             case 10 :
                 if(countdownStarter%2 == 0){
                     createEnemy(0);
+                }
+                if(countdownStarter%40 == 0){
+                    createEnemy(10);
                 }
                 break;
         }

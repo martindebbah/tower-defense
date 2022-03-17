@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 import com.towerdefense.model.Wave;
 
@@ -12,13 +13,15 @@ import java.awt.Graphics;
 public class WaveView extends JPanel {
 
     private Wave wave;
-    private JButton pause = new JButton("Pause");
+    private JButton pause;
 
 
     public WaveView(Wave wave) {
         this.wave = wave;
         setPreferredSize(new java.awt.Dimension(1000, 112));
         wave.chrono();
+        pause =  new JButton("Pause");
+        //pause.addActionListener(e -> {wave});
         add(pause);
         add(wave.getCptWave());
         add(wave.getChrono());

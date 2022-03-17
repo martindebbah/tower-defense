@@ -1,5 +1,7 @@
 package com.towerdefense.model;
 
+import com.towerdefense.model.tower.Tower;
+
 public class Tile {
     private Tower t;
     private int x,y;

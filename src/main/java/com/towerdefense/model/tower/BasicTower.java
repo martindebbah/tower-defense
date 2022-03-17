@@ -1,17 +1,19 @@
-package com.towerdefense.model;
+package com.towerdefense.model.tower;
 
 import java.awt.Color;
 
-public class AerialTower extends Tower {
+import com.towerdefense.model.enemy.Enemy;
+
+public class BasicTower extends Tower {
 
     @Override
     public Tower newTower() {
-        return new AerialTower();
+        return new BasicTower();
     }
 
     @Override
     public String toString() {
-        return "Tour anti-aérienne";
+        return "Tour basique";
     }
 
     @Override
@@ -22,11 +24,11 @@ public class AerialTower extends Tower {
     @Override
     public int getPrice() {
         return 10;
-    } // plus cher ou pas ?
+    }
 
     @Override
     public int getDamage() {
-        return 0;
+        return 10;
     }
 
     @Override
@@ -36,12 +38,12 @@ public class AerialTower extends Tower {
 
     @Override
     public Color getColor() {
-        return Color.YELLOW;
+        return Color.BLUE;
     }
 
     @Override
     public boolean canFocus(Enemy e) {
-        return e.isAerial();
+        return !e.isAerial();
     }
-
+    
 }

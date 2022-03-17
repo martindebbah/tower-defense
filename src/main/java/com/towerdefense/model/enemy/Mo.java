@@ -1,4 +1,6 @@
-package com.towerdefense.model;
+package com.towerdefense.model.enemy;
+
+import com.towerdefense.model.Game;
 
 public class Mo extends Enemy {
 
