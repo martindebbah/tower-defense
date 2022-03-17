@@ -3,13 +3,15 @@ package com.towerdefense.view;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
-import com.towerdefense.model.BasicTower;
 import com.towerdefense.model.Board;
-import com.towerdefense.model.Enemy;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
-import com.towerdefense.model.Tower;
+import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.enemy.Mo;
+import com.towerdefense.model.tower.BasicTower;
+import com.towerdefense.model.tower.Tower;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -72,7 +74,11 @@ public class BoardView extends JPanel implements MouseInputListener {
         }
 
         for (Enemy e : board.getEnemies()) {
-            g.setColor(Color.RED);
+            if(e instanceof Mo){
+                g.setColor(Color.BLACK);
+            } else {
+                g.setColor(Color.RED);
+            }
             int[] coord = e.getCoord();
             g.fillOval(coord[0], coord[1], size, size);
             g.setColor(Color.GREEN);

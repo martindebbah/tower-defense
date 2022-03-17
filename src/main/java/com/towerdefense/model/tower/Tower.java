@@ -1,7 +1,11 @@
-package com.towerdefense.model;
+package com.towerdefense.model.tower;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.towerdefense.model.Board;
+import com.towerdefense.model.Projectile;
+import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.Color;
 

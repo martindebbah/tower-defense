@@ -2,6 +2,9 @@ package com.towerdefense.model;
 
 import java.awt.Color;
 
+import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.tower.Tower;
+
 public class Projectile {
 
     private Tower source;

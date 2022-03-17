@@ -1,8 +1,12 @@
-package com.towerdefense.model;
+package com.towerdefense.model.enemy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
+import com.towerdefense.model.Board;
+import com.towerdefense.model.Game;
+import com.towerdefense.model.Tile;
 
 public class Enemy {
 

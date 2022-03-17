@@ -1,6 +1,8 @@
-package com.towerdefense.model;
+package com.towerdefense.model.tower;
 
 import java.awt.Color;
+
+import com.towerdefense.model.enemy.Enemy;
 
 public class AerialTower extends Tower {
 

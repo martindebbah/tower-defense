@@ -1,5 +1,8 @@
 package com.towerdefense.model;
 
+import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.tower.Tower;
+
 public class Game {
 
     private Board board;

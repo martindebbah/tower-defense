@@ -13,9 +13,9 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.towerdefense.model.AerialTower;
-import com.towerdefense.model.BasicTower;
-import com.towerdefense.model.Tower;
+import com.towerdefense.model.tower.AerialTower;
+import com.towerdefense.model.tower.BasicTower;
+import com.towerdefense.model.tower.Tower;
 
 public class Shop extends JPanel {
 

@@ -3,6 +3,9 @@ package com.towerdefense.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.tower.Tower;
+
 public class Board {
 
     private Tile[][] cases;

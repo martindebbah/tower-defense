@@ -11,9 +11,12 @@ import com.towerdefense.view.Window;
 public class NewGame extends JPanel {
 
 	private JPanel buttons;
+	private Window window;
     
-    public NewGame(Window window){
+    public NewGame(Window w){
 		setSize(1000, 1000);
+
+		this.window = w;
 
 		buttons = new JPanel();
 		buttons.setLayout(new GridLayout(0, 1));

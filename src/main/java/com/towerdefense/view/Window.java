@@ -76,7 +76,7 @@ public class Window extends JFrame {
         Player player = new Player("Martin");
         this.game = new Game(32, 20, player);
         setLayout(new BorderLayout());
-        this.wave = new Wave(this.game,60);
+        this.wave = new Wave(this.game,10);
         WaveView w = new WaveView(wave);
         createShop();
         createBoard();
