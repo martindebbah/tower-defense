@@ -3,7 +3,9 @@ package com.towerdefense.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.tower.BasicTower;
 import com.towerdefense.model.tower.Tower;
 
 public class Board {
@@ -15,6 +17,7 @@ public class Board {
     private int nbCases;
     private List<Tower> towersToAdd;
     private boolean setPath = true;
+    private Game game;
 
     public Board(int size, int nbCases, Game game) {
         this.enemies = new ArrayList<Enemy>();
@@ -23,6 +26,7 @@ public class Board {
         this.size = size;
         this.nbCases = nbCases;
         createBoard(nbCases, nbCases);
+        this.game = game;
     }
 
     public void createBoard(int n, int m) {
@@ -153,7 +157,24 @@ public class Board {
         return false;
     }
 
-    // plateau 26x22 cases (tour = 2x2)
-    // 13 tours par ligne
-    // 11 tours par colonne
+    public boolean canBuildOn(int x, int y) {   // Empêche de fermer la route.
+        if (x == 0 && y == nbCases / 2)         // Les ennemis ont forcément au moins une possibilté
+            return false;                       // d'arriver au bout du chemin.
+
+        boolean r = true;
+        cases[x][y].setTower(new BasicTower());
+        Enemy e = new BasicEnemy(game);
+        try {
+            e.setPath();
+        }catch(IndexOutOfBoundsException ioe) {
+            r = false;
+        }
+        removeTower(x, y);
+        return r;
+    }
+
+    public void removeTower(int x, int y) {
+        cases[x][y].setTower(null);
+    }
+
 }

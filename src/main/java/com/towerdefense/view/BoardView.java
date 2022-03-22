@@ -9,7 +9,6 @@ import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
-import com.towerdefense.model.tower.BasicTower;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -121,7 +120,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour
-            if (shop.wantPurchase() && !isPaused)
+            if (shop.wantPurchase() && !isPaused && board.canBuildOn(x / size, y / size)) // Vérifier aussi que le joueur a assez d'argent
                 addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
         }
     }
@@ -157,14 +156,15 @@ public class BoardView extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        if (!shop.wantPurchase())
+            return;
+        
         // Déplace le preview de la tour à poser
         int x = e.getX();
         int y = e.getY();
-        if (shop.wantPurchase()) {
-            preview = new int[2];
-            preview[0] = x - x % size;
-            preview[1] = y - y % size;
-        }
+        preview = new int[2];
+        preview[0] = x - x % size;
+        preview[1] = y - y % size;
     }
 
 }
