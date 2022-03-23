@@ -8,6 +8,9 @@ import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tile;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Enemy {
 
     private Game game;
@@ -54,6 +57,10 @@ public class Enemy {
 
     public boolean isAlive() {
         return health > 0;
+    }
+
+    public void setHealth(int h){
+        this.health += h;
     }
 
     public int getMaxHealth() {
@@ -259,6 +266,22 @@ public class Enemy {
                 break;
             case 8: moveLeft();
                 break;
+        }
+    }
+
+    public void typeEnemy(Graphics g){
+        if(this instanceof Mo){
+            g.setColor(Color.BLACK);
+            g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+        } else if(this instanceof BasicEnemy){
+            g.setColor(Color.RED);
+            g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+        } else if(this instanceof AerialEnemy){
+            g.setColor(Color.YELLOW);
+            g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+        } else if(this instanceof TankEnemy){
+            g.setColor(Color.GRAY);
+            g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         }
     }
     

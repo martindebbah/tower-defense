@@ -2,20 +2,21 @@ package com.towerdefense.model.enemy;
 
 import com.towerdefense.model.Game;
 
-public class Mo extends Enemy {
+public class TankEnemy extends Enemy{
 
-    public Mo(Game game) {
+    public TankEnemy(Game game) {
         super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+        //TODO Auto-generated constructor stub
     }
 
     @Override
     public int getGold() {
-        return 1000;
+        return 100;
     }
 
     @Override
     public int getMaxHealth() {
-        return 2500;
+        return 300;
     }
 
     @Override
@@ -25,7 +26,12 @@ public class Mo extends Enemy {
 
     @Override
     public String toString() {
-        return "Boss de donjon"; // Peut-être nom à changer
+        return "Ennemi tank"; // Peut-être nom à changer
+    }
+
+    @Override
+    public boolean isAerial(){
+        return false;
     }
     
 }

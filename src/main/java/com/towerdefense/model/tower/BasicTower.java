@@ -23,7 +23,7 @@ public class BasicTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 10;
+        return 100;
     }
 
     @Override
@@ -38,12 +38,7 @@ public class BasicTower extends Tower {
 
     @Override
     public Color getColor() {
-        return new Color(19, 84, 173);
-    }
-
-    @Override
-    public Color getPreviewColor() {
-        return new Color(47, 125, 231);
+        return Color.BLUE;
     }
 
     @Override

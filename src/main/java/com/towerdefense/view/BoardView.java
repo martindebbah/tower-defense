@@ -7,6 +7,8 @@ import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
+import com.towerdefense.model.enemy.AerialEnemy;
+import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.tower.BasicTower;
@@ -74,16 +76,10 @@ public class BoardView extends JPanel implements MouseInputListener {
         }
 
         for (Enemy e : board.getEnemies()) {
-            if(e instanceof Mo){
-                g.setColor(Color.BLACK);
-            } else {
-                g.setColor(Color.RED);
-            }
-            int[] coord = e.getCoord();
-            g.fillOval(coord[0], coord[1], size, size);
+            e.typeEnemy(g);
             g.setColor(Color.GREEN);
-            g.drawRect(coord[0], coord[1]- 10, size, 5);
-            g.fillRect(coord[0], coord[1]- 10, e.getHP() * size / 100, 5);
+            g.drawRect(e.getCoord()[0], e.getCoord()[1]- 10, size, 5);
+            g.fillRect(e.getCoord()[0], e.getCoord()[1]- 10, e.getHP() * size / 100, 5);
             //System.out.println(e.getX()/32 + " : " + e.getY()/32);
         }
 

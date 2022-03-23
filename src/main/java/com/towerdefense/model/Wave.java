@@ -4,9 +4,11 @@ import java.util.concurrent.*;
 
 import javax.swing.JLabel;
 
+import com.towerdefense.model.enemy.AerialEnemy;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
+import com.towerdefense.model.enemy.TankEnemy;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -109,12 +111,25 @@ public class Wave {
         game.getBoard().refresh();
     }
 
-    public void createEnemy(int enemy){ // Créer l'ennemi en fonction de son type (notée par un int)
+    public void createEnemy(int enemy, int healthSupp){ // Créer l'ennemi en fonction de son type (notée par un int)
         switch(enemy){
             default :
                 Enemy e = new BasicEnemy(game);
+                e.setHealth(healthSupp);
                 e.setPath();
                 game.getBoard().addEnemy(e);
+                break;
+            case 1 :
+                Enemy e2 = new AerialEnemy(game);
+                e2.setHealth(healthSupp);
+                e2.setPath();
+                game.getBoard().addEnemy(e2);
+                break;
+            case 2 :
+                Enemy e3 = new TankEnemy(game);
+                e3.setHealth(healthSupp);
+                e3.setPath();
+                game.getBoard().addEnemy(e3);
                 break;
             case 10 :
                 Enemy e10 = new Mo(game);
@@ -127,56 +142,101 @@ public class Wave {
     public void wave(int currentWave, int countdownStarter){
         switch(currentWave){
             case 1 :
-                if(countdownStarter%20 == 0){
-                    createEnemy(0);
+                if(countdownStarter%4 == 0){
+                    createEnemy(0,0);
                 }
                 break;
             case 2 :
-                if(countdownStarter%20 == 0){
-                    createEnemy(0);
+                if(countdownStarter%4 == 0){
+                    createEnemy(0,20);
                 }
                 break;
             case 3 :
-                if(countdownStarter%15 == 0){
-                    createEnemy(0);
+                if(countdownStarter%4 == 0){
+                    createEnemy(0,40);
+                }
+                if(countdownStarter%8 == 0){
+                    createEnemy(1,0);
                 }
                 break;
             case 4 :
-                if(countdownStarter%15 == 0){
-                    createEnemy(0);
+                if(countdownStarter%2 == 0){
+                    createEnemy(0,40);
+                }
+                if(countdownStarter%6 == 0){
+                    createEnemy(1,0);
+                }
+                if(countdownStarter%10 == 0){
+                    createEnemy(2,0);
                 }
                 break;
             case 5 :
-                if(countdownStarter%10 == 0){
-                    createEnemy(0);
+                if(countdownStarter%2 == 0){
+                    createEnemy(0,40);
+                }
+                if(countdownStarter%6 == 0){
+                    createEnemy(1,0);
+                }
+                if(countdownStarter%8 == 0){
+                    createEnemy(2,0);
                 }
                 break;
             case 6 :
-                if(countdownStarter%10 == 0){
-                    createEnemy(0);
+                if(countdownStarter%2 == 0){
+                    createEnemy(0,80);
+                }
+                if(countdownStarter%4 == 0){
+                    createEnemy(1,0);
+                }
+                if(countdownStarter%6 == 0){
+                    createEnemy(2,80);
                 }
                 break;
             case 7 :
-                if(countdownStarter%5 == 0){
-                    createEnemy(0);
+                if(countdownStarter%2 == 0){
+                    createEnemy(0,80);
+                }
+                if(countdownStarter%4 == 0){
+                    createEnemy(1,0);
+                }
+                if(countdownStarter%6 == 0){
+                    createEnemy(2,80);
                 }
                 break;
             case 8 :
+                if(countdownStarter%2 == 0){
+                    createEnemy(0,100);
+                }
                 if(countdownStarter%4 == 0){
-                    createEnemy(0);
+                    createEnemy(1,0);
+                }
+                if(countdownStarter%6 == 0){
+                    createEnemy(2,100);
                 }
                 break;
             case 9 :
-                if(countdownStarter%3 == 0){
-                    createEnemy(0);
+                if(countdownStarter%4 == 0){
+                    createEnemy(0,400);
+                }
+                if(countdownStarter%6 == 0){
+                    createEnemy(1,400);
+                }
+                if(countdownStarter%8 == 0){
+                    createEnemy(2,400);
                 }
                 break;
             case 10 :
-                if(countdownStarter%2 == 0){
-                    createEnemy(0);
+                if(countdownStarter%4 == 0){
+                    createEnemy(0,800);
+                }
+                if(countdownStarter%8 == 0){
+                    createEnemy(1,800);
+                }
+                if(countdownStarter%10 == 0){
+                    createEnemy(2,800);
                 }
                 if(countdownStarter%40 == 0){
-                    createEnemy(10);
+                    createEnemy(10,0);
                 }
                 break;
         }

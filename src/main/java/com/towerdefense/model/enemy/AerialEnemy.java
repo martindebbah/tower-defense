@@ -10,27 +10,32 @@ public class AerialEnemy extends Enemy {
 
     @Override
     public int getGold() {
-        return 80;
+        return 20;
     }
 
     @Override
     public int getMaxHealth() {
-        return 80;
+        return 60;
     }
 
     @Override
     public int getMovementSpeed() {
-        return 1;
+        return 2;
     }
 
     @Override
     public String toString() {
-        return "Ennemi de base"; // Peut-être nom à changer
+        return "Ennemi aérien"; // Peut-être nom à changer
     }
 
     @Override
     public boolean isAerial(){
         return true;
+    }
+
+    @Override
+    public void move(){
+        this.moveRight();
     }
     
 }
