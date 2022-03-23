@@ -33,7 +33,7 @@ public class GameView extends JPanel implements ActionListener {
         createShop();
         createBoard();
         this.wave = new Wave(this.game,60);
-        WaveView w = new WaveView(wave);
+        WaveView w = new WaveView(wave, this);
         add(w, BorderLayout.NORTH);
     }
 
@@ -52,6 +52,14 @@ public class GameView extends JPanel implements ActionListener {
 
     public void start() {
         timer.start();
+        board.start();
+        window.refresh();
+    }
+
+    public void pause() {
+        timer.stop();
+        board.pause();
+        window.refresh();
     }
 
     @Override

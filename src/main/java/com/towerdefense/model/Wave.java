@@ -1,23 +1,29 @@
 package com.towerdefense.model;
 
-import java.util.concurrent.*;
+//import java.util.concurrent.*;
 
 import javax.swing.JLabel;
 
 import com.towerdefense.model.enemy.AerialEnemy;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.enemy.TankEnemy;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
+//import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class Wave {
+public class Wave implements ActionListener {
     private Game game;
     private JLabel chrono;
     private JLabel cptWave;
 
     private int timeWave;
+    private int countDown;
+    private Timer timer = new Timer(1000, this);
 
     private boolean finChrono = false;
     private boolean finishGame = false;
@@ -25,13 +31,14 @@ public class Wave {
     private int currentWave = 1;
 
     private final int nbWaves = 10;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    //private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public Wave(Game game, int time){
         chrono = new JLabel();
         cptWave = new JLabel();
         this.game = game;
         this.timeWave = time;
+        this.countDown = time;
     }
 
     public JLabel getChrono(){
@@ -70,34 +77,34 @@ public class Wave {
         return finChrono;
     }
 
-    public void chrono(){
-        final Runnable runnable = new Runnable() {
-            int countdownStarter = timeWave;
+    public void start(){
+        timer.start();
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        cptWave.setText("Wave "+currentWave+" /");
+        chrono.setText(convertSecondToMinute(countDown));
+        wave(currentWave, countDown);
+        countDown--; // une seconde passe
+        if (countDown < 0) {
+            chrono.setText("Next Wave");
+            /*try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+            countDown = timeWave;
+            finChrono = true;
+            return;
+        }
+        if(currentWave > nbWaves || finishGame){
+            timer.stop();
+        }
+    }
 
-            public void run() {
-                cptWave.setText("Wave "+currentWave+" /");
-                chrono.setText(convertSecondToMinute(countdownStarter));
-                wave(currentWave, countdownStarter);
-                countdownStarter--; // une seconde passe
-
-                if (countdownStarter < 0) {
-                    chrono.setText("Next Wave");
-                    /*try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }*/
-                    countdownStarter = timeWave;
-                    finChrono = true;
-                    return;
-                }
-
-                if(currentWave > nbWaves || finishGame){
-                    scheduler.shutdown();
-                }
-            }
-        };
-        scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+    public void pause() {
+        timer.stop();
     }
 
     public String convertSecondToMinute(int second){
