@@ -14,13 +14,15 @@ import java.awt.Graphics;
 public class Enemy {
 
     private Game game;
-    private int health;
+    protected int health;
+    //protected int maxHealth;
     private int x;
     private int y;
     private Stack<Tile> path;
     private int direction;
 
     public Enemy(Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
+        //this.maxHealth = getMaxHealth();
         this.health = getMaxHealth();
         this.game = game;
         this.x = x;
@@ -59,12 +61,17 @@ public class Enemy {
         return health > 0;
     }
 
-    public void setHealth(int h){
-        this.health += h;
+    public int getHealth(){
+        return 0;
     }
 
-    public int getMaxHealth() {
+    public int getMaxHealth(){
         return 0;
+    }
+
+    public void setHealth(int m){
+        //this.maxHealth += m;
+        this.health += m;
     }
 
     public int getGold() {// Fonction définie dans chaque classe qui hérite de Enemy

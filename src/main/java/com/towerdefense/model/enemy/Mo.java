@@ -14,13 +14,13 @@ public class Mo extends Enemy {
     }
 
     @Override
-    public int getMaxHealth() {
-        return 2500;
+    public int getMovementSpeed() {
+        return 1;
     }
 
     @Override
-    public int getMovementSpeed() {
-        return 1;
+    public int getMaxHealth(){
+        return 3000;
     }
 
     @Override

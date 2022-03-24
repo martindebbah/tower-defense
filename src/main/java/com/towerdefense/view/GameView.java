@@ -32,7 +32,7 @@ public class GameView extends JPanel implements ActionListener {
         this.game = new Game(32, 20, player);
         createShop();
         createBoard();
-        this.wave = new Wave(this.game,60);
+        this.wave = new Wave(this.game,20);
         WaveView w = new WaveView(wave, this);
         add(w, BorderLayout.NORTH);
     }
@@ -64,16 +64,33 @@ public class GameView extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (player.isAlive() && wave.getCurrentWave() < wave.getNbWaves()){ // condition d arreter wave superieur au max de wave + aucun enemy sur le board
-            if (wave.getFinChrono()){ // check si le chrono est fini pour passer a la wave suivante
-                wave.incrementWave();
-                wave.setFinChrono(false);
+        if (player.isAlive()){ // condition d arreter wave superieur au max de wave + aucun enemy sur le board
+            if(wave.getCurrentWave() < wave.getNbWaves()){
+                if (wave.getFinChrono()){ // check si le chrono est fini pour passer a la wave suivante
+                    wave.incrementWave(); // passe à la wave suivante
+                    wave.setFinChrono(false);
+                }
+                wave.play();
+                window.refresh();
+            } else {
+                wave.setWinGame(true); 
             }
-            wave.play();
-            window.refresh();
         }else{
-            wave.setFinishGame(true);
+            wave.setLoseGame(true);
         }
     }
+
+    public int GameFinish(){
+        if(wave.getWin()){
+            return 0;
+        } else {
+            if(wave.getLose()){
+                return 1;
+            }
+        }
+        return -1;
+    }
+
+
 
 }

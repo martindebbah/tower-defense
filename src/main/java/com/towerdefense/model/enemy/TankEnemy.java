@@ -15,8 +15,8 @@ public class TankEnemy extends Enemy{
     }
 
     @Override
-    public int getMaxHealth() {
-        return 300;
+    public int getMaxHealth(){
+        return 500;
     }
 
     @Override

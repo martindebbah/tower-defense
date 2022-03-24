@@ -14,8 +14,8 @@ public class BasicEnemy extends Enemy {
     }
 
     @Override
-    public int getMaxHealth() {
-        return 100;
+    public int getMaxHealth(){
+        return 200;
     }
 
     @Override

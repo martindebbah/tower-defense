@@ -15,12 +15,20 @@ public class Player {
         this.name = name;
     }
 
+    public int getMoney(){
+        return this.money;
+    }
+
+    public void setMoney(int m){
+        this.money = m;
+    }
+
     public int getHP(){
         return health;
     }
 
     public void getHit(Enemy enemy) {
-        health -= enemy.getHP()*enemy.getMaxHealth()/100;
+        health -= enemy.getHP()*enemy.getHealth()/100;
     }
 
     public boolean isAlive() {

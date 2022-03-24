@@ -5,6 +5,7 @@ import javax.swing.event.MouseInputListener;
 
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
+import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
 import com.towerdefense.model.enemy.AerialEnemy;
@@ -25,9 +26,11 @@ public class BoardView extends JPanel implements MouseInputListener {
     private Shop shop;
     private int[] preview;
     private boolean isPaused = false;
+    private Player player;
 
     public BoardView(Game game, Shop shop) {
         this.board = game.getBoard();
+        this.player = game.getPlayer();
         size = board.getSize();
         setPreferredSize(new java.awt.Dimension(size * board.getNbCases(), size * board.getNbCases()));
         this.shop = shop;
@@ -79,8 +82,8 @@ public class BoardView extends JPanel implements MouseInputListener {
             e.typeEnemy(g);
             g.setColor(Color.GREEN);
             g.drawRect(e.getCoord()[0], e.getCoord()[1]- 10, size, 5);
-            g.fillRect(e.getCoord()[0], e.getCoord()[1]- 10, e.getHP() * size / 100, 5);
-            //System.out.println(e.getX()/32 + " : " + e.getY()/32);
+            g.fillRect(e.getCoord()[0], e.getCoord()[1]- 10, e.getHP() * size / e.getMaxHealth(), 5);
+            System.out.println(e.getX() + " : " + e.getY());
         }
 
         for (Tile[] tab : board.getBoard())
@@ -116,8 +119,10 @@ public class BoardView extends JPanel implements MouseInputListener {
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour
-            if (shop.wantPurchase() && !isPaused && board.canBuildOn(x / size, y / size)) // Vérifier aussi que le joueur a assez d'argent
+            if (player.canAfford(shop.getTowerPanel().getSelected().getTower()) && shop.wantPurchase() && !isPaused && board.canBuildOn(x / size, y / size)){ // Vérifier aussi que le joueur a assez d'argent
                 addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
+                player.setMoney(player.getMoney()-shop.getTowerPanel().getSelected().getTower().getPrice()); // achète la tour
+            }
         }
     }
 

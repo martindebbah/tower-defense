@@ -18,7 +18,7 @@ public class BasicTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class BasicTower extends Tower {
 
     @Override
     public int getDamage() {
-        return 10;
+        return 15;
     }
 
     @Override
