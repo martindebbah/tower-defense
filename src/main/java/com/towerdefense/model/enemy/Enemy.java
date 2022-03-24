@@ -63,7 +63,7 @@ public class Enemy {
         this.health += h;
     }
 
-    public int getMaxHealth() {
+    public int getMaxHealth() { // Fonction définie dans les classes qui héritent de Enemy
         return 0;
     }
 
@@ -83,11 +83,11 @@ public class Enemy {
         return false;
     }
 
-    public void getHit(int damage) { // Appelé par la tour qui inflige les dommages à l'unité
+    public void getHit(int damage) { // Appelée par la tour qui inflige les dommages à l'unité
         health -= damage;
     }
 
-    public void crossedBoard() { // L'unité a traversé le plateau (fait perdre un pdv au joueur)
+    public void crossedBoard() { // L'unité a traversé le plateau (fait perdre des pv au joueur)
         game.getPlayer().getHit(this);
         health = 0;
     }
@@ -148,11 +148,11 @@ public class Enemy {
     public void validNode(int x, int y, int fx, int fy, Board board, ArrayList<Tile> closed, ArrayList<Tile> open, Tile current){
         Tile next = board.getBoard()[x][y];
 
-        if (closed.contains(next))  // Si la case est déjà dans la liste fermée
+        if (closed.contains(next))  // Si la case est déjà dans la liste fermée, on ne l'ajoute pas
             return;
             
         if(open.contains(board.getBoard()[x][y]))   // si le noeud est déjà dans la liste ouverte on vérifie sa qualité et on la met à jour si elle est meilleure
-            for(Tile t : open){ // Le calcul de la qualité est-il vraiment fonctionnel ?
+            for(Tile t : open){
                 if(x == t.getX() && y == t.getY() && next.getQuality() < t.getQuality()){
                     t.setParent(current);
                     t.setQuality(next.getQuality());
@@ -176,7 +176,7 @@ public class Enemy {
 
         while(current != board.getBoard()[fx][fy]){ // tant que le noeud actuel n'est pas le noeud de sortie
 
-            neighbors = board.neighbors(current);
+            neighbors = board.getNeighborsOf(current);
 
             for (Tile t : neighbors)
                 validNode(t.getX() / board.getSize(), t.getY() / board.getSize(), fx, fy, board, closed, open, current);
@@ -199,7 +199,6 @@ public class Enemy {
         /*
             Donne la première case que l'ennemi doit visiter
             en fonction de la direction dans laquelle il se dirige
-            !! non fonctionnel : si la tuile retournée contient une tour, n'en prend pas compte !!
         */
         switch (direction) {
             case 1: return board.getBoard()[x / board.getSize()][y / board.getSize()];

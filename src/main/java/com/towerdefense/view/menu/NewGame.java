@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.towerdefense.model.Player;
 import com.towerdefense.view.Window;
 
 public class NewGame extends JPanel {
@@ -13,7 +14,7 @@ public class NewGame extends JPanel {
 	private JPanel buttons;
 	private Window window;
     
-    public NewGame(Window w){
+    public NewGame(Window w, Player p){
 		setSize(1000, 1000);
 
 		this.window = w;
@@ -23,17 +24,17 @@ public class NewGame extends JPanel {
 		
 		JButton hard = new JButton("Difficle");
 		hard.addActionListener(e -> {
-			window.play(); // Mode hard
+			window.play(p); // Mode hard
 		});
 		
 		JButton medium = new JButton("Intermédiaire");
 		medium.addActionListener(e -> {
-				window.play(); // Mode moyen
+				window.play(p); // Mode moyen
 			});
 		
 		JButton easy = new JButton("Facile");
 		easy.addActionListener(e -> {
-			window.play(); // Mode facile
+			window.play(p); // Mode facile
 		});
 
 		JButton back = new JButton("Retour");

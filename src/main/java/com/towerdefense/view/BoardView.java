@@ -7,10 +7,7 @@ import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
-import com.towerdefense.model.enemy.AerialEnemy;
-import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
-import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -80,7 +77,6 @@ public class BoardView extends JPanel implements MouseInputListener {
             g.setColor(Color.GREEN);
             g.drawRect(e.getCoord()[0], e.getCoord()[1]- 10, size, 5);
             g.fillRect(e.getCoord()[0], e.getCoord()[1]- 10, e.getHP() * size / 100, 5);
-            //System.out.println(e.getX()/32 + " : " + e.getY()/32);
         }
 
         for (Tile[] tab : board.getBoard())
@@ -91,7 +87,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                         g.fillOval(p.getX(), p.getY(), size / 4, size / 4);
                     }
 
-        if (preview != null) {
+        if (preview != null) {  // Bug avec la tour de base (le preview est vert puis noir entre deux waves)
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {
                 g.setColor(shop.getPreviewColor());
                 g.fillRect(preview[0], preview[1], size, size);
@@ -117,7 +113,7 @@ public class BoardView extends JPanel implements MouseInputListener {
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
         }else { // ou pose une tour
             if (shop.wantPurchase() && !isPaused && board.canBuildOn(x / size, y / size)) // Vérifier aussi que le joueur a assez d'argent
-                addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
+                addTower(shop.addNewTower(), x / size, y / size);
         }
     }
 

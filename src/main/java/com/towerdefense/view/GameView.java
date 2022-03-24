@@ -22,13 +22,13 @@ public class GameView extends JPanel implements ActionListener {
     private Window window;
     private Timer timer = new Timer(50, this);
 
-    public GameView(Window window) {
+    public GameView(Window window, Player p) {
         this.window = window;
         setSize(1000, 1000);
         setLayout(new BorderLayout());
 
         // Création du plateau de jeu
-        this.player = new Player("Martin");
+        this.player = p;
         this.game = new Game(32, 20, player);
         createShop();
         createBoard();

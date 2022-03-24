@@ -9,7 +9,7 @@ import com.towerdefense.view.Window;
 
 public class Accueil extends JPanel {
 	
-	public  Accueil(Window window) {
+	public Accueil(Window window) {
 		setSize(1000, 1000);
 		setLayout(new BorderLayout());
 

@@ -1,6 +1,8 @@
 package com.towerdefense.view;
 
 import javax.swing.JFrame;
+
+import com.towerdefense.model.Player;
 import com.towerdefense.view.menu.*;
 
 public class Window extends JFrame {
@@ -24,27 +26,28 @@ public class Window extends JFrame {
 
     public void setAccueil() {
         getContentPane().add(new Accueil(this));
-        revalidate();
-        repaint();
+        refresh();
     }
 
     public void setMenu() {
         getContentPane().removeAll();
         getContentPane().add(new Menu(this));
-        revalidate();
-        repaint();
+        refresh();
     }
 
-    public void setNewGame() {
-        setContentPane(new NewGame(this));
-        revalidate();
-        repaint();
+    public void setNewPlayer() {
+        setContentPane(new NewPlayer(this));
+        refresh();
+    }
+
+    public void setNewGame(Player p) {
+        setContentPane(new NewGame(this, p));
+        refresh();
     }
 
     public void setParametres() {
         setContentPane(new Parametres(this));
-        revalidate();
-        repaint();
+        refresh();
     }
 
     public void refresh(){
@@ -52,8 +55,8 @@ public class Window extends JFrame {
         repaint();
     }
 
-    public void play() {
-        GameView gameView = new GameView(this);
+    public void play(Player p) {
+        GameView gameView = new GameView(this, p);
         setContentPane(gameView);
         gameView.start();
     }

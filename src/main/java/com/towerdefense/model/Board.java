@@ -87,7 +87,7 @@ public class Board {
     }
 
     public void kill() {
-        enemies.removeAll(killEnemies); // Ne pas oublier de faire les dégâts au joueur
+        enemies.removeAll(killEnemies);
         killEnemies.clear();
 
         for (Tile tab[] : cases)
@@ -109,7 +109,7 @@ public class Board {
         setPath();
     }
 
-    public List<Tile> neighbors(Tile current) { // Renvoie les tuiles voisines accessibles de current
+    public List<Tile> getNeighborsOf(Tile current) { // Renvoie les tuiles voisines accessibles de current
         List<Tile> neighbors = new ArrayList<Tile>();
 
         int x = current.getX() / size;
@@ -152,7 +152,7 @@ public class Board {
 
     public boolean containsEnemyOn(int x, int y) {  // Renvoie true si la case contient un ennemi
         for (Enemy e : enemies)
-            if (e.getPath().peek() == cases[x][y])
+            if (e.getPath().peek() == cases[x][y])  // EmptyStackException !!
                 return true;
         return false;
     }

@@ -6,7 +6,6 @@ public class TankEnemy extends Enemy{
 
     public TankEnemy(Game game) {
         super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -26,7 +25,7 @@ public class TankEnemy extends Enemy{
 
     @Override
     public String toString() {
-        return "Ennemi tank"; // Peut-être nom à changer
+        return "Ennemi tank"; // Peut-être nom à changer ("Tank")
     }
 
     @Override

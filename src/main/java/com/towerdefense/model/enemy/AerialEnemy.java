@@ -25,7 +25,7 @@ public class AerialEnemy extends Enemy {
 
     @Override
     public String toString() {
-        return "Ennemi aérien"; // Peut-être nom à changer
+        return "Ennemi aérien"; // Peut-être nom à changer ("Unité aérienne")
     }
 
     @Override

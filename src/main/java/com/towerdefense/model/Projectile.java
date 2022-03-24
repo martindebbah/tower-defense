@@ -26,7 +26,7 @@ public class Projectile {
     }
 
     public Projectile(Tower source, Enemy target) {
-        this(source, target, Color.BLUE, 32); // 32 à changer !!
+        this(source, target, Color.BLUE, target.getGame().getBoard().getSize());
     }
 
     public Color getColor() {

@@ -55,8 +55,6 @@ public class Game {
                             tower.addKillProjectile(p);
                     }
                 }
-
-        //board.refresh();    // On met le board à jour (kill les ennemis/projectiles et refresh les chemins ennemis)
     }
     
 }
