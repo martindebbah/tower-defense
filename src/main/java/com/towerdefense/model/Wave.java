@@ -45,15 +45,11 @@ public class Wave implements ActionListener {
         this.countDown = time;
     }
 
-<<<<<<< HEAD
-    public JLabel getChrono() {
-=======
-    public JLabel getMoneyPlayer(){
+    public JLabel getMoneyPlayer() {
         return moneyPlayer;
     }
 
-    public JLabel getChrono(){
->>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
+    public JLabel getChrono() {
         return chrono;
     }
 
@@ -65,19 +61,15 @@ public class Wave implements ActionListener {
         return game.getPlayer();
     }
 
-<<<<<<< HEAD
-    public void incrementWave() {
-=======
-    public boolean getWin(){
+    public boolean getWin() {
         return WinGame;
     }
 
-    public boolean getLose(){
+    public boolean getLose() {
         return LoseGame;
     }
 
-    public void incrementWave(){
->>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
+    public void incrementWave() {
         currentWave++;
     }
 
@@ -93,17 +85,12 @@ public class Wave implements ActionListener {
         this.finChrono = finChrono;
     }
 
-<<<<<<< HEAD
-    public void setFinishGame(boolean fin) {
-        finishGame = fin;
-=======
-    public void setWinGame(boolean fin){
+    public void setWinGame(boolean fin) {
         WinGame = fin;
     }
 
-    public void setLoseGame(boolean fin){
+    public void setLoseGame(boolean fin) {
         LoseGame = fin;
->>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
     }
 
     public boolean getFinChrono() {
@@ -116,12 +103,8 @@ public class Wave implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
+        moneyPlayer.setText(game.getPlayer().getMoney() + " $");
         cptWave.setText("Wave " + currentWave + " /");
-=======
-        moneyPlayer.setText(game.getPlayer().getMoney()+" $");
-        cptWave.setText("Wave "+currentWave+" /");
->>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
         chrono.setText(convertSecondToMinute(countDown));
         wave(currentWave, countDown);
         countDown--; // une seconde passe
@@ -138,11 +121,7 @@ public class Wave implements ActionListener {
             finChrono = true;
             return;
         }
-<<<<<<< HEAD
-        if (currentWave > nbWaves || finishGame) {
-=======
-        if(currentWave > nbWaves || WinGame || LoseGame){
->>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
+        if (currentWave > nbWaves || WinGame || LoseGame) {
             timer.stop();
         }
     }
@@ -190,7 +169,6 @@ public class Wave implements ActionListener {
         }
     }
 
-<<<<<<< HEAD
     public void wave(int currentWave, int countdownStarter) {
         switch (currentWave) {
             case 1:
@@ -210,26 +188,6 @@ public class Wave implements ActionListener {
                 }
                 if (countdownStarter % 8 == 0) {
                     createEnemy(1, 0);
-=======
-    public void wave(int currentWave, int countdownStarter){
-        switch(currentWave){
-            case 1 :
-                if(countdownStarter%10 == 0){
-                    createEnemy(0,0);
-                }
-                break;
-            case 2 :
-                if(countdownStarter%10 == 0){
-                    createEnemy(0,20);
-                }
-                break;
-            case 3 :
-                if(countdownStarter%10 == 0){
-                    createEnemy(0,40);
-                }
-                if(countdownStarter%10 == 0){
-                    createEnemy(1,0);
->>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
                 }
                 break;
             case 4:
