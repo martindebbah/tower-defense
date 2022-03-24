@@ -36,10 +36,13 @@ public class Game {
             if(board.outOfBoard(e.getX() / board.getSize(), e.getY() / board.getSize())){// si l'ennemi arrive au point d arrivé on appelle enemy.crossedboard
                 e.crossedBoard();
                 board.addKillEnemy(e);
+            } else {
+                if (!e.isAlive()){
+                    board.addKillEnemy(e);
+                    player.setMoney(player.getMoney()+e.getGold());
+                }
             }
-            if (!e.isAlive()){
-                board.addKillEnemy(e);
-            }
+            System.out.println(e.getHP()+"/"+e.getMaxHealth());
             e.move();
         }
     }

@@ -36,9 +36,10 @@ public class WaveView extends JPanel {
             wave.start();
         });
 
-        add(buttonPanel);
+        add(wave.getMoneyPlayer());
         add(wave.getCptWave());
         add(wave.getChrono());
+        add(buttonPanel);
     }
 
     public void paintComponent(Graphics g) {

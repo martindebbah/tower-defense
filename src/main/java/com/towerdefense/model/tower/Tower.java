@@ -70,7 +70,7 @@ public class Tower {
                 while (canAttack()) {
                     addProjectile(new Projectile(getSource(), target));
                     try{
-                        sleep(getAttackSpeed() * 1000);
+                        sleep(getAttackSpeed() * 1000); // * bug
                     }catch(InterruptedException ie) {
                         ie.printStackTrace();
                     }

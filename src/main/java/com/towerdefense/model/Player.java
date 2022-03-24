@@ -22,8 +22,16 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public int getMoney() {
+        return this.money;
+    }
 
-    public int getHP(){
+    public void setMoney(int m) {
+        this.money = m;
+    }
+
+    public int getHP() {
         return health;
     }
 
@@ -43,5 +51,5 @@ public class Player {
     public String toString() {
         return name;
     }
-    
+
 }

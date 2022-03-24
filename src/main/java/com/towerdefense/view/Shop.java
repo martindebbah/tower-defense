@@ -35,6 +35,10 @@ public class Shop extends JPanel {
         add(description, BorderLayout.SOUTH);
     }
 
+    public TowerPanel getTowerPanel(){
+        return towerPanel;
+    }
+
     public void refreshDesc(Tower t) {
         deselect();
         description.refresh(t);
