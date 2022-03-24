@@ -15,15 +15,15 @@ public class Player {
         this.name = name;
     }
 
-    public int getMoney(){
+    public int getMoney() {
         return this.money;
     }
 
-    public void setMoney(int m){
+    public void setMoney(int m) {
         this.money = m;
     }
 
-    public int getHP(){
+    public int getHP() {
         return health;
     }
 
@@ -43,5 +43,5 @@ public class Player {
     public String toString() {
         return name;
     }
-    
+
 }
