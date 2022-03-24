@@ -1,34 +1,32 @@
 package com.towerdefense.model.tower;
 
-import java.awt.Color;
-
 import com.towerdefense.model.enemy.Enemy;
 
-public class BasicTower extends Tower {
+import java.awt.*;
+
+public class AerialRapidTower extends Tower {
 
     @Override
-    public Tower newTower() {
-        return new BasicTower();
-    }
+    public Tower newTower() { return new AerialRapidTower(); }
 
     @Override
     public String toString() {
-        return "Tour basique";
+        return "Tour aérienne rapide";
     }
 
     @Override
     public int getAttackSpeed() {
-        return 2;
-    }
+        return 3;
+    } // pour l'instant 3x plus
 
     @Override
     public int getPrice() {
-        return 100;
-    }
+        return 10;
+    } // à voir
 
     @Override
     public int getDamage() {
-        return 15;
+        return 10;
     }
 
     @Override
@@ -37,14 +35,10 @@ public class BasicTower extends Tower {
     }
 
     @Override
-    public Color getColor() {
-        return Color.WHITE;
-        // return Color.BLUE;
-    }
+    public Color getColor() { return new Color(51, 153, 153); } // bref
 
     @Override
     public boolean canFocus(Enemy e) {
-        return !e.isAerial();
+        return e.isAerial();
     }
-
 }
