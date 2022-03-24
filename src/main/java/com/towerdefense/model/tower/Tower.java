@@ -64,7 +64,7 @@ public class Tower {
         return 0;
     }
 
-    public void attack(Board board) {
+    public void attack(Board board) {   // Peut-être plus pertinent avec actionPerformed()
         new Thread() {
             public void run() {
                 while (canAttack()) {
@@ -103,7 +103,7 @@ public class Tower {
             return; // On ne change pas de cible
         }
         List<Enemy> enemies = board.getEnemies();
-        for (Enemy e : enemies) { // Comment choisir le plus proche de la sortie
+        for (Enemy e : enemies) {
             if (isInRange(e.getCoord(), board.getSize()) && canFocus(e)) {
                 target = e;
                 newTarget = true;

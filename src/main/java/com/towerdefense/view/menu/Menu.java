@@ -21,17 +21,12 @@ public class Menu extends JPanel {
 		
 		JButton newGame = new JButton("Nouvelle partie");
 		newGame.addActionListener(e -> {
-			window.setNewGame();
+			window.setNewPlayer();
 		});
 
 		JButton resumeGame = new JButton("Continuer");
 		resumeGame.addActionListener(e -> {
 			new ResumeGame();
-		});
-
-		JButton player = new JButton("Joueur");
-		player.addActionListener(e -> {
-			new NewPlayer();
 		});
 
 		JButton discover = new JButton("Découvrir");
@@ -46,7 +41,6 @@ public class Menu extends JPanel {
 
 		buttons.add(newGame);
 		buttons.add(resumeGame);
-		buttons.add(player);
 		buttons.add(discover);
 		buttons.add(parametres);
 	}

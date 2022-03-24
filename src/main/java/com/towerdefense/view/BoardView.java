@@ -1,13 +1,10 @@
 package com.towerdefense.view;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,10 +13,7 @@ import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
-import com.towerdefense.model.enemy.AerialEnemy;
-import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
-import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -99,7 +93,6 @@ public class BoardView extends JPanel implements MouseInputListener {
             g.setColor(Color.GREEN);
             g.drawRect(e.getCoord()[0], e.getCoord()[1]- 10, size, 5);
             g.fillRect(e.getCoord()[0], e.getCoord()[1]- 10, e.getHP() * size / 100, 5);
-            //System.out.println(e.getX() + " : " + e.getY());
         }
 
         for (Tile[] tab : board.getBoard())
@@ -110,7 +103,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                         g.fillOval(p.getX(), p.getY(), size / 4, size / 4);
                     }
 
-        if (preview != null) {
+        if (preview != null) {  // Bug avec la tour de base (le preview est vert puis noir entre deux waves)
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {
                 g.setColor(shop.getPreviewColor());
                 g.fillRect(preview[0], preview[1], size, size);

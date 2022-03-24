@@ -15,6 +15,14 @@ public class Player {
         this.name = name;
     }
 
+    public Player() {
+        this("");
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public int getMoney() {
         return this.money;
     }
