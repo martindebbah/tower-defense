@@ -20,13 +20,15 @@ public class Wave implements ActionListener {
     private Game game;
     private JLabel chrono;
     private JLabel cptWave;
+    private JLabel moneyPlayer;
 
     private int timeWave;
     private int countDown;
     private Timer timer = new Timer(1000, this);
 
     private boolean finChrono = false;
-    private boolean finishGame = false;
+    private boolean WinGame = false;
+    private boolean LoseGame = false;
 
     private int currentWave = 1;
 
@@ -37,12 +39,21 @@ public class Wave implements ActionListener {
     public Wave(Game game, int time) {
         chrono = new JLabel();
         cptWave = new JLabel();
+        moneyPlayer = new JLabel();
         this.game = game;
         this.timeWave = time;
         this.countDown = time;
     }
 
+<<<<<<< HEAD
     public JLabel getChrono() {
+=======
+    public JLabel getMoneyPlayer(){
+        return moneyPlayer;
+    }
+
+    public JLabel getChrono(){
+>>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
         return chrono;
     }
 
@@ -54,7 +65,19 @@ public class Wave implements ActionListener {
         return game.getPlayer();
     }
 
+<<<<<<< HEAD
     public void incrementWave() {
+=======
+    public boolean getWin(){
+        return WinGame;
+    }
+
+    public boolean getLose(){
+        return LoseGame;
+    }
+
+    public void incrementWave(){
+>>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
         currentWave++;
     }
 
@@ -70,8 +93,17 @@ public class Wave implements ActionListener {
         this.finChrono = finChrono;
     }
 
+<<<<<<< HEAD
     public void setFinishGame(boolean fin) {
         finishGame = fin;
+=======
+    public void setWinGame(boolean fin){
+        WinGame = fin;
+    }
+
+    public void setLoseGame(boolean fin){
+        LoseGame = fin;
+>>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
     }
 
     public boolean getFinChrono() {
@@ -84,7 +116,12 @@ public class Wave implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
         cptWave.setText("Wave " + currentWave + " /");
+=======
+        moneyPlayer.setText(game.getPlayer().getMoney()+" $");
+        cptWave.setText("Wave "+currentWave+" /");
+>>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
         chrono.setText(convertSecondToMinute(countDown));
         wave(currentWave, countDown);
         countDown--; // une seconde passe
@@ -101,7 +138,11 @@ public class Wave implements ActionListener {
             finChrono = true;
             return;
         }
+<<<<<<< HEAD
         if (currentWave > nbWaves || finishGame) {
+=======
+        if(currentWave > nbWaves || WinGame || LoseGame){
+>>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
             timer.stop();
         }
     }
@@ -149,6 +190,7 @@ public class Wave implements ActionListener {
         }
     }
 
+<<<<<<< HEAD
     public void wave(int currentWave, int countdownStarter) {
         switch (currentWave) {
             case 1:
@@ -168,6 +210,26 @@ public class Wave implements ActionListener {
                 }
                 if (countdownStarter % 8 == 0) {
                     createEnemy(1, 0);
+=======
+    public void wave(int currentWave, int countdownStarter){
+        switch(currentWave){
+            case 1 :
+                if(countdownStarter%10 == 0){
+                    createEnemy(0,0);
+                }
+                break;
+            case 2 :
+                if(countdownStarter%10 == 0){
+                    createEnemy(0,20);
+                }
+                break;
+            case 3 :
+                if(countdownStarter%10 == 0){
+                    createEnemy(0,40);
+                }
+                if(countdownStarter%10 == 0){
+                    createEnemy(1,0);
+>>>>>>> fe12436406590e6d3c7da733765272b8c7f306f3
                 }
                 break;
             case 4:

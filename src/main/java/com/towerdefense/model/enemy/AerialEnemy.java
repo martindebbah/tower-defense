@@ -14,13 +14,13 @@ public class AerialEnemy extends Enemy {
     }
 
     @Override
-    public int getMaxHealth() {
-        return 60;
+    public int getMovementSpeed() {
+        return 2;
     }
 
     @Override
-    public int getMovementSpeed() {
-        return 2;
+    public int getMaxHealth(){
+        return 100;
     }
 
     @Override

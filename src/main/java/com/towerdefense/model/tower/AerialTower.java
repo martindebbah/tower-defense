@@ -18,17 +18,17 @@ public class AerialTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 1;
+        return 2;
     }
 
     @Override
     public int getPrice() {
-        return 10;
+        return 150;
     } // plus cher ou pas ?
 
     @Override
     public int getDamage() {
-        return 10;
+        return 20;
     }
 
     @Override
