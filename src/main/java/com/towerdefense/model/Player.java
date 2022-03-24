@@ -28,7 +28,7 @@ public class Player {
     }
 
     public void getHit(Enemy enemy) {
-        health -= enemy.getHP()*enemy.getHealth()/100;
+        health -= enemy.getHP()*enemy.getMaxHealth()/100;
     }
 
     public boolean isAlive() {
