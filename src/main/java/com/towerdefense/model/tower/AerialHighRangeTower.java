@@ -4,20 +4,20 @@ import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.*;
 
-public class RapidTower extends Tower {
+public class AerialHighRangeTower extends Tower {
 
     @Override
-    public Tower newTower() { return new RapidTower(); }
+    public Tower newTower() { return new AerialHighRangeTower(); }
 
     @Override
     public String toString() {
-        return "Tour rapide";
+        return "Tour aérienne à longue portée";
     }
 
     @Override
     public int getAttackSpeed() {
-        return 3;
-    } // pour l'instant 3x plus
+        return 1;
+    }
 
     @Override
     public int getPrice() {
@@ -27,19 +27,18 @@ public class RapidTower extends Tower {
     @Override
     public int getDamage() {
         return 10;
-    } // réduire ou pas ?
-
-    @Override
-    public int getRange() {
-        return 5;
     }
 
     @Override
-    public Color getColor() { return new Color(51, 153, 153); }
-    //Pas très important encore une fois
+    public int getRange() {
+        return 10;
+    } // Pour l'instant un rayon deux fois plus large
+
+    @Override
+    public Color getColor() { return new Color(204, 0, 102); } // j'ai pas spécialement d'idée donc pourpre à nouveau
 
     @Override
     public boolean canFocus(Enemy e) {
-        return !e.isAerial();
+        return e.isAerial();
     }
 }

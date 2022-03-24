@@ -4,14 +4,14 @@ import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.*;
 
-public class RapidTower extends Tower {
+public class AerialRapidTower extends Tower {
 
     @Override
-    public Tower newTower() { return new RapidTower(); }
+    public Tower newTower() { return new AerialRapidTower(); }
 
     @Override
     public String toString() {
-        return "Tour rapide";
+        return "Tour aérienne rapide";
     }
 
     @Override
@@ -27,7 +27,7 @@ public class RapidTower extends Tower {
     @Override
     public int getDamage() {
         return 10;
-    } // réduire ou pas ?
+    }
 
     @Override
     public int getRange() {
@@ -35,11 +35,10 @@ public class RapidTower extends Tower {
     }
 
     @Override
-    public Color getColor() { return new Color(51, 153, 153); }
-    //Pas très important encore une fois
+    public Color getColor() { return new Color(51, 153, 153); } // bref
 
     @Override
     public boolean canFocus(Enemy e) {
-        return !e.isAerial();
+        return e.isAerial();
     }
 }
