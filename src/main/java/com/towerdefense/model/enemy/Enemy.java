@@ -314,15 +314,23 @@ public class Enemy {
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
-                                "src/main/resources/Images/towerDefense_tile245.png"));
+                                "src/main/resources/Images/towerDefense_tile200.png"));
                 g.drawImage(image, x, y, 32, 32, null);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
             // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof AerialEnemy) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+            // g.setColor(Color.YELLOW);
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile271.png"));
+                g.drawImage(image, x, y, 32, 32, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof TankEnemy) {
             g.setColor(Color.GRAY);
             g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
