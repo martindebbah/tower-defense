@@ -38,12 +38,13 @@ public class BasicTower extends Tower {
 
     @Override
     public Color getColor() {
-        return Color.BLUE;
+        return Color.WHITE;
+        // return Color.BLUE;
     }
 
     @Override
     public boolean canFocus(Enemy e) {
         return !e.isAerial();
     }
-    
+
 }

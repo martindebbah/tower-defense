@@ -2,8 +2,16 @@ package com.towerdefense.view;
 
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
@@ -20,7 +28,7 @@ public class TowerView extends JPanel {
 
         setPreferredSize(new java.awt.Dimension(32, 32));
         setBackground(tower.getColor());
-        
+
         addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -28,7 +36,31 @@ public class TowerView extends JPanel {
                 select();
             }
         });
-        
+        /*
+         * try {
+         * BufferedImage img = ImageIO.read(new File("towerDefense_tile134.png"));
+         * Graphics g = this.getGraphics();
+         * g.drawImage(img, getX(), getY(), imageObserver(null));
+         * } catch (IOException e1) {
+         * // TODO Auto-generated catch block
+         * e1.printStackTrace();
+         * }
+         */
+
+        try {
+            BufferedImage image = ImageIO
+                    .read(new File(
+                            "/Users/dorian/Desktop/towerdef/tower-defense/src/main/resources/Images/towerDefense_tile292.png"));
+            JLabel label = new JLabel(new ImageIcon(image));
+            this.add(label);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+    }
+
+    private ImageObserver imageObserver(Object object) {
+        return null;
     }
 
     public Tower newTower() {
@@ -42,13 +74,13 @@ public class TowerView extends JPanel {
     public void select() {
         shop.refreshDesc(tower);
         setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createMatteBorder(2,  2,  2,  2, Color.BLACK),
-                    BorderFactory.createMatteBorder(3,  3,  3,  3, Color.WHITE)));
+                BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK),
+                BorderFactory.createMatteBorder(3, 3, 3, 3, Color.WHITE)));
         shop.purchase(this);
     }
 
     public void deselect() {
         setBorder(null);
     }
-    
+
 }

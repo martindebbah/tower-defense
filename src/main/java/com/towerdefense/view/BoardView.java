@@ -1,7 +1,15 @@
 package com.towerdefense.view;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
+
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
@@ -16,7 +24,6 @@ import com.towerdefense.model.tower.Tower;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-
 
 public class BoardView extends JPanel implements MouseInputListener {
 
@@ -36,7 +43,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         addMouseMotionListener(this);
     }
 
-    public Board getBoard(){
+    public Board getBoard() {
         return board;
     }
 
@@ -52,35 +59,44 @@ public class BoardView extends JPanel implements MouseInputListener {
         super.paintComponent(g);
 
         /*
-        Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création de Board)
-        Est-ce qu'on dessine les cases quand le tableau est vide ?
-        */
+         * Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création
+         * de Board)
+         * Est-ce qu'on dessine les cases quand le tableau est vide ?
+         */
 
-        for(int x = 0; x < board.getNbCases(); x++) {
-        	for(int y = 0; y < board.getNbCases(); y++) {
-                if(x == 10 && y == 0){
+        for (int x = 0; x < board.getNbCases(); x++) {
+            for (int y = 0; y < board.getNbCases(); y++) {
+                if (x == 10 && y == 0) {
                     g.setColor(Color.PINK);
-                    g.fillRect(y*size, x*size, size, size);
+                    g.fillRect(y * size, x * size, size, size);
                 }
-                if(x == 10 && y == 19){
+                if (x == 10 && y == 19) {
                     g.setColor(Color.GREEN);
-                    g.fillRect(y*size, x*size, size, size);
+                    g.fillRect(y * size, x * size, size, size);
                 }
                 if (board.getBoard()[x][y].containsTower()) {
-                    g.setColor(board.getBoard()[x][y].getTower().getColor());
-                    g.fillRect(x * size, y * size, size, size);
+                    // g.setColor(board.getBoard()[x][y].getTower().getColor());
+                    // g.fillRect(x * size, y * size, size, size);
+                    try {
+                        BufferedImage image = ImageIO
+                                .read(new File(
+                                        "src/main/resources/Images/towerDefense_tile250.png"));
+                        g.drawImage(image, x * size, y * size, 32, 32, null);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
-        		g.setColor(Color.BLACK);
+                g.setColor(Color.BLACK);
                 g.drawRect(y * size, x * size, size, size);
-        	}
+            }
         }
 
         for (Enemy e : board.getEnemies()) {
             e.typeEnemy(g);
             g.setColor(Color.GREEN);
-            g.drawRect(e.getCoord()[0], e.getCoord()[1]- 10, size, 5);
-            g.fillRect(e.getCoord()[0], e.getCoord()[1]- 10, e.getHP() * size / 100, 5);
-            //System.out.println(e.getX()/32 + " : " + e.getY()/32);
+            g.drawRect(e.getCoord()[0], e.getCoord()[1] - 10, size, 5);
+            g.fillRect(e.getCoord()[0], e.getCoord()[1] - 10, e.getHP() * size / 100, 5);
+            // System.out.println(e.getX()/32 + " : " + e.getY()/32);
         }
 
         for (Tile[] tab : board.getBoard())
@@ -109,14 +125,15 @@ public class BoardView extends JPanel implements MouseInputListener {
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        
-        if(board.containsEnemyOn(x / size, y / size))  // Pour ne pas pouvoir poser une tour sur un ennemi
+
+        if (board.containsEnemyOn(x / size, y / size)) // Pour ne pas pouvoir poser une tour sur un ennemi
             return;
 
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
-        }else { // ou pose une tour
-            if (shop.wantPurchase() && !isPaused && board.canBuildOn(x / size, y / size)) // Vérifier aussi que le joueur a assez d'argent
+        } else { // ou pose une tour
+            if (shop.wantPurchase() && !isPaused && board.canBuildOn(x / size, y / size)) // Vérifier aussi que le
+                                                                                          // joueur a assez d'argent
                 addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
         }
     }
@@ -154,7 +171,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     public void mouseMoved(MouseEvent e) {
         if (!shop.wantPurchase())
             return;
-        
+
         // Déplace le preview de la tour à poser
         int x = e.getX();
         int y = e.getY();
