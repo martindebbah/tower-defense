@@ -33,12 +33,14 @@ public class WaveView extends JPanel {
             pausePanel.add(resume);
             gv.pause();
             wave.pause();
+            faster.setEnabled(false);
         });
         resume.addActionListener(e -> {
             pausePanel.remove(resume);
             pausePanel.add(pause);
             gv.start();
             wave.start();
+            faster.setEnabled(true);
         });
         faster.addActionListener(e -> {
             wave.changeSpeed();
