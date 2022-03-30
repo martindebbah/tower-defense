@@ -19,11 +19,6 @@ public class EndGame extends JPanel{
 
 		buttons = new JPanel();
 		buttons.setLayout(new GridLayout(0,1));
-		
-		/*JButton hard = new JButton("Difficle");
-		hard.addActionListener(e -> {
-			window.play(); // Mode hard
-		});*/
 
 		JButton back = new JButton("Retour");
 		back.addActionListener(e -> {

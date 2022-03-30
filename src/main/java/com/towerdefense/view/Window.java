@@ -59,9 +59,12 @@ public class Window extends JFrame {
         GameView gameView = new GameView(this, p);
         setContentPane(gameView);
         gameView.start();
-        /*EndGame e = new EndGame(this,gameView.GameFinish());
-        setContentPane(e);
-        refresh();*/
     }
     
+    public void setFinGame(int status){
+        EndGame e = new EndGame(this,status);
+        getContentPane().removeAll();
+        setContentPane(e);
+        refresh();
+    }
 }

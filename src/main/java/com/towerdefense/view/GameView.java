@@ -73,24 +73,13 @@ public class GameView extends JPanel implements ActionListener {
                 wave.play();
                 window.refresh();
             } else {
-                wave.setWinGame(true); 
+                if(board.getBoard().getEnemies().isEmpty()){
+                    window.setFinGame(0); 
+                }
             }
         }else{
-            wave.setLoseGame(true);
+            window.setFinGame(1);
         }
     }
-
-    public int GameFinish(){
-        if(wave.getWin()){
-            return 0;
-        } else {
-            if(wave.getLose()){
-                return 1;
-            }
-        }
-        return -1;
-    }
-
-
 
 }
