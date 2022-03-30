@@ -26,8 +26,7 @@ public class Game {
             for (Tile t : tab)
                 if (t.containsTower()) {
                     t.getTower().focus(board);
-                    if (t.getTower().canAttack() && t.getTower().isNewTarget())
-                        t.getTower().attack(board);
+                    t.getTower().attack(board);
                 }
     }
 

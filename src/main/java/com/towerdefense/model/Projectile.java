@@ -11,8 +11,10 @@ public class Projectile {
     private Enemy target;
     private Color color;
     private int size;
-    private int x;
-    private int y;
+    private double x;
+    private double y;
+    private int targetX;
+    private int targetY;
     private boolean hit;
 
     public Projectile(Tower source, Enemy target, Color color, int size) {
@@ -20,8 +22,8 @@ public class Projectile {
         this.target = target;
         this.color = color;
         this.size = size;
-        this.x = source.getCoord()[0] * size;
-        this.y = source.getCoord()[1] * size;
+        this.x = source.getCoord()[0] * size + size / 2;
+        this.y = source.getCoord()[1] * size + size / 2;
         this.hit = false;
     }
 
@@ -33,11 +35,11 @@ public class Projectile {
         return color;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -49,26 +51,32 @@ public class Projectile {
         return hit;
     }
 
+    public void setTargetPos() {
+        targetX = target.getX() + size / 2;
+        targetY = target.getY() + size / 2;
+    }
+
+    public double getAngle() {
+        double deltaY = targetY - y;
+		double deltaX = targetX - x;
+		if (deltaX > 0)
+			return Math.atan(deltaY / deltaX);
+		return Math.atan(deltaY / deltaX) + Math.PI;
+    }
+
     public void move() {
-        if (Math.abs(x - target.getCoord()[0]) < size && Math.abs(y - target.getCoord()[1]) < size) {
+        setTargetPos();
+
+        double hypotenuse = Math.sqrt(Math.pow(targetX - x, 2) + Math.pow(targetY - y, 2));
+        if (hypotenuse < size / 2) {
             target.getHit(source.getDamage());
             kill();
             return;
         }
-        if (Math.abs(x - target.getCoord()[0]) < size) {
-            x = target.getCoord()[0];
-        }else if (x - target.getCoord()[0] < 0) {
-            x += size;
-        }else {
-            x -= size;
-        }
-        if (Math.abs(y - target.getCoord()[1]) < size) {
-            y = (target.getCoord()[1]);
-        }else if (y - target.getCoord()[1] < 0) {
-            y += size;
-        }else {
-            y -= size;
-        }
+
+        double angle = getAngle();
+        x += Math.cos(angle) * size / 2;
+        y += Math.sin(angle) * size / 2;
     }
     
 }

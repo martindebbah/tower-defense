@@ -100,7 +100,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                 if (t.containsTower())
                     for (Projectile p : t.getTower().getProjectiles()) {
                         g.setColor(p.getColor());
-                        g.fillOval(p.getX(), p.getY(), size / 4, size / 4);
+                        g.fillOval((int) p.getX(), (int) p.getY(), size / 4, size / 4);
                     }
 
         if (preview != null) {  // Bug avec la tour de base (le preview est vert puis noir entre deux waves)

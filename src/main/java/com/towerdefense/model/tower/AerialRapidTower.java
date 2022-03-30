@@ -16,7 +16,7 @@ public class AerialRapidTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 3;
+        return 10;
     } // pour l'instant 3x plus
 
     @Override

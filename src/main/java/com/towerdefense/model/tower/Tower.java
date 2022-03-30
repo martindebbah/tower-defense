@@ -16,6 +16,7 @@ public class Tower {
     private boolean newTarget;
     private List<Projectile> projectiles;
     private List<Projectile> killProjectiles;
+    private int coolDown = 0;
 
     public Tower() {
         this.projectiles = new ArrayList<Projectile>();
@@ -49,7 +50,7 @@ public class Tower {
     }
 
     public int getAttackSpeed() {   // Dans chaque classe
-        return 0;
+        return 0;   // La fonction retourne n tel que la tour attaque toutes les n * 50 millisecondes
     }
 
     public boolean isNewTarget() {
@@ -64,19 +65,18 @@ public class Tower {
         return 0;
     }
 
-    public void attack(Board board) {   // Peut-être plus pertinent avec actionPerformed()
-        new Thread() {
-            public void run() {
-                while (canAttack()) {
-                    addProjectile(new Projectile(getSource(), target));
-                    try{
-                        sleep(getAttackSpeed() * 1000); // * bug
-                    }catch(InterruptedException ie) {
-                        ie.printStackTrace();
-                    }
-                }
-            }
-        }.start();
+    public void attack(Board board) {
+        if (!canAttack())
+            return;
+
+        if (coolDown == 0) {
+            addProjectile(new Projectile(getSource(), target));
+        }
+        if (coolDown <= getAttackSpeed()) {  // tire toutes les 20 * 50 millisecondes
+            coolDown++;
+        }else {
+            coolDown = 0;
+        }
     }
 
     public void addProjectile(Projectile p) {
