@@ -6,8 +6,12 @@ import java.awt.*;
 
 public class RapidTower extends Tower {
 
+    public RapidTower(int damage) {
+        super(damage);
+    }
+
     @Override
-    public Tower newTower() { return new RapidTower(); }
+    public Tower newTower() { return new RapidTower(10); }
 
     @Override
     public String toString() {
@@ -21,17 +25,12 @@ public class RapidTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 10;
+        return 250;
     } // à voir
 
     @Override
-    public int getDamage() {
-        return 10;
-    } // réduire ou pas ?
-
-    @Override
     public int getRange() {
-        return 5;
+        return 8;
     }
 
     @Override

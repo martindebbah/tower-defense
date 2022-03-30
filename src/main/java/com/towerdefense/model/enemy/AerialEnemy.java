@@ -10,7 +10,7 @@ public class AerialEnemy extends Enemy {
 
     @Override
     public int getGold() {
-        return 20;
+        return 25;
     }
 
     @Override

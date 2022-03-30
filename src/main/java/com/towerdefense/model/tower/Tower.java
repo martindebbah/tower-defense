@@ -11,16 +11,22 @@ import java.awt.Color;
 
 public class Tower {
 
-    private Enemy target;
+    protected Enemy target;
     private int[] coord;
-    private boolean newTarget;
+    protected boolean newTarget;
     private List<Projectile> projectiles;
     private List<Projectile> killProjectiles;
-    private int coolDown = 0;
+    protected int coolDown = 0;
+    protected int initialDamage;
 
-    public Tower() {
+    public Tower(int damage) {
         this.projectiles = new ArrayList<Projectile>();
         this.killProjectiles = new ArrayList<Projectile>();
+        this.initialDamage = damage;
+    }
+
+    public void setDamage(int damage){
+        this.initialDamage *= damage;
     }
 
     public Tower newTower() {
@@ -62,7 +68,7 @@ public class Tower {
     }
 
     public int getDamage() {    // Dans chaque classe
-        return 0;
+        return initialDamage;
     }
 
     public void attack(Board board) {
@@ -100,6 +106,7 @@ public class Tower {
             newTarget = false;
             if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou meurt
                 target = null;
+                
             return; // On ne change pas de cible
         }
         List<Enemy> enemies = board.getEnemies();

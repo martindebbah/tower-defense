@@ -162,7 +162,7 @@ public class Board {
             return false;                       // d'arriver au bout du chemin.
 
         boolean r = true;
-        cases[x][y].setTower(new BasicTower());
+        cases[x][y].setTower(new BasicTower(0));
         Enemy e = new BasicEnemy(game);
         try {
             e.setPath();
