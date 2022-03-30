@@ -5,17 +5,12 @@ import com.towerdefense.model.Game;
 public class TankEnemy extends Enemy{
 
     public TankEnemy(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2,800,800);
     }
 
     @Override
     public int getGold() {
         return 100;
-    }
-
-    @Override
-    public int getMaxHealth(){
-        return 500;
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.towerdefense.model.Game;
 public class AerialEnemy extends Enemy {
 
     public AerialEnemy(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2, 100, 100);
     }
 
     @Override
@@ -16,11 +16,6 @@ public class AerialEnemy extends Enemy {
     @Override
     public int getMovementSpeed() {
         return 2;
-    }
-
-    @Override
-    public int getMaxHealth(){
-        return 100;
     }
 
     @Override

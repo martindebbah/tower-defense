@@ -22,15 +22,15 @@ public class Enemy {
 
     private Game game;
     protected int health;
-    //protected int maxHealth;
+    protected int maxHealth;
     private int x;
     private int y;
     private Stack<Tile> path;
     private int direction;
 
-    public Enemy(Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
-        //this.maxHealth = getMaxHealth();
-        this.health = getMaxHealth();
+    public Enemy(Game game, int x, int y, int maxHealth, int health) { // x et y donnent l'endroit où apparaît l'unité
+        this.maxHealth = maxHealth;
+        this.health = health;
         this.game = game;
         this.x = x;
         this.y = y;
@@ -68,13 +68,17 @@ public class Enemy {
         return health > 0;
     }
 
+    public int getHealth(){
+        return health;
+    }
+
     public int getMaxHealth(){
-        return 0;
+        return maxHealth;
     }
 
     public void setHealth(int m){
-        //this.maxHealth += m;
-        this.health += m;
+        this.maxHealth += m;
+        this.health = maxHealth;
     }
 
     public int getGold() {// Fonction définie dans chaque classe qui hérite de Enemy
@@ -103,7 +107,7 @@ public class Enemy {
     }
 
     public int getHP() {
-        return health * 100 / getMaxHealth();
+        return health * 100 / maxHealth;
     }
 
     public Stack<Tile> getPath() {
@@ -310,7 +314,6 @@ public class Enemy {
             g.setColor(Color.BLACK);
             g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof BasicEnemy) {
-            // g.setColor(Color.RED);
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
@@ -319,9 +322,7 @@ public class Enemy {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof AerialEnemy) {
-            // g.setColor(Color.YELLOW);
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
@@ -330,7 +331,6 @@ public class Enemy {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof TankEnemy) {
             g.setColor(Color.GRAY);
             g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
