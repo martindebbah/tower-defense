@@ -26,6 +26,7 @@ public class Wave implements ActionListener {
     private int countDown;
     private Timer timer1 = new Timer(1000, this); // x2 = 500, x4 = 250
     private Timer timer2 = new Timer(500, this);
+    private Timer timer5 = new Timer(200, this);
     private int speed = 1;
 
     private boolean finChrono = false;
@@ -105,6 +106,8 @@ public class Wave implements ActionListener {
                 break;
             case 2: timer2.start();
                 break;
+            case 5: timer5.start();
+                break;
         }
     }
 
@@ -113,7 +116,9 @@ public class Wave implements ActionListener {
         switch (speed) {
             case 1: speed = 2;
                 break;
-            case 2: speed = 1;
+            case 2: speed = 5;
+                break;
+            case 5: speed = 1;
                 break;
         }
         start();
@@ -149,6 +154,8 @@ public class Wave implements ActionListener {
             case 1: timer1.stop();
                 break;
             case 2: timer2.stop();
+                break;
+            case 5: timer5.stop();
                 break;
         }
     }

@@ -22,6 +22,7 @@ public class GameView extends JPanel implements ActionListener {
     private Window window;
     private Timer timer1 = new Timer(50, this); // x2 = 25, x4 = 12/13 ?
     private Timer timer2 = new Timer(25, this);
+    private Timer timer5 = new Timer(10, this);
     private int speed = 1;
 
     public GameView(Window window, Player p) {
@@ -58,6 +59,7 @@ public class GameView extends JPanel implements ActionListener {
                 break;
             case 2: timer2.start();
                 break;
+            case 5: timer5.start();
         }
         board.start();
         window.refresh();
@@ -69,6 +71,8 @@ public class GameView extends JPanel implements ActionListener {
                 break;
             case 2: timer2.stop();
                 break;
+            case 5: timer5.stop();
+                break;
         }
         board.pause();
         window.refresh();
@@ -79,10 +83,15 @@ public class GameView extends JPanel implements ActionListener {
         switch (speed) {
             case 1: speed = 2;
                 break;
-            case 2: speed = 1;
+            case 2: speed = 5;
                 break;
+            case 5: speed = 1;
         }
         start();
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     @Override
