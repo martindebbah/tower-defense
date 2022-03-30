@@ -5,17 +5,12 @@ import com.towerdefense.model.Game;
 public class BasicEnemy extends Enemy {
 
     public BasicEnemy(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2, 150, 150);
     }
 
     @Override
     public int getGold() {
         return 15;
-    }
-
-    @Override
-    public int getMaxHealth(){
-        return 200;
     }
 
     @Override

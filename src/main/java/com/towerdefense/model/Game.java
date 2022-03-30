@@ -41,7 +41,7 @@ public class Game {
                     player.setMoney(player.getMoney()+e.getGold());
                 }
             }
-            System.out.println(e.getHP()+"/"+e.getMaxHealth());
+            //System.out.println(e.getHealth()+"/"+e.getMaxHealth());
             e.move();
         }
     }
