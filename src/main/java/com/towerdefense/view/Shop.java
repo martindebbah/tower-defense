@@ -15,8 +15,10 @@ import java.util.List;
 
 import com.towerdefense.model.tower.AerialTower;
 import com.towerdefense.model.tower.BasicTower;
+import com.towerdefense.model.tower.DestructiveTower;
 import com.towerdefense.model.tower.InfernalTower;
 import com.towerdefense.model.tower.RapidTower;
+import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
 
 public class Shop extends JPanel {
@@ -89,6 +91,9 @@ public class Shop extends JPanel {
             addTower(new TowerView(new AerialTower(0), Shop.this));
             addTower(new TowerView(new RapidTower(0), Shop.this));
             addTower(new TowerView(new InfernalTower(0), Shop.this));
+            addTower(new TowerView(new SuperTower(0), Shop.this));
+            addTower(new TowerView(new DestructiveTower(0), Shop.this));
+
             setOpaque(false);
         }
 
