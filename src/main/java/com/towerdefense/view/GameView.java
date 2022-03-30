@@ -20,7 +20,9 @@ public class GameView extends JPanel implements ActionListener {
     private Wave wave;
     private Player player;
     private Window window;
-    private Timer timer = new Timer(50, this);
+    private Timer timer1 = new Timer(50, this); // x2 = 25, x4 = 12/13 ?
+    private Timer timer2 = new Timer(25, this);
+    private int speed = 1;
 
     public GameView(Window window, Player p) {
         this.window = window;
@@ -51,15 +53,36 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     public void start() {
-        timer.start();
+        switch (speed) {
+            case 1: timer1.start();
+                break;
+            case 2: timer2.start();
+                break;
+        }
         board.start();
         window.refresh();
     }
 
     public void pause() {
-        timer.stop();
+        switch (speed) {
+            case 1: timer1.stop();
+                break;
+            case 2: timer2.stop();
+                break;
+        }
         board.pause();
         window.refresh();
+    }
+
+    public void changeSpeed() {
+        pause();
+        switch (speed) {
+            case 1: speed = 2;
+                break;
+            case 2: speed = 1;
+                break;
+        }
+        start();
     }
 
     @Override
@@ -74,12 +97,17 @@ public class GameView extends JPanel implements ActionListener {
                 window.refresh();
             } else {
                 if(board.getBoard().getEnemies().isEmpty()){
-                    window.setFinGame(0); 
+                    endGame(0);
                 }
             }
         }else{
-            window.setFinGame(1);
+            endGame(1);
         }
+    }
+
+    public void endGame(int status) {
+        pause();
+        window.endGame(status);
     }
 
 }

@@ -20,8 +20,10 @@ public class WaveView extends JPanel {
 
         JButton pause =  new JButton("Pause");
         JButton resume = new JButton("Reprendre");
+        JButton faster = new JButton("x2");
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(pause);
+        buttonPanel.add(faster);
 
         pause.addActionListener(e -> {
             buttonPanel.remove(pause);
@@ -34,6 +36,10 @@ public class WaveView extends JPanel {
             buttonPanel.add(pause);
             gv.start();
             wave.start();
+        });
+        faster.addActionListener(e -> {
+            wave.changeSpeed();
+            gv.changeSpeed();
         });
 
         add(wave.getMoneyPlayer());

@@ -24,7 +24,9 @@ public class Wave implements ActionListener {
 
     private int timeWave;
     private int countDown;
-    private Timer timer = new Timer(1000, this);
+    private Timer timer1 = new Timer(1000, this); // x2 = 500, x4 = 250
+    private Timer timer2 = new Timer(500, this);
+    private int speed = 1;
 
     private boolean finChrono = false;
     private boolean WinGame = false;
@@ -98,7 +100,23 @@ public class Wave implements ActionListener {
     }
 
     public void start() {
-        timer.start();
+        switch (speed) {
+            case 1: timer1.start();
+                break;
+            case 2: timer2.start();
+                break;
+        }
+    }
+
+    public void changeSpeed() {
+        pause();
+        switch (speed) {
+            case 1: speed = 2;
+                break;
+            case 2: speed = 1;
+                break;
+        }
+        start();
     }
 
     @Override
@@ -122,12 +140,17 @@ public class Wave implements ActionListener {
             return;
         }
         if (currentWave > nbWaves || WinGame || LoseGame) {
-            timer.stop();
+            pause();
         }
     }
 
     public void pause() {
-        timer.stop();
+        switch (speed) {
+            case 1: timer1.stop();
+                break;
+            case 2: timer2.stop();
+                break;
+        }
     }
 
     public String convertSecondToMinute(int second) {
