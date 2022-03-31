@@ -7,7 +7,9 @@ import java.awt.*;
 public class HighRangeTower extends Tower {
 
     @Override
-    public Tower newTower() { return new HighRangeTower(); }
+    public Tower newTower() {
+        return new HighRangeTower();
+    }
 
     @Override
     public String toString() {
@@ -35,11 +37,9 @@ public class HighRangeTower extends Tower {
     } // Pour l'instant un rayon deux fois plus large
 
     @Override
-    public Color getColor() { return new Color(204, 0, 102); }
+    public Color getColor() {
+        return new Color(204, 0, 102);
+    }
     //Pas très important, pour l'instant j'ai mis un pourpre
 
-    @Override
-    public boolean canFocus(Enemy e) {
-        return !e.isAerial();
-    }
 }

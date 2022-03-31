@@ -7,7 +7,9 @@ import java.awt.*;
 public class RapidTower extends Tower {
 
     @Override
-    public Tower newTower() { return new RapidTower(); }
+    public Tower newTower() {
+        return new RapidTower();
+    }
 
     @Override
     public String toString() {
@@ -35,11 +37,9 @@ public class RapidTower extends Tower {
     }
 
     @Override
-    public Color getColor() { return new Color(51, 153, 153); }
+    public Color getColor() {
+        return new Color(51, 153, 153);
+    }
     //Pas très important encore une fois
 
-    @Override
-    public boolean canFocus(Enemy e) {
-        return !e.isAerial();
-    }
 }
