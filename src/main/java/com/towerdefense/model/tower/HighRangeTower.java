@@ -6,7 +6,9 @@ import java.awt.*;
 
 public class HighRangeTower extends Tower {
 
-    @Override
+   
+
+	@Override
     public Tower newTower() {
         return new HighRangeTower();
     }
