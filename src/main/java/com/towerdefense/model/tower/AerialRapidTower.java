@@ -6,9 +6,13 @@ import java.awt.*;
 
 public class AerialRapidTower extends Tower {
 
+    public AerialRapidTower(int damage) {
+        super(damage);
+    }
+
     @Override
     public Tower newTower() {
-        return new AerialRapidTower();
+        return new AerialRapidTower(10);
     }
 
     @Override
@@ -23,7 +27,7 @@ public class AerialRapidTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 10;
+        return 300;
     } // à voir
 
     @Override
@@ -33,7 +37,7 @@ public class AerialRapidTower extends Tower {
 
     @Override
     public int getRange() {
-        return 5;
+        return 8;
     }
 
     @Override

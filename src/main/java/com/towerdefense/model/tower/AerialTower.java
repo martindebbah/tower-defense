@@ -6,9 +6,13 @@ import com.towerdefense.model.enemy.Enemy;
 
 public class AerialTower extends Tower {
 
+    public AerialTower(int damage) {
+        super(damage);
+    }
+
     @Override
     public Tower newTower() {
-        return new AerialTower();
+        return new AerialTower(20);
     }
 
     @Override
@@ -25,11 +29,6 @@ public class AerialTower extends Tower {
     public int getPrice() {
         return 150;
     } // plus cher ou pas ?
-
-    @Override
-    public int getDamage() {
-        return 20;
-    }
 
     @Override
     public int getRange() {

@@ -35,7 +35,7 @@ public class GameView extends JPanel implements ActionListener {
         this.game = new Game(32, 20, player);
         createShop();
         createBoard();
-        this.wave = new Wave(this.game,20);
+        this.wave = new Wave(this.game,70);
         WaveView w = new WaveView(wave, this);
         add(w, BorderLayout.NORTH);
     }
