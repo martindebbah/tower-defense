@@ -172,19 +172,23 @@ public class Enemy {
 
         if (closed.contains(next))  // Si la case est déjà dans la liste fermée, on ne l'ajoute pas
             return;
-            
-        if(open.contains(board.getBoard()[x][y]))   // si le noeud est déjà dans la liste ouverte on vérifie sa qualité et on la met à jour si elle est meilleure
-            for(Tile t : open){
-                if(x == t.getX() && y == t.getY() && next.getQuality() < t.getQuality()){
-                    t.setParent(current);
-                    t.setQuality(next.getQuality());
-                }
+
+        double tempKnown = current.getKnownDistance() + 1;
+        
+        if(open.contains(next)) { // si le noeud est déjà dans la liste ouverte on vérifie sa qualité et on la met à jour si elle est meilleure
+            if (tempKnown < next.getKnownDistance()) {
+                next.setKnownDistance(tempKnown);
+                next.setParent(current);
             }
-        else {
-            next.setParent(current); // ajout du noeud voisin dans la liste ouverte
-            next.setQuality(dist(x, y, fx, fy));
+        }else { // Si le noeud n'est pas dans la liste ouverte on l'ajoute
+            next.setParent(current);
+            next.setKnownDistance(tempKnown);
             open.add(next);
         }
+
+        // On met à jour
+        next.setDistance(dist(x, y, fx, fy));
+        next.setTotalDistance(next.getKnownDistance() + next.getDistance());
     }
 
     public Tile shorterPath(int fx, int fy, Board board) { // application de l'algo A*
@@ -192,10 +196,11 @@ public class Enemy {
         ArrayList<Tile> closed = new ArrayList<>(); // liste fermée
         Tile current = getFirstTile(board);
 
-        current.setQuality(dist(current.getX() / board.getSize() + (current.getX() % board.getSize() == 0 ? 0 : 1),
+        current.setDistance(dist(current.getX() / board.getSize() + (current.getX() % board.getSize() == 0 ? 0 : 1),
                 current.getY() / board.getSize() + (current.getY() % board.getSize() == 0 ? 0 : 1), fx, fy));
         closed.add(current);
-        current.setParent(null); // On remet current.parent à null pour éviter le StackOverFlow
+        current.setParent(null);
+        current.setKnownDistance(0);
         List<Tile> neighbors;
 
         while (current != board.getBoard()[fx][fy]) { // tant que le noeud actuel n'est pas le noeud de sortie
@@ -207,7 +212,7 @@ public class Enemy {
 
             Tile best = open.get(0);
             for (int i = 1; i < open.size(); i++) // check le noeud qui possède la meilleure qualité
-                if (open.get(i).getQuality() < best.getQuality())
+                if (open.get(i).getTotalDistance() < best.getTotalDistance())
                     best = open.get(i);
 
             open.remove(best); // on le retire de la liste ouverte

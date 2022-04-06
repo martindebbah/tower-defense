@@ -65,7 +65,7 @@ public class InfernalTower extends Tower {
             coolDown = 0;
             if(super.initialDamage <= 2000){
                 super.initialDamage *= 2;
-                System.out.println("suuu");
+                //System.out.println("suuu");
             }
         }
     }

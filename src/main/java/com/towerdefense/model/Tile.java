@@ -6,7 +6,9 @@ public class Tile {
     private Tower t;
     private int x,y;
     private Tile parent;
-    private double quality;
+    private double knownDistance; // La distance qu'on a parcouru pour atteindre cette case
+    private double distance; // La distance "à vol d'oiseau" jusqu'à la sortie
+    private double totalDistance; // La somme des deux distances précédentes
 
     public Tile(int x, int y){
         this.x = x*32;
@@ -51,11 +53,28 @@ public class Tile {
         this.parent = p;
     }
 
-    public double getQuality(){
-        return quality;
+    public double getDistance(){
+        return distance;
     }
 
-    public void setQuality(double q){
-        this.quality = q;
+    public void setDistance(double d){
+        this.distance = d;
     }
+
+    public double getKnownDistance() {
+        return knownDistance;
+    }
+
+    public void setKnownDistance(double d) {
+        knownDistance = d;
+    }
+
+    public double getTotalDistance() {
+        return totalDistance;
+    }
+
+    public void setTotalDistance(double d) {
+        totalDistance = d;
+    }
+
 }
