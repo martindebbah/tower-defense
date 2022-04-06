@@ -6,9 +6,14 @@ import java.awt.*;
 
 public class AerialHighRangeTower extends Tower {
 
+    public AerialHighRangeTower(int damage) {
+        super(damage);
+        //TODO Auto-generated constructor stub
+    }
+
     @Override
     public Tower newTower() {
-        return new AerialHighRangeTower();
+        return new AerialHighRangeTower(5);
     }
 
     @Override

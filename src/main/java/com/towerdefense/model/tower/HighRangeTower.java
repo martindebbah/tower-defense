@@ -8,9 +8,14 @@ public class HighRangeTower extends Tower {
 
    
 
-	@Override
+	public HighRangeTower(int damage) {
+        super(damage);
+        //TODO Auto-generated constructor stub
+    }
+
+    @Override
     public Tower newTower() {
-        return new HighRangeTower();
+        return new HighRangeTower(5);
     }
 
     @Override
