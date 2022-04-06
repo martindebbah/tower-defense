@@ -28,6 +28,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     private int[] preview;
     private boolean isPaused = false;
     private Player player;
+    private BufferedImage background;
 
     public BoardView(Game game, Shop shop) {
         this.board = game.getBoard();
@@ -38,6 +39,12 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         addMouseListener(this);
         addMouseMotionListener(this);
+
+        try{
+            this.background = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile024.png"));
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Board getBoard() {
@@ -55,14 +62,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     public void paintComponentInit(Graphics g) {
         for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
-                try {
-                    BufferedImage image = ImageIO
-                            .read(new File(
-                                    "src/main/resources/Images/towerDefense_tile024.png"));
-                    g.drawImage(image, x * size, y * size, 34, 34, null);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                g.drawImage(background, x * size, y * size, 34, 34, null);
             }
         }
     }
