@@ -99,9 +99,9 @@ public class Tower {
         return target != null;
     }
 
-    public boolean canFocus(Enemy e) {
-        return false;
-    }
+    public boolean canFocusAerial(Enemy e) {
+        return !e.isAerial();   // true sie e n'est pas un ennemi aérien
+    }   // est overriden dans AerialTower
 
     public void focus(Board board) {
         if (target != null) {
@@ -113,7 +113,7 @@ public class Tower {
         }
         List<Enemy> enemies = board.getEnemies();
         for (Enemy e : enemies) {
-            if (isInRange(e.getCoord(), board.getSize()) && canFocus(e)) {
+            if (isInRange(e.getCoord(), board.getSize()) && canFocusAerial(e)) {
                 target = e;
                 newTarget = true;
                 return;

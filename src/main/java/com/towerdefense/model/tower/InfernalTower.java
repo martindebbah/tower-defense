@@ -52,11 +52,6 @@ public class InfernalTower extends Tower {
     }
 
     @Override
-    public boolean canFocus(Enemy e) {
-        return !e.isAerial();
-    }
-
-    @Override
     public void attack(Board board) {
         if (!canAttack())
             return;
@@ -86,7 +81,7 @@ public class InfernalTower extends Tower {
         }
         List<Enemy> enemies = board.getEnemies();
         for (Enemy e : enemies) {
-            if (isInRange(e.getCoord(), board.getSize()) && canFocus(e)) {
+            if (isInRange(e.getCoord(), board.getSize()) && canFocusAerial(e)) {
                 target = e;
                 newTarget = true;
                 return;

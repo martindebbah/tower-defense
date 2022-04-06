@@ -11,7 +11,9 @@ public class AerialRapidTower extends Tower {
     }
 
     @Override
-    public Tower newTower() { return new AerialRapidTower(10); }
+    public Tower newTower() {
+        return new AerialRapidTower(10);
+    }
 
     @Override
     public String toString() {
@@ -39,10 +41,12 @@ public class AerialRapidTower extends Tower {
     }
 
     @Override
-    public Color getColor() { return new Color(51, 153, 153); } // bref
+    public Color getColor() {
+        return new Color(51, 153, 153);
+    } // bref
 
     @Override
-    public boolean canFocus(Enemy e) {
+    public boolean canFocusAerial(Enemy e) {
         return e.isAerial();
     }
 

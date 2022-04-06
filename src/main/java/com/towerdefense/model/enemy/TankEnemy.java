@@ -22,10 +22,5 @@ public class TankEnemy extends Enemy{
     public String toString() {
         return "Ennemi tank"; // Peut-être nom à changer ("Tank")
     }
-
-    @Override
-    public boolean isAerial(){
-        return false;
-    }
     
 }

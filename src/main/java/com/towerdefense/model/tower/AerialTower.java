@@ -47,7 +47,7 @@ public class AerialTower extends Tower {
     }
 
     @Override
-    public boolean canFocus(Enemy e) {
+    public boolean canFocusAerial(Enemy e) {
         return e.isAerial();
     }
 
