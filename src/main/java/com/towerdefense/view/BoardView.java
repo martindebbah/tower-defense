@@ -58,8 +58,24 @@ public class BoardView extends JPanel implements MouseInputListener {
         board.addTower(t, x, y);
     }
 
+    public void paintComponentInit(Graphics g) {
+        for (int x = 0; x < board.getNbCases(); x++) {
+            for (int y = 0; y < board.getNbCases(); y++) {
+                try {
+                    BufferedImage image = ImageIO
+                            .read(new File(
+                                    "src/main/resources/Images/towerDefense_tile024.png"));
+                    g.drawImage(image, x * size, y * size, 34, 34, null);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // this.paintComponentInit(g);// ok mais ça freeze demander à Martin
 
         /*
          * Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création
@@ -83,8 +99,8 @@ public class BoardView extends JPanel implements MouseInputListener {
                     try {
                         BufferedImage image = ImageIO
                                 .read(new File(
-                                        "src/main/resources/Images/towerDefense_tile250.png"));
-                        g.drawImage(image, x * size, y * size, 32, 32, null);
+                                        "src/main/resources/Images/towerDefense_tile2000.png"));
+                        g.drawImage(image, x * size, y * size, 35, 35, null);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -97,9 +113,9 @@ public class BoardView extends JPanel implements MouseInputListener {
         for (Enemy e : board.getEnemies()) {
             e.typeEnemy(g);
             g.setColor(Color.GREEN);
-            g.drawRect(e.getCoord()[0], e.getCoord()[1]- 10, size, 5);
-            g.fillRect(e.getCoord()[0], e.getCoord()[1]- 10, e.getHP() * size / 100, 5);
-            //System.out.println(e.getX() + " : " + e.getY());
+            g.drawRect(e.getCoord()[0], e.getCoord()[1] - 10, size, 5);
+            g.fillRect(e.getCoord()[0], e.getCoord()[1] - 10, e.getHP() * size / 100, 5);
+            // System.out.println(e.getX() + " : " + e.getY());
         }
 
         for (Tile[] tab : board.getBoard())
@@ -134,10 +150,13 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
-        }else { // ou pose une tour
-            if (player.canAfford(shop.getTowerPanel().getSelected().getTower()) && shop.wantPurchase() && !isPaused && board.canBuildOn(x / size, y / size)){ // Vérifier aussi que le joueur a assez d'argent
+        } else { // ou pose une tour
+            if (player.canAfford(shop.getTowerPanel().getSelected().getTower()) && shop.wantPurchase() && !isPaused
+                    && board.canBuildOn(x / size, y / size)) { // Vérifier aussi que le joueur a assez d'argent
                 addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
-                player.setMoney(player.getMoney()-shop.getTowerPanel().getSelected().getTower().getPrice()); // achète la tour
+                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète
+                                                                                                               // la
+                                                                                                               // tour
             }
         }
     }

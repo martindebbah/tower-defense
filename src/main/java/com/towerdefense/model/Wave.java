@@ -173,8 +173,10 @@ public class Wave implements ActionListener {
         switch (currentWave) {
             case 1:
                 if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 0);
-                    createEnemy(1, 0);
+                    createEnemy(2, 0);
+                }
+                if (countdownStarter % 6 == 0) {
+                    createEnemy(10, 0);
                 }
                 break;
             case 2:

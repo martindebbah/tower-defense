@@ -22,14 +22,14 @@ public class Enemy {
 
     private Game game;
     protected int health;
-    //protected int maxHealth;
+    // protected int maxHealth;
     private int x;
     private int y;
     private Stack<Tile> path;
     private int direction;
 
     public Enemy(Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
-        //this.maxHealth = getMaxHealth();
+        // this.maxHealth = getMaxHealth();
         this.health = getMaxHealth();
         this.game = game;
         this.x = x;
@@ -68,12 +68,12 @@ public class Enemy {
         return health > 0;
     }
 
-    public int getMaxHealth(){
+    public int getMaxHealth() {
         return 0;
     }
 
-    public void setHealth(int m){
-        //this.maxHealth += m;
+    public void setHealth(int m) {
+        // this.maxHealth += m;
         this.health += m;
     }
 
@@ -310,15 +310,23 @@ public class Enemy {
 
     public void typeEnemy(Graphics g) {
         if (this instanceof Mo) {
-            g.setColor(Color.BLACK);
-            g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+            // g.setColor(Color.BLACK);
+            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile300.png"));
+                g.drawImage(image, x, y, 35, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         } else if (this instanceof BasicEnemy) {
             // g.setColor(Color.RED);
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
-                                "src/main/resources/Images/towerDefense_tile200.png"));
-                g.drawImage(image, x, y, 32, 32, null);
+                                "src/main/resources/Images/towerDefense_tile1002.png"));
+                g.drawImage(image, x, y, 35, 35, null);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -328,15 +336,23 @@ public class Enemy {
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
-                                "src/main/resources/Images/towerDefense_tile271.png"));
-                g.drawImage(image, x, y, 32, 32, null);
+                                "src/main/resources/Images/towerDefense_tile1003.png"));
+                g.drawImage(image, x, y, 35, 35, null);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
             // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof TankEnemy) {
-            g.setColor(Color.GRAY);
-            g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+            // g.setColor(Color.GRAY);
+            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile1004.png"));
+                g.drawImage(image, x, y, 35, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

@@ -1,13 +1,21 @@
 package com.towerdefense.view;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import com.towerdefense.view.menu.*;
 
 public class Window extends JFrame {
 
     public Window() {
 
-        //Définition de la fenêtre
+        // Définition de la fenêtre
         setSize(1000, 1000);
         setTitle("Tower Defense");
         setLocationRelativeTo(null);
@@ -18,7 +26,7 @@ public class Window extends JFrame {
         setAccueil();
 
         // test
-        //play();
+        // play();
 
     }
 
@@ -26,6 +34,7 @@ public class Window extends JFrame {
         getContentPane().add(new Accueil(this));
         revalidate();
         repaint();
+
     }
 
     public void setMenu() {
@@ -47,7 +56,7 @@ public class Window extends JFrame {
         repaint();
     }
 
-    public void refresh(){
+    public void refresh() {
         revalidate();
         repaint();
     }
@@ -56,9 +65,11 @@ public class Window extends JFrame {
         GameView gameView = new GameView(this);
         setContentPane(gameView);
         gameView.start();
-        /*EndGame e = new EndGame(this,gameView.GameFinish());
-        setContentPane(e);
-        refresh();*/
+        /*
+         * EndGame e = new EndGame(this,gameView.GameFinish());
+         * setContentPane(e);
+         * refresh();
+         */
     }
-    
+
 }
