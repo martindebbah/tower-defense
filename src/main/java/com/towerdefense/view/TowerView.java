@@ -46,16 +46,11 @@ public class TowerView extends JPanel {
          * e1.printStackTrace();
          * }
          */
+    }
 
-        try {
-            BufferedImage image = ImageIO
-                    .read(new File(
-                            "src/main/resources/Images/towerDefense_tile292.png"));
-            JLabel label = new JLabel(new ImageIcon(image));
-            this.add(label);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        tower.typeTower(g, 0, 0);
 
     }
 

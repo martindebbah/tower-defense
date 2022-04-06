@@ -3,11 +3,18 @@ package com.towerdefense.model.tower;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import com.towerdefense.model.Board;
+import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Tower {
 
@@ -18,6 +25,7 @@ public class Tower {
     private List<Projectile> killProjectiles;
     protected int coolDown = 0;
     protected int initialDamage;
+    protected int level = 0;
 
     public Tower(int damage) {
         this.projectiles = new ArrayList<Projectile>();
@@ -25,7 +33,7 @@ public class Tower {
         this.initialDamage = damage;
     }
 
-    public void setDamage(int damage){
+    public void setDamage(int damage) {
         this.initialDamage *= damage;
     }
 
@@ -33,7 +41,7 @@ public class Tower {
         return null;
     }
 
-    public String toString() {  // Fonction définie dans chaque classe héritant de Tower
+    public String toString() { // Fonction définie dans chaque classe héritant de Tower
         return "";
     }
 
@@ -55,8 +63,9 @@ public class Tower {
         return 0;
     }
 
-    public int getAttackSpeed() {   // Dans chaque classe
-        return 0;   // La fonction retourne n tel que la tour attaque toutes les n * 50 millisecondes
+    public int getAttackSpeed() { // Dans chaque classe
+        return 0; // La fonction retourne n tel que la tour attaque toutes les n * 50
+                  // millisecondes
     }
 
     public boolean isNewTarget() {
@@ -67,7 +76,7 @@ public class Tower {
         return this;
     }
 
-    public int getDamage() {    // Dans chaque classe
+    public int getDamage() { // Dans chaque classe
         return initialDamage;
     }
 
@@ -78,9 +87,9 @@ public class Tower {
         if (coolDown == 0) {
             addProjectile(new Projectile(getSource(), target));
         }
-        if (coolDown <= getAttackSpeed()) {  // tire toutes les 20 * 50 millisecondes
+        if (coolDown <= getAttackSpeed()) { // tire toutes les 20 * 50 millisecondes
             coolDown++;
-        }else {
+        } else {
             coolDown = 0;
         }
     }
@@ -98,15 +107,16 @@ public class Tower {
     }
 
     public boolean canFocusAerial(Enemy e) {
-        return !e.isAerial();   // true sie e n'est pas un ennemi aérien
-    }   // est overriden dans AerialTower
+        return !e.isAerial(); // true sie e n'est pas un ennemi aérien
+    } // est overriden dans AerialTower
 
     public void focus(Board board) {
         if (target != null) {
             newTarget = false;
-            if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou meurt
+            if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou
+                                                                                     // meurt
                 target = null;
-                
+
             return; // On ne change pas de cible
         }
         List<Enemy> enemies = board.getEnemies();
@@ -115,15 +125,15 @@ public class Tower {
                 target = e;
                 newTarget = true;
                 return;
-            }else {
+            } else {
                 target = null;
             }
         }
     }
 
     public boolean isInRange(int[] coordE, int size) { // La range est un peu décalée sur le coin haut-gauche de l'unité
-        return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0]) + (coordE[1] / size - coord[1]) * (coordE[1] / size - coord[1])
-                <= getRange() * getRange();
+        return (coordE[0] / size - coord[0]) * (coordE[0] / size - coord[0])
+                + (coordE[1] / size - coord[1]) * (coordE[1] / size - coord[1]) <= getRange() * getRange();
     }
 
     public void addKillProjectile(Projectile p) {
@@ -135,12 +145,93 @@ public class Tower {
         killProjectiles.clear();
     }
 
-    public Color getColor() {   // Première méthode pour afficher une tour
+    public Color getColor() { // Première méthode pour afficher une tour
         return null;
     }
 
     public Color getPreviewColor() {
         return null;
     }
-    
+
+    public void typeTower(Graphics g, int x, int y) {
+        if (this instanceof DestructiveTower) {
+            // g.setColor(Color.BLACK);
+            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile2004.png"));
+                g.drawImage(image, x, y, 35, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } else if (this instanceof BasicTower) {
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile2000.png"));
+                g.drawImage(image, x, y, 35, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } else if (this instanceof AerialTower) {
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile2001.png"));
+                g.drawImage(image, x, y, 35, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } else if (this instanceof SuperTower) {
+            // g.setColor(Color.GRAY);
+            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile2002.png"));
+                g.drawImage(image, x, y, 35, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } else if (this instanceof InfernalTower) {// faire skin a partir de la
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile2005.png"));
+                g.drawImage(image, x, y, 30, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } else if (this instanceof RapidTower) {
+            try {
+                BufferedImage image = ImageIO
+                        .read(new File(
+                                "src/main/resources/Images/towerDefense_tile2006.png"));
+                g.drawImage(image, x, y, 35, 35, null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    public int moneyOnLevel() {
+        return (level + 1) * 100;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public boolean canUpgrade(Player p) {
+        if (p.getMoney() < moneyOnLevel() || level >= 3) {
+            return false;
+        }
+        return true;
+    }
+
+    public void upgrade() {
+        return;
+    }
+
 }

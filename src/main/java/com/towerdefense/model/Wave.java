@@ -102,11 +102,14 @@ public class Wave implements ActionListener {
 
     public void start() {
         switch (speed) {
-            case 1: timer1.start();
+            case 1:
+                timer1.start();
                 break;
-            case 2: timer2.start();
+            case 2:
+                timer2.start();
                 break;
-            case 5: timer5.start();
+            case 5:
+                timer5.start();
                 break;
         }
     }
@@ -114,11 +117,14 @@ public class Wave implements ActionListener {
     public void changeSpeed() {
         pause();
         switch (speed) {
-            case 1: speed = 2;
+            case 1:
+                speed = 2;
                 break;
-            case 2: speed = 5;
+            case 2:
+                speed = 5;
                 break;
-            case 5: speed = 1;
+            case 5:
+                speed = 1;
                 break;
         }
         start();
@@ -151,11 +157,14 @@ public class Wave implements ActionListener {
 
     public void pause() {
         switch (speed) {
-            case 1: timer1.stop();
+            case 1:
+                timer1.stop();
                 break;
-            case 2: timer2.stop();
+            case 2:
+                timer2.stop();
                 break;
-            case 5: timer5.stop();
+            case 5:
+                timer5.stop();
                 break;
         }
     }
@@ -210,7 +219,7 @@ public class Wave implements ActionListener {
                 if (countdownStarter % 4 == 0) {
                     createEnemy(0, 0);
                 }
-                if(countdownStarter % 6 == 0){
+                if (countdownStarter % 6 == 0) {
                     createEnemy(1, 0);
                 }
                 break;

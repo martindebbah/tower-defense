@@ -1,5 +1,6 @@
 package com.towerdefense.view.menu;
 
+import java.lang.String.*;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,7 +13,7 @@ import com.towerdefense.model.Player;
 import com.towerdefense.view.Window;
 
 public class NewPlayer extends JPanel {
-	
+
 	public NewPlayer(Window window) {
 		setSize(1000, 1000);
 
@@ -27,9 +28,9 @@ public class NewPlayer extends JPanel {
 
 		JButton start = new JButton("Continuer");
 		start.addActionListener(e -> {
-			if (name.getText().isBlank()) {
+			if (name.getText().isEmpty()) {
 				error.setText("Veuillez entrer un nom d'utilisateur");
-			}else {
+			} else {
 				player.setName(name.getText());
 				window.setNewGame(player);
 			}

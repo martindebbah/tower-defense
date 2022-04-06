@@ -4,20 +4,20 @@ import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.*;
 
-public class RapidTower extends Tower {
+public class AerialRapidTower extends Tower {
 
-    public RapidTower(int damage) {
+    public AerialRapidTower(int damage) {
         super(damage);
     }
 
     @Override
     public Tower newTower() {
-        return new RapidTower(10);
+        return new AerialRapidTower(10);
     }
 
     @Override
     public String toString() {
-        return "Tour rapide";
+        return "Tour aérienne rapide";
     }
 
     @Override
@@ -27,8 +27,13 @@ public class RapidTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 250;
+        return 300;
     } // à voir
+
+    @Override
+    public int getDamage() {
+        return 10;
+    }
 
     @Override
     public int getRange() {
@@ -38,12 +43,11 @@ public class RapidTower extends Tower {
     @Override
     public Color getColor() {
         return new Color(51, 153, 153);
-    }
-    //Pas très important encore une fois
+    } // bref
 
     @Override
     public boolean canFocusAerial(Enemy e) {
-        return !e.isAerial();
+        return e.isAerial();
     }
 
     @Override
@@ -58,7 +62,6 @@ public class RapidTower extends Tower {
                 break;
             case 3:
                 initialDamage += 100;
-                break;
         }
     }
 }

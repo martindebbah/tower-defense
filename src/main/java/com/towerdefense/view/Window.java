@@ -1,6 +1,13 @@
 package com.towerdefense.view;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import com.towerdefense.model.Player;
 import com.towerdefense.view.menu.*;
@@ -9,18 +16,17 @@ public class Window extends JFrame {
 
     public Window() {
 
-        //Définition de la fenêtre
+        // Définition de la fenêtre
         setSize(1000, 1000);
         setTitle("Tower Defense");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);
-
         setAccueil();
 
         // test
-        //play();
+        // play();
 
     }
 
@@ -50,7 +56,7 @@ public class Window extends JFrame {
         refresh();
     }
 
-    public void refresh(){
+    public void refresh() {
         revalidate();
         repaint();
     }
@@ -60,8 +66,8 @@ public class Window extends JFrame {
         setContentPane(gameView);
         gameView.start();
     }
-    
-    public void endGame(int status){
+
+    public void endGame(int status) {
         setContentPane(new EndGame(this, status));
         refresh();
     }

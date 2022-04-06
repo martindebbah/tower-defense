@@ -11,7 +11,7 @@ public class Player {
 
     public Player(String name) {
         this.health = 1000;
-        this.money = 300; // Combien ?
+        this.money = 100000; // Combien ?
         this.name = name;
     }
 
@@ -22,7 +22,7 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public int getMoney() {
         return this.money;
     }
@@ -36,7 +36,7 @@ public class Player {
     }
 
     public void getHit(Enemy enemy) {
-        health -= enemy.getHP()*enemy.getMaxHealth()/100;
+        health -= enemy.getHP() * enemy.getMaxHealth() / 100;
     }
 
     public boolean isAlive() {
