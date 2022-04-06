@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,17 +28,21 @@ public class Accueil extends JPanel {
 		start.addActionListener(e -> {
 			window.setMenu();
 		});
+
+		panel.add(start);
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		try {
 			BufferedImage image = ImageIO
 					.read(new File(
-							"/Users/dorian/Desktop/towerdef/tower-defense/src/main/resources/Images/towerDefense_tile024.png"));
-			BufferedImage img = new BufferedImage(32, 32, image.getType());
-			JLabel label = new JLabel(new ImageIcon(img));
-			this.add(label);
+							"src/main/resources/Images/towerDefense_tile5000.png"));
+			g.drawImage(image, 32, 32, null);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		panel.add(start);
+
 	}
 
 }

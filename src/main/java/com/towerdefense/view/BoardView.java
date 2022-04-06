@@ -1,13 +1,10 @@
 package com.towerdefense.view;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,10 +13,7 @@ import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
-import com.towerdefense.model.enemy.AerialEnemy;
-import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
-import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -75,7 +69,7 @@ public class BoardView extends JPanel implements MouseInputListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // this.paintComponentInit(g);// ok mais ça freeze demander à Martin
+        this.paintComponentInit(g);// ok mais ça freeze demander à Martin
 
         /*
          * Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création
@@ -96,14 +90,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                 if (board.getBoard()[x][y].containsTower()) {
                     // g.setColor(board.getBoard()[x][y].getTower().getColor());
                     // g.fillRect(x * size, y * size, size, size);
-                    try {
-                        BufferedImage image = ImageIO
-                                .read(new File(
-                                        "src/main/resources/Images/towerDefense_tile2000.png"));
-                        g.drawImage(image, x * size, y * size, 35, 35, null);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                    board.getBoard()[x][y].getTower().typeTower(g, x * size, y * size);
                 }
                 g.setColor(Color.BLACK);
                 g.drawRect(y * size, x * size, size, size);
@@ -123,10 +110,10 @@ public class BoardView extends JPanel implements MouseInputListener {
                 if (t.containsTower())
                     for (Projectile p : t.getTower().getProjectiles()) {
                         g.setColor(p.getColor());
-                        g.fillOval(p.getX(), p.getY(), size / 4, size / 4);
+                        g.fillOval((int) p.getX(), (int) p.getY(), size / 4, size / 4);
                     }
 
-        if (preview != null) {
+        if (preview != null) { // Bug avec la tour de base (le preview est vert puis noir entre deux waves)
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {
                 g.setColor(shop.getPreviewColor());
                 g.fillRect(preview[0], preview[1], size, size);

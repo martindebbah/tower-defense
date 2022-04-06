@@ -5,7 +5,7 @@ import com.towerdefense.model.Game;
 public class Mo extends Enemy {
 
     public Mo(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2, 4000, 4000);
     }
 
     @Override
@@ -16,11 +16,6 @@ public class Mo extends Enemy {
     @Override
     public int getMovementSpeed() {
         return 1;
-    }
-
-    @Override
-    public int getMaxHealth(){
-        return 3000;
     }
 
     @Override

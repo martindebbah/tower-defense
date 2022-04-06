@@ -6,9 +6,13 @@ import com.towerdefense.model.enemy.Enemy;
 
 public class BasicTower extends Tower {
 
+    public BasicTower(int damage) {
+        super(damage);
+    }
+
     @Override
     public Tower newTower() {
-        return new BasicTower();
+        return new BasicTower(20);
     }
 
     @Override
@@ -18,17 +22,12 @@ public class BasicTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 2;
+        return 20;
     }
 
     @Override
     public int getPrice() {
         return 100;
-    }
-
-    @Override
-    public int getDamage() {
-        return 15;
     }
 
     @Override
@@ -40,11 +39,6 @@ public class BasicTower extends Tower {
     public Color getColor() {
         return Color.WHITE;
         // return Color.BLUE;
-    }
-
-    @Override
-    public boolean canFocus(Enemy e) {
-        return !e.isAerial();
     }
 
 }

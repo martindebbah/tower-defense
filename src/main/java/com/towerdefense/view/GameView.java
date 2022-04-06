@@ -20,19 +20,22 @@ public class GameView extends JPanel implements ActionListener {
     private Wave wave;
     private Player player;
     private Window window;
-    private Timer timer = new Timer(50, this);
+    private Timer timer1 = new Timer(50, this); // x2 = 25, x4 = 12/13 ?
+    private Timer timer2 = new Timer(25, this);
+    private Timer timer5 = new Timer(10, this);
+    private int speed = 1;
 
-    public GameView(Window window) {
+    public GameView(Window window, Player p) {
         this.window = window;
         setSize(1000, 1000);
         setLayout(new BorderLayout());
 
         // Création du plateau de jeu
-        this.player = new Player("Martin");
+        this.player = p;
         this.game = new Game(32, 20, player);
         createShop();
         createBoard();
-        this.wave = new Wave(this.game,20);
+        this.wave = new Wave(this.game,70);
         WaveView w = new WaveView(wave, this);
         add(w, BorderLayout.NORTH);
     }
@@ -51,15 +54,44 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     public void start() {
-        timer.start();
+        switch (speed) {
+            case 1: timer1.start();
+                break;
+            case 2: timer2.start();
+                break;
+            case 5: timer5.start();
+        }
         board.start();
         window.refresh();
     }
 
     public void pause() {
-        timer.stop();
+        switch (speed) {
+            case 1: timer1.stop();
+                break;
+            case 2: timer2.stop();
+                break;
+            case 5: timer5.stop();
+                break;
+        }
         board.pause();
         window.refresh();
+    }
+
+    public void changeSpeed() {
+        pause();
+        switch (speed) {
+            case 1: speed = 2;
+                break;
+            case 2: speed = 5;
+                break;
+            case 5: speed = 1;
+        }
+        start();
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     @Override
@@ -73,24 +105,18 @@ public class GameView extends JPanel implements ActionListener {
                 wave.play();
                 window.refresh();
             } else {
-                wave.setWinGame(true); 
+                if(board.getBoard().getEnemies().isEmpty()){
+                    endGame(0);
+                }
             }
         }else{
-            wave.setLoseGame(true);
+            endGame(1);
         }
     }
 
-    public int GameFinish(){
-        if(wave.getWin()){
-            return 0;
-        } else {
-            if(wave.getLose()){
-                return 1;
-            }
-        }
-        return -1;
+    public void endGame(int status) {
+        pause();
+        window.endGame(status);
     }
-
-
 
 }

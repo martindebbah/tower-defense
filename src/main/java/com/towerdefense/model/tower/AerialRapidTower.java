@@ -6,8 +6,14 @@ import java.awt.*;
 
 public class AerialRapidTower extends Tower {
 
+    public AerialRapidTower(int damage) {
+        super(damage);
+    }
+
     @Override
-    public Tower newTower() { return new AerialRapidTower(); }
+    public Tower newTower() {
+        return new AerialRapidTower(10);
+    }
 
     @Override
     public String toString() {
@@ -16,12 +22,12 @@ public class AerialRapidTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 3;
+        return 10;
     } // pour l'instant 3x plus
 
     @Override
     public int getPrice() {
-        return 10;
+        return 300;
     } // à voir
 
     @Override
@@ -31,14 +37,17 @@ public class AerialRapidTower extends Tower {
 
     @Override
     public int getRange() {
-        return 5;
+        return 8;
     }
 
     @Override
-    public Color getColor() { return new Color(51, 153, 153); } // bref
+    public Color getColor() {
+        return new Color(51, 153, 153);
+    } // bref
 
     @Override
-    public boolean canFocus(Enemy e) {
+    public boolean canFocusAerial(Enemy e) {
         return e.isAerial();
     }
+    
 }

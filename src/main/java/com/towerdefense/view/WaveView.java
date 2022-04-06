@@ -18,22 +18,34 @@ public class WaveView extends JPanel {
         setPreferredSize(new java.awt.Dimension(1000, 112));
         wave.start();
 
+        JPanel pausePanel = new JPanel();
         JButton pause =  new JButton("Pause");
         JButton resume = new JButton("Reprendre");
+        JButton faster = new JButton("x1");
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(pause);
+        pausePanel.add(pause);
+        buttonPanel.add(pausePanel);
+        buttonPanel.add(faster);
+        buttonPanel.setOpaque(false);
 
         pause.addActionListener(e -> {
-            buttonPanel.remove(pause);
-            buttonPanel.add(resume);
+            pausePanel.remove(pause);
+            pausePanel.add(resume);
             gv.pause();
             wave.pause();
+            faster.setEnabled(false);
         });
         resume.addActionListener(e -> {
-            buttonPanel.remove(resume);
-            buttonPanel.add(pause);
+            pausePanel.remove(resume);
+            pausePanel.add(pause);
             gv.start();
             wave.start();
+            faster.setEnabled(true);
+        });
+        faster.addActionListener(e -> {
+            wave.changeSpeed();
+            gv.changeSpeed();
+            faster.setText("x"+gv.getSpeed());
         });
 
         add(wave.getMoneyPlayer());

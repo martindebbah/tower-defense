@@ -6,8 +6,15 @@ import java.awt.*;
 
 public class HighRangeTower extends Tower {
 
+    public HighRangeTower(int damage) {
+        super(damage);
+        // TODO Auto-generated constructor stub
+    }
+
     @Override
-    public Tower newTower() { return new HighRangeTower(); }
+    public Tower newTower() {
+        return new HighRangeTower(5);
+    }
 
     @Override
     public String toString() {
@@ -16,7 +23,7 @@ public class HighRangeTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 1;
+        return 20;
     }
 
     @Override
@@ -35,11 +42,9 @@ public class HighRangeTower extends Tower {
     } // Pour l'instant un rayon deux fois plus large
 
     @Override
-    public Color getColor() { return new Color(204, 0, 102); }
-    //Pas très important, pour l'instant j'ai mis un pourpre
-
-    @Override
-    public boolean canFocus(Enemy e) {
-        return !e.isAerial();
+    public Color getColor() {
+        return new Color(204, 0, 102);
     }
+    // Pas très important, pour l'instant j'ai mis un pourpre
+
 }

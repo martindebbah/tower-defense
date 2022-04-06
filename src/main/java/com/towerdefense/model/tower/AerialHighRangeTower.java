@@ -4,10 +4,20 @@ import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.*;
 
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
+
 public class AerialHighRangeTower extends Tower {
 
+    public AerialHighRangeTower(int damage) {
+        super(damage);
+        // TODO Auto-generated constructor stub
+    }
+
     @Override
-    public Tower newTower() { return new AerialHighRangeTower(); }
+    public Tower newTower() {
+        return new AerialHighRangeTower(5);
+    }
 
     @Override
     public String toString() {
@@ -16,7 +26,7 @@ public class AerialHighRangeTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 1;
+        return 20;
     }
 
     @Override
@@ -35,10 +45,12 @@ public class AerialHighRangeTower extends Tower {
     } // Pour l'instant un rayon deux fois plus large
 
     @Override
-    public Color getColor() { return new Color(204, 0, 102); } // j'ai pas spécialement d'idée donc pourpre à nouveau
+    public Color getColor() {
+        return new Color(204, 0, 102);
+    } // j'ai pas spécialement d'idée donc pourpre à nouveau
 
     @Override
-    public boolean canFocus(Enemy e) {
+    public boolean canFocusAerial(Enemy e) {
         return e.isAerial();
     }
 }

@@ -22,15 +22,15 @@ public class Enemy {
 
     private Game game;
     protected int health;
-    // protected int maxHealth;
+    protected int maxHealth;
     private int x;
     private int y;
     private Stack<Tile> path;
     private int direction;
 
-    public Enemy(Game game, int x, int y) { // x et y donnent l'endroit où apparaît l'unité
-        // this.maxHealth = getMaxHealth();
-        this.health = getMaxHealth();
+    public Enemy(Game game, int x, int y, int maxHealth, int health) { // x et y donnent l'endroit où apparaît l'unité
+        this.maxHealth = maxHealth;
+        this.health = health;
         this.game = game;
         this.x = x;
         this.y = y;
@@ -68,13 +68,17 @@ public class Enemy {
         return health > 0;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
     public int getMaxHealth() {
-        return 0;
+        return maxHealth;
     }
 
     public void setHealth(int m) {
-        // this.maxHealth += m;
-        this.health += m;
+        this.maxHealth += m;
+        this.health = maxHealth;
     }
 
     public int getGold() {// Fonction définie dans chaque classe qui hérite de Enemy
@@ -93,17 +97,17 @@ public class Enemy {
         return false;
     }
 
-    public void getHit(int damage) { // Appelé par la tour qui inflige les dommages à l'unité
+    public void getHit(int damage) { // Appelée par la tour qui inflige les dommages à l'unité
         health -= damage;
     }
 
-    public void crossedBoard() { // L'unité a traversé le plateau (fait perdre un pdv au joueur)
+    public void crossedBoard() { // L'unité a traversé le plateau (fait perdre des pv au joueur)
         game.getPlayer().getHit(this);
         health = 0;
     }
 
     public int getHP() {
-        return health * 100 / getMaxHealth();
+        return health * 100 / maxHealth;
     }
 
     public Stack<Tile> getPath() {
@@ -166,12 +170,12 @@ public class Enemy {
             Tile current) {
         Tile next = board.getBoard()[x][y];
 
-        if (closed.contains(next)) // Si la case est déjà dans la liste fermée
+        if (closed.contains(next)) // Si la case est déjà dans la liste fermée, on ne l'ajoute pas
             return;
 
         if (open.contains(board.getBoard()[x][y])) // si le noeud est déjà dans la liste ouverte on vérifie sa qualité
                                                    // et on la met à jour si elle est meilleure
-            for (Tile t : open) { // Le calcul de la qualité est-il vraiment fonctionnel ?
+            for (Tile t : open) {
                 if (x == t.getX() && y == t.getY() && next.getQuality() < t.getQuality()) {
                     t.setParent(current);
                     t.setQuality(next.getQuality());
@@ -197,7 +201,7 @@ public class Enemy {
 
         while (current != board.getBoard()[fx][fy]) { // tant que le noeud actuel n'est pas le noeud de sortie
 
-            neighbors = board.neighbors(current);
+            neighbors = board.getNeighborsOf(current);
 
             for (Tile t : neighbors)
                 validNode(t.getX() / board.getSize(), t.getY() / board.getSize(), fx, fy, board, closed, open, current);
@@ -220,8 +224,6 @@ public class Enemy {
         /*
          * Donne la première case que l'ennemi doit visiter
          * en fonction de la direction dans laquelle il se dirige
-         * !! non fonctionnel : si la tuile retournée contient une tour, n'en prend pas
-         * compte !!
          */
         switch (direction) {
             case 1:
@@ -321,7 +323,6 @@ public class Enemy {
                 e1.printStackTrace();
             }
         } else if (this instanceof BasicEnemy) {
-            // g.setColor(Color.RED);
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
@@ -330,9 +331,7 @@ public class Enemy {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof AerialEnemy) {
-            // g.setColor(Color.YELLOW);
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
@@ -341,7 +340,6 @@ public class Enemy {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
         } else if (this instanceof TankEnemy) {
             // g.setColor(Color.GRAY);
             // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());

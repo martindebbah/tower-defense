@@ -26,8 +26,8 @@ public class Game {
             for (Tile t : tab)
                 if (t.containsTower()) {
                     t.getTower().focus(board);
-                    if (t.getTower().canAttack() && t.getTower().isNewTarget())
-                        t.getTower().attack(board);
+                    t.getTower().attack(board);
+                    System.out.println(t.getTower().getDamage());
                 }
     }
 
@@ -42,7 +42,7 @@ public class Game {
                     player.setMoney(player.getMoney()+e.getGold());
                 }
             }
-            System.out.println(e.getHP()+"/"+e.getMaxHealth());
+            //System.out.println(e.getHealth()+"/"+e.getMaxHealth());
             e.move();
         }
     }
@@ -58,8 +58,6 @@ public class Game {
                             tower.addKillProjectile(p);
                     }
                 }
-
-        //board.refresh();    // On met le board à jour (kill les ennemis/projectiles et refresh les chemins ennemis)
     }
     
 }

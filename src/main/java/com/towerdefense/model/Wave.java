@@ -24,7 +24,10 @@ public class Wave implements ActionListener {
 
     private int timeWave;
     private int countDown;
-    private Timer timer = new Timer(1000, this);
+    private Timer timer1 = new Timer(1000, this); // x2 = 500, x4 = 250
+    private Timer timer2 = new Timer(500, this);
+    private Timer timer5 = new Timer(200, this);
+    private int speed = 1;
 
     private boolean finChrono = false;
     private boolean WinGame = false;
@@ -98,7 +101,33 @@ public class Wave implements ActionListener {
     }
 
     public void start() {
-        timer.start();
+        switch (speed) {
+            case 1:
+                timer1.start();
+                break;
+            case 2:
+                timer2.start();
+                break;
+            case 5:
+                timer5.start();
+                break;
+        }
+    }
+
+    public void changeSpeed() {
+        pause();
+        switch (speed) {
+            case 1:
+                speed = 2;
+                break;
+            case 2:
+                speed = 5;
+                break;
+            case 5:
+                speed = 1;
+                break;
+        }
+        start();
     }
 
     @Override
@@ -122,12 +151,22 @@ public class Wave implements ActionListener {
             return;
         }
         if (currentWave > nbWaves || WinGame || LoseGame) {
-            timer.stop();
+            pause();
         }
     }
 
     public void pause() {
-        timer.stop();
+        switch (speed) {
+            case 1:
+                timer1.stop();
+                break;
+            case 2:
+                timer2.stop();
+                break;
+            case 5:
+                timer5.stop();
+                break;
+        }
     }
 
     public String convertSecondToMinute(int second) {
@@ -172,46 +211,46 @@ public class Wave implements ActionListener {
     public void wave(int currentWave, int countdownStarter) {
         switch (currentWave) {
             case 1:
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(2, 0);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(10, 0);
+                if (countdownStarter % 5 == 0) {
+                    createEnemy(0, 0);
                 }
                 break;
             case 2:
                 if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 20);
+                    createEnemy(0, 0);
+                }
+                if (countdownStarter % 6 == 0) {
+                    createEnemy(1, 0);
                 }
                 break;
             case 3:
                 if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 40);
+                    createEnemy(0, 100);
                 }
                 if (countdownStarter % 8 == 0) {
-                    createEnemy(1, 0);
+                    createEnemy(1, 50);
                 }
                 break;
             case 4:
-                if (countdownStarter % 2 == 0) {
-                    createEnemy(0, 40);
+                if (countdownStarter % 4 == 0) {
+                    createEnemy(0, 100);
                 }
                 if (countdownStarter % 6 == 0) {
-                    createEnemy(1, 0);
+                    createEnemy(1, 100);
                 }
                 if (countdownStarter % 10 == 0) {
                     createEnemy(2, 0);
                 }
                 break;
             case 5:
-                if (countdownStarter % 2 == 0) {
-                    createEnemy(0, 40);
+                if (countdownStarter % 3 == 0) {
+                    createEnemy(0, 200);
                 }
                 if (countdownStarter % 6 == 0) {
-                    createEnemy(1, 0);
+                    createEnemy(1, 150);
                 }
                 if (countdownStarter % 8 == 0) {
-                    createEnemy(2, 0);
+                    createEnemy(2, 100);
                 }
                 break;
             case 6:
@@ -222,40 +261,40 @@ public class Wave implements ActionListener {
                     createEnemy(1, 0);
                 }
                 if (countdownStarter % 6 == 0) {
-                    createEnemy(2, 80);
+                    createEnemy(2, 250);
                 }
                 break;
             case 7:
                 if (countdownStarter % 2 == 0) {
-                    createEnemy(0, 80);
+                    createEnemy(0, 300);
                 }
                 if (countdownStarter % 4 == 0) {
-                    createEnemy(1, 0);
+                    createEnemy(1, 200);
                 }
                 if (countdownStarter % 6 == 0) {
-                    createEnemy(2, 80);
+                    createEnemy(2, 400);
                 }
                 break;
             case 8:
                 if (countdownStarter % 2 == 0) {
-                    createEnemy(0, 100);
+                    createEnemy(0, 300);
                 }
                 if (countdownStarter % 4 == 0) {
-                    createEnemy(1, 0);
+                    createEnemy(1, 200);
                 }
                 if (countdownStarter % 6 == 0) {
-                    createEnemy(2, 100);
+                    createEnemy(2, 1000);
                 }
                 break;
             case 9:
                 if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 400);
+                    createEnemy(0, 500);
                 }
                 if (countdownStarter % 6 == 0) {
                     createEnemy(1, 400);
                 }
                 if (countdownStarter % 8 == 0) {
-                    createEnemy(2, 400);
+                    createEnemy(2, 1000);
                 }
                 break;
             case 10:
@@ -263,10 +302,10 @@ public class Wave implements ActionListener {
                     createEnemy(0, 800);
                 }
                 if (countdownStarter % 8 == 0) {
-                    createEnemy(1, 800);
+                    createEnemy(1, 500);
                 }
                 if (countdownStarter % 10 == 0) {
-                    createEnemy(2, 800);
+                    createEnemy(2, 1500);
                 }
                 if (countdownStarter % 40 == 0) {
                     createEnemy(10, 0);
