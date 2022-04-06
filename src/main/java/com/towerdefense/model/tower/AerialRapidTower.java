@@ -49,5 +49,19 @@ public class AerialRapidTower extends Tower {
     public boolean canFocusAerial(Enemy e) {
         return e.isAerial();
     }
-    
+
+    @Override
+    public void upgrade(){
+        level++;
+        switch(level){
+            case 1:
+                initialDamage += 20;
+                break;
+            case 2:
+                initialDamage += 40;
+                break;
+            case 3:
+                initialDamage += 100;
+        }
+    }
 }

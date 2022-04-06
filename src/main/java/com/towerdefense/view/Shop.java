@@ -13,29 +13,34 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.towerdefense.model.Player;
 import com.towerdefense.model.tower.AerialTower;
 import com.towerdefense.model.tower.BasicTower;
 import com.towerdefense.model.tower.DestructiveTower;
+//import com.towerdefense.model.tower.DestructiveTower;
 import com.towerdefense.model.tower.InfernalTower;
 import com.towerdefense.model.tower.RapidTower;
 import com.towerdefense.model.tower.SuperTower;
+//import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
 
 public class Shop extends JPanel {
 
-    private TowerPanel towerPanel;
+    protected TowerPanel towerPanel;
     private Description description;
     //private Tower selected;
     private boolean wantPurchase;
+    protected Player player;
 
-    public Shop() {
+    public Shop(Player player) {
         setPreferredSize(new Dimension(300, 700));
         //setBackground(Color.RED);
         setLayout(new BorderLayout());
 
+        this.player = player;
         towerPanel = new TowerPanel();
         add(towerPanel, BorderLayout.NORTH);
-        description = new Description();
+        description = new Description(player);
         add(description, BorderLayout.SOUTH);
     }
 
@@ -123,11 +128,13 @@ public class Shop extends JPanel {
         private JLabel range;
         private JLabel attackSpeed;
         private JLabel price;
+        private JButton upgrade;
         private JButton cancel;
         private JPanel labels;
+        private Tower selected;
 
-        public Description() {
-            setPreferredSize(new Dimension(300, 500));
+        public Description(Player player) {
+            setPreferredSize(new Dimension(500, 500));
             setLayout(new FlowLayout(FlowLayout.CENTER, 0, 200));
             //setBackground(Color.YELLOW);
 
@@ -136,7 +143,14 @@ public class Shop extends JPanel {
             this.range = new JLabel();
             this.attackSpeed = new JLabel();
             this.price = new JLabel();
+            this.upgrade = new JButton("Améliorer");
             this.cancel = new JButton("Annuler");
+            upgrade.setVisible(false);
+            upgrade.addActionListener(e -> {
+                player.setMoney(player.getMoney()-selected.moneyOnLevel());
+                selected.upgrade();
+                refresh(selected);
+            });
             cancel.addActionListener(e -> {
                 Shop.this.refreshDesc(null);
             });
@@ -149,6 +163,7 @@ public class Shop extends JPanel {
             labels.add(range);
             labels.add(attackSpeed);
             labels.add(price);
+            labels.add(upgrade);
             labels.add(cancel);
 
             JPanel border = new JPanel();
@@ -162,6 +177,8 @@ public class Shop extends JPanel {
         }
 
         public void refresh(Tower t) {
+            this.selected = t;
+            
             if (t == null) {
                 labels.setVisible(false);
             }else {
@@ -170,12 +187,17 @@ public class Shop extends JPanel {
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
                 price.setText("Prix : " + t.getPrice());
+                upgrade.setVisible(true);
+                upgrade.setText("Améliorer "+selected.moneyOnLevel());
+                upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player)); // changer la premiere condition
 
                 labels.setVisible(true);
             }
 
-            for (TowerView tower : Shop.this.towerPanel.getTowers())
+            for (TowerView tower : Shop.this.towerPanel.getTowers()){
                 tower.deselect();
+            }
+            
         }
 
     }

@@ -11,7 +11,7 @@ public class Player {
 
     public Player(String name) {
         this.health = 1000;
-        this.money = 300000000; // Combien ?
+        this.money = 100000; // Combien ?
         this.name = name;
     }
 

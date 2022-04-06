@@ -49,7 +49,7 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     private void createShop() {
-        shop = new Shop();
+        shop = new Shop(player);
         add(shop, BorderLayout.EAST);
     }
 
