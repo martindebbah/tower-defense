@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.towerdefense.model.Board;
+import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.enemy.Enemy;
 
@@ -18,6 +19,7 @@ public class Tower {
     private List<Projectile> killProjectiles;
     protected int coolDown = 0;
     protected int initialDamage;
+    protected int level = 0;
 
     public Tower(int damage) {
         this.projectiles = new ArrayList<Projectile>();
@@ -141,6 +143,25 @@ public class Tower {
 
     public Color getPreviewColor() {
         return null;
+    }
+
+    public int moneyOnLevel(){
+        return (level+1)*100;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    public boolean canUpgrade(Player p){
+        if(p.getMoney() < moneyOnLevel() || level >= 3){
+            return false;
+        }
+        return true;
+    }
+
+    public void upgrade(){
+        return ;
     }
     
 }

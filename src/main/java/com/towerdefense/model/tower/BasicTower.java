@@ -2,6 +2,7 @@ package com.towerdefense.model.tower;
 
 import java.awt.Color;
 
+import com.towerdefense.model.Player;
 import com.towerdefense.model.enemy.Enemy;
 
 public class BasicTower extends Tower {
@@ -44,6 +45,22 @@ public class BasicTower extends Tower {
     @Override
     public boolean canFocus(Enemy e) {
         return !e.isAerial();
+    }
+
+    @Override
+    public void upgrade(){
+        level++;
+        System.out.println(level);
+        switch(level){
+            case 1:
+                initialDamage += 20;
+                break;
+            case 2:
+                initialDamage += 40;
+                break;
+            case 3:
+                initialDamage += 100;
+        }
     }
 
 }

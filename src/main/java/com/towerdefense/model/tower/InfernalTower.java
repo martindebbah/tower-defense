@@ -32,7 +32,7 @@ public class InfernalTower extends Tower {
 
     @Override
     public int getAttackSpeed() {
-        return 40;
+        return 30;
     }
 
     @Override
@@ -70,7 +70,6 @@ public class InfernalTower extends Tower {
             coolDown = 0;
             if(super.initialDamage <= 2000){
                 super.initialDamage *= 2;
-                System.out.println("suuu");
             }
         }
     }
@@ -94,6 +93,25 @@ public class InfernalTower extends Tower {
             }else {
                 target = null;
             }
+        }
+    }
+
+    @Override
+    public void upgrade(){
+        level++;
+        switch(level){
+            case 1:
+                initialDamage += 5;
+                damage += 5;
+                break;
+            case 2:
+                initialDamage += 10;
+                damage += 10;
+                break;
+            case 3:
+                initialDamage += 15;
+                damage += 15;
+                break;
         }
     }
 }
