@@ -326,7 +326,7 @@ public class Enemy {
             try {
                 BufferedImage image = ImageIO
                         .read(new File(
-                                "src/main/resources/Images/towerDefense_tile1002.png"));
+                                "src/main/resources/Images/towerDefense_tile001.png"));
                 g.drawImage(image, x, y, 35, 35, null);
             } catch (IOException e1) {
                 e1.printStackTrace();
