@@ -30,11 +30,6 @@ public class DestructiveTower extends Tower {
 	    } 
 
 	    @Override
-	    public int getDamage() {
-	        return 150;
-	    }
-
-	    @Override
 	    public int getRange() {
 	        return 20;
 	    }
@@ -54,5 +49,19 @@ public class DestructiveTower extends Tower {
 	        return true; // s'attaque à tous les types d'ennemis
 	    }
 
-
+		@Override
+		public void upgrade(){
+			level++;
+			switch(level){
+				case 1:
+					initialDamage += 20;
+					break;
+				case 2:
+					initialDamage += 40;
+					break;
+				case 3:
+					initialDamage += 100;
+					break;
+			}
+		}
 }

@@ -50,7 +50,6 @@ public class BasicTower extends Tower {
     @Override
     public void upgrade(){
         level++;
-        System.out.println(level);
         switch(level){
             case 1:
                 initialDamage += 20;
@@ -60,6 +59,7 @@ public class BasicTower extends Tower {
                 break;
             case 3:
                 initialDamage += 100;
+                break;
         }
     }
 

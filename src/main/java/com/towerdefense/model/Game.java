@@ -27,8 +27,7 @@ public class Game {
                 if (t.containsTower()) {
                     t.getTower().focus(board);
                     t.getTower().attack(board);
-                    //System.out.println(t.getTower().getDamage());
-                    System.out.println(t.getTower().moneyOnLevel());
+                    System.out.println(t.getTower().getDamage());
                 }
     }
 

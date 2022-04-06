@@ -58,6 +58,7 @@ public class RapidTower extends Tower {
                 break;
             case 3:
                 initialDamage += 100;
+                break;
         }
     }
 }
