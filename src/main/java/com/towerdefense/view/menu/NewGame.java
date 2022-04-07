@@ -14,7 +14,7 @@ public class NewGame extends JPanel {
 	private JPanel buttons;
 	private Window window;
     
-    public NewGame(Window w, Player p){
+    public NewGame(Window w){
 		setSize(1000, 1000);
 
 		this.window = w;
@@ -24,17 +24,17 @@ public class NewGame extends JPanel {
 		
 		JButton hard = new JButton("Difficle");
 		hard.addActionListener(e -> {
-			window.play(p); // Mode hard
+			window.play(); // Mode hard
 		});
 		
 		JButton medium = new JButton("Intermédiaire");
 		medium.addActionListener(e -> {
-				window.play(p); // Mode moyen
+				window.play(); // Mode moyen
 			});
 		
 		JButton easy = new JButton("Facile");
 		easy.addActionListener(e -> {
-			window.play(p); // Mode facile
+			window.play(); // Mode facile
 		});
 
 		JButton back = new JButton("Retour");

@@ -1,20 +1,15 @@
 package com.towerdefense.model;
 
-//import java.util.concurrent.*;
-
 import javax.swing.JLabel;
 
 import com.towerdefense.model.enemy.AerialEnemy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
 
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.enemy.TankEnemy;
-
-//import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Wave implements ActionListener {
     private Game game;
@@ -24,10 +19,7 @@ public class Wave implements ActionListener {
 
     private int timeWave;
     private int countDown;
-    private Timer timer1 = new Timer(1000, this); // x2 = 500, x4 = 250
-    private Timer timer2 = new Timer(500, this);
-    private Timer timer5 = new Timer(200, this);
-    private int speed = 1;
+    private int delay = 0;
 
     private boolean finChrono = false;
     private boolean WinGame = false;
@@ -36,8 +28,6 @@ public class Wave implements ActionListener {
     private int currentWave = 1;
 
     private final int nbWaves = 10;
-    // private final ScheduledExecutorService scheduler =
-    // Executors.newScheduledThreadPool(1);
 
     public Wave(Game game, int time) {
         chrono = new JLabel();
@@ -100,38 +90,17 @@ public class Wave implements ActionListener {
         return finChrono;
     }
 
-    public void start() {
-        switch (speed) {
-            case 1:
-                timer1.start();
-                break;
-            case 2:
-                timer2.start();
-                break;
-            case 5:
-                timer5.start();
-                break;
-        }
-    }
-
-    public void changeSpeed() {
-        pause();
-        switch (speed) {
-            case 1:
-                speed = 2;
-                break;
-            case 2:
-                speed = 5;
-                break;
-            case 5:
-                speed = 1;
-                break;
-        }
-        start();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (delay != 0) {
+            if (delay == 20)
+                delay = 0;
+            else
+                delay++;
+            return;
+        }
+        delay++;
+
         moneyPlayer.setText(game.getPlayer().getMoney() + " $");
         cptWave.setText("Wave " + currentWave + " /");
         chrono.setText(convertSecondToMinute(countDown));
@@ -139,33 +108,9 @@ public class Wave implements ActionListener {
         countDown--; // une seconde passe
         if (countDown < 0) {
             chrono.setText("Next Wave");
-            /*
-             * try {
-             * Thread.sleep(500);
-             * } catch (InterruptedException e) {
-             * e.printStackTrace();
-             * }
-             */
             countDown = timeWave;
             finChrono = true;
             return;
-        }
-        if (currentWave > nbWaves || WinGame || LoseGame) {
-            pause();
-        }
-    }
-
-    public void pause() {
-        switch (speed) {
-            case 1:
-                timer1.stop();
-                break;
-            case 2:
-                timer2.stop();
-                break;
-            case 5:
-                timer5.stop();
-                break;
         }
     }
 

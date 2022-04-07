@@ -20,18 +20,18 @@ public class GameView extends JPanel implements ActionListener {
     private Wave wave;
     private Player player;
     private Window window;
-    private Timer timer1 = new Timer(50, this); // x2 = 25, x4 = 12/13 ?
+    private Timer timer1 = new Timer(50, this);
     private Timer timer2 = new Timer(25, this);
     private Timer timer5 = new Timer(10, this);
     private int speed = 1;
 
-    public GameView(Window window, Player p) {
+    public GameView(Window window) {
         this.window = window;
         setSize(1000, 1000);
         setLayout(new BorderLayout());
 
         // Création du plateau de jeu
-        this.player = p;
+        this.player = new Player();
         this.game = new Game(32, 20, player);
         createShop();
         createBoard();
@@ -60,6 +60,7 @@ public class GameView extends JPanel implements ActionListener {
             case 2: timer2.start();
                 break;
             case 5: timer5.start();
+                break;
         }
         board.start();
         window.refresh();
@@ -86,6 +87,7 @@ public class GameView extends JPanel implements ActionListener {
             case 2: speed = 5;
                 break;
             case 5: speed = 1;
+                break;
         }
         start();
     }
@@ -96,9 +98,10 @@ public class GameView extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (player.isAlive()){ // condition d arreter wave superieur au max de wave + aucun enemy sur le board
+        wave.actionPerformed(e);
+        if (player.isAlive()){ // condition d'arrêter wave supérieure au max de wave + aucun enemy sur le board
             if(wave.getCurrentWave() < wave.getNbWaves()){
-                if (wave.getFinChrono()){ // check si le chrono est fini pour passer a la wave suivante
+                if (wave.getFinChrono()){ // check si le chrono est fini pour passer à la wave suivante
                     wave.incrementWave(); // passe à la wave suivante
                     wave.setFinChrono(false);
                 }
@@ -116,7 +119,7 @@ public class GameView extends JPanel implements ActionListener {
 
     public void endGame(int status) {
         pause();
-        window.endGame(status);
+        window.endGame(status, game.getPlayer());
     }
 
 }

@@ -16,7 +16,7 @@ public class WaveView extends JPanel {
     public WaveView(Wave wave, GameView gv) {
         this.wave = wave;
         setPreferredSize(new java.awt.Dimension(1000, 112));
-        wave.start();
+        //wave.start();
 
         JPanel pausePanel = new JPanel();
         JButton pause =  new JButton("Pause");
@@ -32,18 +32,15 @@ public class WaveView extends JPanel {
             pausePanel.remove(pause);
             pausePanel.add(resume);
             gv.pause();
-            wave.pause();
             faster.setEnabled(false);
         });
         resume.addActionListener(e -> {
             pausePanel.remove(resume);
             pausePanel.add(pause);
             gv.start();
-            wave.start();
             faster.setEnabled(true);
         });
         faster.addActionListener(e -> {
-            wave.changeSpeed();
             gv.changeSpeed();
             faster.setText("x"+gv.getSpeed());
         });

@@ -41,13 +41,8 @@ public class Window extends JFrame {
         refresh();
     }
 
-    public void setNewPlayer() {
-        setContentPane(new NewPlayer(this));
-        refresh();
-    }
-
-    public void setNewGame(Player p) {
-        setContentPane(new NewGame(this, p));
+    public void setNewGame() {
+        setContentPane(new NewGame(this));
         refresh();
     }
 
@@ -61,14 +56,14 @@ public class Window extends JFrame {
         repaint();
     }
 
-    public void play(Player p) {
-        GameView gameView = new GameView(this, p);
+    public void play() {
+        GameView gameView = new GameView(this);
         setContentPane(gameView);
         gameView.start();
     }
 
-    public void endGame(int status) {
-        setContentPane(new EndGame(this, status));
+    public void endGame(int status, Player p) {
+        setContentPane(new EndGame(this, status, p));
         refresh();
     }
 }

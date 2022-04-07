@@ -21,7 +21,7 @@ public class Menu extends JPanel {
 		
 		JButton newGame = new JButton("Nouvelle partie");
 		newGame.addActionListener(e -> {
-			window.setNewPlayer();
+			window.setNewGame();
 		});
 
 		JButton resumeGame = new JButton("Continuer");
