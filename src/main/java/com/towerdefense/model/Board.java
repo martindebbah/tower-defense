@@ -152,7 +152,7 @@ public class Board {
 
     public boolean containsEnemyOn(int x, int y) {  // Renvoie true si la case contient un ennemi
         for (Enemy e : enemies)
-            if (e.getPath().peek() == cases[x][y])  // EmptyStackException !!
+            if (e.getFirstTile(this) == cases[x][y])  // EmptyStackException !!
                 return true;
         return false;
     }

@@ -26,6 +26,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     private int size;
     private Shop shop;
     private int[] preview;
+    private int[] selection;
     private boolean isPaused = false;
     private Player player;
     private BufferedImage background;
@@ -89,7 +90,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                 }
                 if (board.getBoard()[x][y].containsTower()) {
                     try {
-                        g.drawImage(board.getBoard()[x][y].getTower().getImage(), x * size, y * size, 35, 35, null);
+                        g.drawImage(board.getBoard()[x][y].getTower().getImage(), x * size, y * size, size, size, null);
                     }catch (NullPointerException ex) {
                         g.setColor(board.getBoard()[x][y].getTower().getColor());
                         g.fillRect(x * size, y * size, size, size);
@@ -102,7 +103,7 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         for (Enemy e : board.getEnemies()) {
             try {
-                g.drawImage(e.getImage(), e.getX(), e.getY(), 35, 35, null);
+                g.drawImage(e.getImage(), e.getX(), e.getY(), size, size, null);
             }catch (NullPointerException ex) {
                 g.setColor(Color.RED);
                 g.fillOval(e.getX(), e.getY(), size, size);
@@ -120,7 +121,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                         g.fillOval((int) p.getX(), (int) p.getY(), size / 4, size / 4);
                     }
 
-        if (preview != null) { // Bug avec la tour de base (le preview est vert puis noir entre deux waves)
+        if (preview != null) {
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {
                 if (canPurchase(preview[0], preview[1]))
                     g.setColor(Color.GREEN);
@@ -128,6 +129,14 @@ public class BoardView extends JPanel implements MouseInputListener {
                     g.setColor(Color.RED);
                 g.fillRect(preview[0], preview[1], size, size);
             }
+        }
+
+        if (shop.wantPurchase() || shop.getDescription().getSelected() == null)
+            selection = null;
+
+        if (selection != null) {
+            g.setColor(Color.WHITE);
+            g.drawRect(selection[0], selection[1], size, size);
         }
 
     }
@@ -144,11 +153,15 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
+            selection = new int[2];
+            selection[0] = x - x % size;
+            selection[1] = y - y % size;
         }else { // ou pose une tour
             if (canPurchase(x, y)) {
                 addTower(shop.addNewTower(), x / size, y / size);
                 player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète la tour
             }
+            selection = null; // Faire pareil si on clique sur une autre tour dans le shop
         }
     }
 

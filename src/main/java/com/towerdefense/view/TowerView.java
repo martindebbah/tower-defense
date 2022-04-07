@@ -3,7 +3,6 @@ package com.towerdefense.view;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.ImageObserver;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;

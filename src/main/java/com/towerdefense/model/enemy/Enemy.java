@@ -195,6 +195,9 @@ public class Enemy {
         ArrayList<Tile> closed = new ArrayList<>(); // liste fermée
         Tile current = getFirstTile(board);
 
+        if (current == board.getBoard()[fx][fy])
+            return null;
+
         current.setDistance(dist(current.getX() / board.getSize() + (current.getX() % board.getSize() == 0 ? 0 : 1),
                 current.getY() / board.getSize() + (current.getY() % board.getSize() == 0 ? 0 : 1), fx, fy));
         closed.add(current);
@@ -242,6 +245,8 @@ public class Enemy {
             case 6:
                 return board.getBoard()[x / board.getSize()][y / board.getSize() + 1];
             case 7:
+                if (x >= (board.getNbCases() - 1) * board.getSize()) // S'il a atteint la sortie pour éviter ArrayIndexOutOfBoundsException
+                    return board.getBoard()[board.getNbCases() - 1][board.getNbCases() / 2];
                 return board.getBoard()[x / board.getSize() + 1][y / board.getSize()];
             case 8:
                 return board.getBoard()[x / board.getSize()][y / board.getSize()];

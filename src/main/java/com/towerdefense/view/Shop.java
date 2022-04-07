@@ -17,24 +17,20 @@ import com.towerdefense.model.Player;
 import com.towerdefense.model.tower.AerialTower;
 import com.towerdefense.model.tower.BasicTower;
 import com.towerdefense.model.tower.DestructiveTower;
-//import com.towerdefense.model.tower.DestructiveTower;
 import com.towerdefense.model.tower.InfernalTower;
 import com.towerdefense.model.tower.RapidTower;
 import com.towerdefense.model.tower.SuperTower;
-//import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
 
 public class Shop extends JPanel {
 
     protected TowerPanel towerPanel;
     private Description description;
-    //private Tower selected;
     private boolean wantPurchase;
     protected Player player;
 
     public Shop(Player player) {
         setPreferredSize(new Dimension(300, 700));
-        //setBackground(Color.RED);
         setLayout(new BorderLayout());
 
         this.player = player;
@@ -48,13 +44,16 @@ public class Shop extends JPanel {
         return towerPanel;
     }
 
+    public Description getDescription() {
+        return description;
+    }
+
     public void refreshDesc(Tower t) {
         deselect();
         description.refresh(t);
     }
 
     public void deselect() {
-        //selected = null;
         wantPurchase = false;
         towerPanel.select(null);
     }
@@ -67,10 +66,6 @@ public class Shop extends JPanel {
     public boolean wantPurchase() {
         return wantPurchase;
     }
-
-    // public Tower getSelected() {
-    //     return selected;
-    // }
 
     public Tower addNewTower() {
         return towerPanel.getSelected().newTower();
@@ -136,7 +131,6 @@ public class Shop extends JPanel {
         public Description(Player player) {
             setPreferredSize(new Dimension(500, 500));
             setLayout(new FlowLayout(FlowLayout.CENTER, 0, 200));
-            //setBackground(Color.YELLOW);
 
             this.name = new JLabel();
             this.damage = new JLabel();
@@ -167,7 +161,7 @@ public class Shop extends JPanel {
             labels.add(cancel);
 
             JPanel border = new JPanel();
-            border.setPreferredSize(new Dimension(150, 120));
+            border.setPreferredSize(new Dimension(150, 150));
             border.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             border.add(labels);
 
@@ -198,6 +192,10 @@ public class Shop extends JPanel {
                 tower.deselect();
             }
             
+        }
+
+        public Tower getSelected() {
+            return selected;
         }
 
     }
