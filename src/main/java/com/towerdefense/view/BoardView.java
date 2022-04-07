@@ -115,7 +115,10 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         if (preview != null) { // Bug avec la tour de base (le preview est vert puis noir entre deux waves)
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {
-                g.setColor(shop.getPreviewColor());
+                if (canPurchase(preview[0], preview[1]))
+                    g.setColor(Color.GREEN);
+                else
+                    g.setColor(Color.RED);
                 g.fillRect(preview[0], preview[1], size, size);
             }
         }
@@ -132,20 +135,20 @@ public class BoardView extends JPanel implements MouseInputListener {
         int x = e.getX();
         int y = e.getY();
 
-        if (board.containsEnemyOn(x / size, y / size)) // Pour ne pas pouvoir poser une tour sur un ennemi
-            return;
-
         if (board.getBoard()[x / size][y / size].containsTower()) { // Ouvre la description dans le shop
             shop.refreshDesc(board.getBoard()[x / size][y / size].getTower());
-        } else { // ou pose une tour
-            if (player.canAfford(shop.getTowerPanel().getSelected().getTower()) && shop.wantPurchase() && !isPaused
-                    && board.canBuildOn(x / size, y / size)) { // Vérifier aussi que le joueur a assez d'argent
-                addTower(shop.addNewTower(), x / size, y / size); // Erreur lorsqu'on bloque la sortie !
-                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète
-                                                                                                               // la
-                                                                                                               // tour
+        }else { // ou pose une tour
+            if (canPurchase(x, y)) {
+                addTower(shop.addNewTower(), x / size, y / size);
+                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète la tour
             }
         }
+    }
+
+    public boolean canPurchase(int x, int y) {
+        // Vérifie que le joueur a assez d'argent, veut acheter une tour, peut poser la tour (qu'il n'y a pas un ennemi ou une tour)et que le jeu n'est pas en pause
+        return shop.wantPurchase() && player.canAfford(shop.getTowerPanel().getSelected().getTower()) && !isPaused
+        && board.canBuildOn(x / size, y / size) && !board.containsEnemyOn(x / size, y / size);
     }
 
     public void pause() {

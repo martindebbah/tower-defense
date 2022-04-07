@@ -173,7 +173,7 @@ public class Enemy {
         if (closed.contains(next)) // Si la case est déjà dans la liste fermée, on ne l'ajoute pas
             return;
 
-        double tempKnown = current.getKnownDistance() + 1;
+        double tempKnown = current.getKnownDistance() + dist(next.getX(), next.getY(), current.getX(), current.getY());
         
         if(open.contains(next)) { // si le noeud est déjà dans la liste ouverte on vérifie sa qualité et on la met à jour si elle est meilleure
             if (tempKnown < next.getKnownDistance()) {
