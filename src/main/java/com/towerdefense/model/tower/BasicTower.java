@@ -2,13 +2,24 @@ package com.towerdefense.model.tower;
 
 import java.awt.Color;
 
-import com.towerdefense.model.Player;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 import com.towerdefense.model.enemy.Enemy;
 
 public class BasicTower extends Tower {
 
+    private BufferedImage image;
+
     public BasicTower(int damage) {
         super(damage);
+        try {
+            this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile2000.png"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
     @Override
@@ -40,6 +51,11 @@ public class BasicTower extends Tower {
     public Color getColor() {
         return Color.WHITE;
         // return Color.BLUE;
+    }
+
+    @Override
+    public BufferedImage getImage() {
+        return image;
     }
 
     @Override

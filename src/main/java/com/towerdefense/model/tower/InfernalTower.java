@@ -2,6 +2,10 @@ package com.towerdefense.model.tower;
 
 import java.awt.Color;
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Projectile;
@@ -10,10 +14,16 @@ import com.towerdefense.model.enemy.Enemy;
 public class InfernalTower extends Tower {
     
     protected int damage;
+    private BufferedImage image;
 
     public InfernalTower(int damage) {
         super(damage);
         this.damage = damage;
+        try {
+            this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile2005.png"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
     public void reset(){
@@ -48,7 +58,11 @@ public class InfernalTower extends Tower {
     @Override
     public Color getColor() {
         return Color.WHITE;
-        // return Color.BLUE;
+    }
+
+    @Override
+    public BufferedImage getImage() {
+        return image;
     }
 
     @Override

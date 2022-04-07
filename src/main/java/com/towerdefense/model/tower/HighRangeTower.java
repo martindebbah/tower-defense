@@ -1,5 +1,10 @@
 package com.towerdefense.model.tower;
 
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.*;

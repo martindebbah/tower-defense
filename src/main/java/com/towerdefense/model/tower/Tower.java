@@ -153,67 +153,10 @@ public class Tower {
         return null;
     }
 
-    public void typeTower(Graphics g, int x, int y) {
-        if (this instanceof DestructiveTower) {
-            // g.setColor(Color.BLACK);
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile2004.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof BasicTower) {
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile2000.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof AerialTower) {
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile2001.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof SuperTower) {
-            // g.setColor(Color.GRAY);
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile2002.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof InfernalTower) {// faire skin a partir de la
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile2005.png"));
-                g.drawImage(image, x, y, 30, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof RapidTower) {
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile2006.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+    public BufferedImage getImage() { // Dans chaque classe
+        return null;
     }
+    //g.drawImage(image, x, y, 35, 35, null);
 
     public int moneyOnLevel() {
         return (level + 1) * 100;

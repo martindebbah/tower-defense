@@ -12,7 +12,6 @@ import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tile;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -314,48 +313,8 @@ public class Enemy {
         }
     }
 
-    public void typeEnemy(Graphics g) {
-        if (this instanceof Mo) {
-            // g.setColor(Color.BLACK);
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile300.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof BasicEnemy) {
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile001.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof AerialEnemy) {
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile1003.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        } else if (this instanceof TankEnemy) {
-            // g.setColor(Color.GRAY);
-            // g.fillOval(x, y, game.getBoard().getSize(), game.getBoard().getSize());
-            try {
-                BufferedImage image = ImageIO
-                        .read(new File(
-                                "src/main/resources/Images/towerDefense_tile1004.png"));
-                g.drawImage(image, x, y, 35, 35, null);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+    public BufferedImage getImage() { // Dans chaque classe
+        return null;
     }
 
 }

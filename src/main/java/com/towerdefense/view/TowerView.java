@@ -3,15 +3,9 @@ package com.towerdefense.view;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
@@ -36,26 +30,16 @@ public class TowerView extends JPanel {
                 select();
             }
         });
-        /*
-         * try {
-         * BufferedImage img = ImageIO.read(new File("towerDefense_tile134.png"));
-         * Graphics g = this.getGraphics();
-         * g.drawImage(img, getX(), getY(), imageObserver(null));
-         * } catch (IOException e1) {
-         * // TODO Auto-generated catch block
-         * e1.printStackTrace();
-         * }
-         */
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        tower.typeTower(g, 0, 0);
-
-    }
-
-    private ImageObserver imageObserver(Object object) {
-        return null;
+        try {
+            g.drawImage(tower.getImage(), 0, 0, 35, 35, null);
+        }catch (NullPointerException ex) {
+            g.setColor(tower.getColor());
+            g.fillRect(0, 0, 35, 35);
+        }
     }
 
     public Tower newTower() {

@@ -3,11 +3,22 @@ package com.towerdefense.model.tower;
 import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class RapidTower extends Tower {
 
+    private BufferedImage image;
+
     public RapidTower(int damage) {
         super(damage);
+        try {
+            this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile2006.png"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
     @Override
@@ -39,7 +50,11 @@ public class RapidTower extends Tower {
     public Color getColor() {
         return new Color(51, 153, 153);
     }
-    //Pas très important encore une fois
+    
+    @Override
+    public BufferedImage getImage() {
+        return image;
+    }
 
     @Override
     public boolean canFocusAerial(Enemy e) {

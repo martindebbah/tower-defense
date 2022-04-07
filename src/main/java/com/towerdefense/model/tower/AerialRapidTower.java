@@ -3,6 +3,10 @@ package com.towerdefense.model.tower;
 import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class AerialRapidTower extends Tower {
 

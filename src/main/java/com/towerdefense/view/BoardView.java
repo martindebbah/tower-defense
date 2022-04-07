@@ -88,9 +88,12 @@ public class BoardView extends JPanel implements MouseInputListener {
                     g.fillRect(y * size, x * size, size, size);
                 }
                 if (board.getBoard()[x][y].containsTower()) {
-                    // g.setColor(board.getBoard()[x][y].getTower().getColor());
-                    // g.fillRect(x * size, y * size, size, size);
-                    board.getBoard()[x][y].getTower().typeTower(g, x * size, y * size);
+                    try {
+                        g.drawImage(board.getBoard()[x][y].getTower().getImage(), x * size, y * size, 35, 35, null);
+                    }catch (NullPointerException ex) {
+                        g.setColor(board.getBoard()[x][y].getTower().getColor());
+                        g.fillRect(x * size, y * size, size, size);
+                    }
                 }
                 g.setColor(Color.BLACK);
                 g.drawRect(y * size, x * size, size, size);
@@ -98,11 +101,15 @@ public class BoardView extends JPanel implements MouseInputListener {
         }
 
         for (Enemy e : board.getEnemies()) {
-            e.typeEnemy(g);
+            try {
+                g.drawImage(e.getImage(), e.getX(), e.getY(), 35, 35, null);
+            }catch (NullPointerException ex) {
+                g.setColor(Color.RED);
+                g.fillOval(e.getX(), e.getY(), size, size);
+            }
             g.setColor(Color.GREEN);
             g.drawRect(e.getCoord()[0], e.getCoord()[1] - 10, size, 5);
             g.fillRect(e.getCoord()[0], e.getCoord()[1] - 10, e.getHP() * size / 100, 5);
-            // System.out.println(e.getX() + " : " + e.getY());
         }
 
         for (Tile[] tab : board.getBoard())
