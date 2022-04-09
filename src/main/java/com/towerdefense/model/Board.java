@@ -137,7 +137,7 @@ public class Board {
         /*
             Cette fonction renvoie true si il y a des tours en diagonale
             Par exemple, on cherche à atteindre la case située en haut à droite à partir de la case current :
-            Si il y a une tour en haut et une tour à droite o empêche l'ennemi de passer entre les deux.
+            Si il y a une tour en haut et une tour à droite on empêche l'ennemi de passer entre les deux.
         */
         if (current.getX() / size == x + 1 && current.getY() / size == y + 1)
             return cases[x][y+1].containsTower() && cases[x+1][y].containsTower();
@@ -152,7 +152,7 @@ public class Board {
 
     public boolean containsEnemyOn(int x, int y) {  // Renvoie true si la case contient un ennemi
         for (Enemy e : enemies)
-            if (e.getFirstTile(this) == cases[x][y])  // EmptyStackException !!
+            if (e.getFirstTile(this) == cases[x][y])
                 return true;
         return false;
     }
