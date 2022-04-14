@@ -9,45 +9,40 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Discover {
+public class Discover extends JFrame {
 	private ImageIcon img ;
 	private JLabel labelDisc ; 
-	private JFrame disco ;
 	private JButton next ;
 	
-	public Discover(){
+	public Discover() {
 		
-		 img= new ImageIcon("src/main/resources/images/discover/disc1.png");
-		   labelDisc=new JLabel(img);
-		   labelDisc.setSize(1464,1100);
-		   
-		   next= new JButton("Next");
-		    next.setBackground(Color.BLUE); 
-			next.setBounds(1350,700,70,50);
-			labelDisc.add(next);
-			next.addActionListener(new ActionListener() {
-				   public void actionPerformed(ActionEvent e) {
-					 disco.dispose();
-					 new Step2( "src/main/resources/images/discover/disc2.png" );
-				   }	   
-			}
-					 );
-		   disco= new JFrame("You need help to discover the game?Here we go!");
-		   disco.setSize(1500,1500);
-		   disco.add(labelDisc);
-		   disco.setLayout(null);
-		   disco.setLocationRelativeTo(null);
-		   disco.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		   disco.setVisible(true);
+		img= new ImageIcon("src/main/resources/images/discover/disc1.png");
+		labelDisc=new JLabel(img);
+		labelDisc.setSize(1464,1100);
+		
+		next= new JButton("Next");
+		 next.setBackground(Color.BLUE); 
+		next.setBounds(1350,700,70,50);
+		labelDisc.add(next);
+		next.addActionListener(e -> {
+			this.dispose();
+			new Step2( "src/main/resources/images/discover/disc2.png" );
+		});
+		setTitle("You need help to discover the game?Here we go!");
+		setSize(1500,1500);
+		add(labelDisc);
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setVisible(true);
 		
 	}
 	
 	
 	
-	public class Step2{
+	public class Step2 extends JFrame {
 		private ImageIcon img ;
 		private JLabel labelDisc ; 
-		private JFrame disco ;
 		private JButton next ;
 		
 		public Step2(String s ) {
@@ -59,20 +54,17 @@ public class Discover {
 			    next.setBackground(Color.BLUE); 
 				next.setBounds(1350,700,70,50);
 				labelDisc.add(next);
-				next.addActionListener(new ActionListener() {
-					   public void actionPerformed(ActionEvent e) {
-						 disco.dispose();
-						 new Step3( "src/main/resources/images/discover/disc3.png" );
-					   }	   
-				}
-						 );
-			   disco= new JFrame("You need help to discover the game?Here we go!");
-			   disco.setSize(1500,1500);
-			   disco.add(labelDisc);
-			   disco.setLayout(null);
-			   disco.setLocationRelativeTo(null);
-			   disco.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			   disco.setVisible(true);
+				next.addActionListener(e -> {
+					this.dispose();
+						new Step3( "src/main/resources/images/discover/disc3.png" );
+				});
+			   setTitle("You need help to discover the game?Here we go!");
+			   setSize(1500,1500);
+			   add(labelDisc);
+			   setLayout(null);
+			   setLocationRelativeTo(null);
+			   setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			   setVisible(true);
 			
 		}
 		}
