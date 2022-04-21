@@ -8,6 +8,7 @@ import javax.swing.Timer;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Wave;
@@ -25,7 +26,7 @@ public class GameView extends JPanel implements ActionListener {
     private Timer timer5 = new Timer(10, this);
     private int speed = 1;
 
-    public GameView(Window window) {
+    public GameView(Window window, Level level) {
         this.window = window;
         setSize(1000, 1000);
         setLayout(new BorderLayout());
@@ -35,7 +36,7 @@ public class GameView extends JPanel implements ActionListener {
         this.game = new Game(32, 20, player);
         createShop();
         createBoard();
-        this.wave = new Wave(this.game,70);
+        this.wave = new Wave(this.game,70,level);
         WaveView w = new WaveView(wave, this);
         add(w, BorderLayout.NORTH);
     }
@@ -110,6 +111,9 @@ public class GameView extends JPanel implements ActionListener {
             } else {
                 if(board.getBoard().getEnemies().isEmpty()){
                     endGame(0);
+                } else {
+                    wave.play();
+                    window.refresh();
                 }
             }
         }else{

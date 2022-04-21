@@ -163,7 +163,7 @@ public class Board {
 
         boolean r = true;
         cases[x][y].setTower(new BasicTower(0));
-        Enemy e = new BasicEnemy(game);
+        Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
         try {
             e.setPath();
         }catch(IndexOutOfBoundsException ioe) {

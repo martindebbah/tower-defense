@@ -50,7 +50,6 @@ public class BasicTower extends Tower {
     @Override
     public Color getColor() {
         return Color.WHITE;
-        // return Color.BLUE;
     }
 
     @Override

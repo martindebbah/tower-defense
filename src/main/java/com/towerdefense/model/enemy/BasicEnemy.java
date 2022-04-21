@@ -11,8 +11,8 @@ public class BasicEnemy extends Enemy {
 
     private BufferedImage image;
 
-    public BasicEnemy(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2, 150, 150);
+    public BasicEnemy(Game game, int y) {
+        super(game, 0, y, 150, 150);
         try {
             this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile001.png"));
         } catch (IOException e1) {
