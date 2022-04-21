@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.Player;
 import com.towerdefense.view.menu.*;
 
@@ -56,8 +57,8 @@ public class Window extends JFrame {
         repaint();
     }
 
-    public void play() {
-        GameView gameView = new GameView(this);
+    public void play(Level level) {
+        GameView gameView = new GameView(this,level);
         setContentPane(gameView);
         gameView.start();
     }

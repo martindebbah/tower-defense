@@ -162,6 +162,8 @@ public class BoardView extends JPanel implements MouseInputListener {
                 player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète la tour
             }
             selection = null; // Faire pareil si on clique sur une autre tour dans le shop
+            if (!shop.wantPurchase())
+                shop.refreshDesc(null);
         }
     }
 

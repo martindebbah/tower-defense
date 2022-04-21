@@ -11,8 +11,8 @@ public class Mo extends Enemy {
 
     private BufferedImage image;
 
-    public Mo(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2, 4000, 4000);
+    public Mo(Game game, int y) {
+        super(game, 0, y, 10000, 10000);
         try {
             this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile300.png"));
         } catch (IOException e1) {

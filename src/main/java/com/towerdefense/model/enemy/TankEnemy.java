@@ -11,8 +11,8 @@ public class TankEnemy extends Enemy{
 
     private BufferedImage image;
 
-    public TankEnemy(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2, 800, 800);
+    public TankEnemy(Game game, int y) {
+        super(game, 0, y, 800, 800);
         try {
             this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile1004.png"));
         } catch (IOException e1) {

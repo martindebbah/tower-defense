@@ -2,6 +2,7 @@ package com.towerdefense.model;
 
 import javax.swing.JLabel;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.enemy.AerialEnemy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ public class Wave implements ActionListener {
     private int timeWave;
     private int countDown;
     private int delay = 0;
+    private Level level;
 
     private boolean finChrono = false;
     private boolean WinGame = false;
@@ -27,15 +29,21 @@ public class Wave implements ActionListener {
 
     private int currentWave = 1;
 
-    private final int nbWaves = 10;
+    private int nbWaves;
 
-    public Wave(Game game, int time) {
+    public Wave(Game game, int time, Level level) {
         chrono = new JLabel();
         cptWave = new JLabel();
         moneyPlayer = new JLabel();
         this.game = game;
         this.timeWave = time;
         this.countDown = time;
+        this.level = level;
+        if(level == Level.DIFFICULT){
+            this.nbWaves = 15;
+        } else {
+            this.nbWaves = 10;
+        }
     }
 
     public JLabel getMoneyPlayer() {
@@ -128,25 +136,58 @@ public class Wave implements ActionListener {
     public void createEnemy(int enemy, int healthSupp) { // Créer l'ennemi en fonction de son type (notée par un int)
         switch (enemy) {
             default:
-                Enemy e = new BasicEnemy(game);
-                e.setHealth(healthSupp);
-                e.setPath();
-                game.getBoard().addEnemy(e);
+                if(level == Level.DIFFICULT){
+                    Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 4);
+                    e.setHealth(healthSupp);
+                    e.setPath();
+                    game.getBoard().addEnemy(e);
+                    Enemy e1 = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() * 3 / 4);
+                    e1.setHealth(healthSupp);
+                    e1.setPath();
+                    game.getBoard().addEnemy(e1);
+                } else {
+                    Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+                    e.setHealth(healthSupp);
+                    e.setPath();
+                    game.getBoard().addEnemy(e);
+                }
                 break;
             case 1:
-                Enemy e2 = new AerialEnemy(game);
-                e2.setHealth(healthSupp);
-                e2.setPath();
-                game.getBoard().addEnemy(e2);
+                if(level == Level.DIFFICULT){
+                    Enemy e2 = new AerialEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 4);
+                    e2.setHealth(healthSupp);
+                    e2.setPath();
+                    game.getBoard().addEnemy(e2);
+                    Enemy e3 = new AerialEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() * 3 / 4);
+                    e3.setHealth(healthSupp);
+                    e3.setPath();
+                    game.getBoard().addEnemy(e3);
+                } else {
+                    Enemy e2 = new AerialEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+                    e2.setHealth(healthSupp);
+                    e2.setPath();
+                    game.getBoard().addEnemy(e2);
+                }
                 break;
             case 2:
-                Enemy e3 = new TankEnemy(game);
-                e3.setHealth(healthSupp);
-                e3.setPath();
-                game.getBoard().addEnemy(e3);
+                if(level == Level.DIFFICULT){
+                    Enemy e3 = new TankEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 4);
+                    e3.setHealth(healthSupp);
+                    e3.setPath();
+                    game.getBoard().addEnemy(e3);
+                    Enemy e4 = new TankEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() * 3 / 4);
+                    e4.setHealth(healthSupp);
+                    e4.setPath();
+                    game.getBoard().addEnemy(e4);
+                } else {
+                    Enemy e3 = new TankEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+                    e3.setHealth(healthSupp);
+                    e3.setPath();
+                    game.getBoard().addEnemy(e3);
+                }
                 break;
             case 10:
-                Enemy e10 = new Mo(game);
+                Enemy e10 = new Mo(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
                 e10.setPath();
                 game.getBoard().addEnemy(e10);
                 break;
@@ -156,104 +197,283 @@ public class Wave implements ActionListener {
     public void wave(int currentWave, int countdownStarter) {
         switch (currentWave) {
             case 1:
-                if (countdownStarter % 5 == 0) {
-                    createEnemy(0, 0);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(0, 0);
+                    }
+                } else {
+                    if (countdownStarter % 5 == 0) {
+                        createEnemy(0, 0);
+                    }
                 }
                 break;
             case 2:
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 0);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(1, 0);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(0, 0);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 0);
+                    }
+                } else {
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 0);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(1, 0);
+                    }
                 }
                 break;
             case 3:
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 100);
-                }
-                if (countdownStarter % 8 == 0) {
-                    createEnemy(1, 50);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 5 == 0) {
+                        createEnemy(0, 50);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(1, 50);
+                    }
+                } else {
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 50);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 50);
+                    }
                 }
                 break;
             case 4:
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 100);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(1, 100);
-                }
-                if (countdownStarter % 10 == 0) {
-                    createEnemy(2, 0);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 5 == 0) {
+                        createEnemy(0, 100);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 100);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 0);
+                    }
+                } else {
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 150);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(1, 150);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 0);
+                    }
                 }
                 break;
             case 5:
-                if (countdownStarter % 3 == 0) {
-                    createEnemy(0, 200);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(1, 150);
-                }
-                if (countdownStarter % 8 == 0) {
-                    createEnemy(2, 100);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 200);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(1, 150);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(2, 100);
+                    }
+                } else {
+                    if (countdownStarter % 3 == 0) {
+                        createEnemy(0, 200);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(1, 150);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(2, 100);
+                    }
                 }
                 break;
             case 6:
-                if (countdownStarter % 2 == 0) {
-                    createEnemy(0, 80);
-                }
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(1, 0);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(2, 250);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 250);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(1, 250);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(2, 250);
+                    }
+                } else {
+                    if (countdownStarter % 2 == 0) {
+                        createEnemy(0, 300);
+                    }
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(1, 100);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(2, 250);
+                    }
                 }
                 break;
             case 7:
-                if (countdownStarter % 2 == 0) {
-                    createEnemy(0, 300);
-                }
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(1, 200);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(2, 400);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 2 == 0) {
+                        createEnemy(0, 300);
+                    }
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(1, 200);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(2, 400);
+                    }
+                } else {
+                    if (countdownStarter % 2 == 0) {
+                        createEnemy(0, 300);
+                    }
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(1, 200);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(2, 400);
+                    }
                 }
                 break;
             case 8:
-                if (countdownStarter % 2 == 0) {
-                    createEnemy(0, 300);
-                }
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(1, 200);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(2, 1000);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 2 == 0) {
+                        createEnemy(0, 300);
+                    }
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(1, 200);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(2, 1000);
+                    }
+                } else {
+                    if (countdownStarter % 2 == 0) {
+                        createEnemy(0, 300);
+                    }
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(1, 200);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(2, 1000);
+                    }
                 }
                 break;
             case 9:
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 500);
-                }
-                if (countdownStarter % 6 == 0) {
-                    createEnemy(1, 400);
-                }
-                if (countdownStarter % 8 == 0) {
-                    createEnemy(2, 1000);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 500);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(1, 400);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(2, 1000);
+                    }
+                } else {
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 500);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(1, 400);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(2, 1000);
+                    }
                 }
                 break;
             case 10:
-                if (countdownStarter % 4 == 0) {
-                    createEnemy(0, 800);
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 800);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 500);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 1500);
+                    }
+                    if (countdownStarter % 40 == 0) {
+                        createEnemy(10, 0);
+                    }
+                } else {
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 800);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 500);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 1500);
+                    }
+                    if (countdownStarter % 40 == 0) {
+                        createEnemy(10, 0);
+                    }
                 }
-                if (countdownStarter % 8 == 0) {
-                    createEnemy(1, 500);
+                break;
+            case 11 :
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 1000);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 800);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 2500);
+                    }
                 }
-                if (countdownStarter % 10 == 0) {
-                    createEnemy(2, 1500);
+                break;
+            case 12 :
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 1500);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 1000);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 5000);
+                    }
                 }
-                if (countdownStarter % 40 == 0) {
-                    createEnemy(10, 0);
+                break;
+            case 13 :
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 1500);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 1200);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 5000);
+                    }
+                }
+                break;
+            case 14 :
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 1500);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 3000);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 5000);
+                    }
+                }
+                break;
+            case 15 :
+                if(level == Level.DIFFICULT){
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(0, 1500);
+                    }
+                    if (countdownStarter % 8 == 0) {
+                        createEnemy(1, 2000);
+                    }
+                    if (countdownStarter % 10 == 0) {
+                        createEnemy(2, 8000);
+                    }
+                    if (countdownStarter % 40 == 0) {
+                        createEnemy(10, 10000);
+                    }
                 }
                 break;
         }

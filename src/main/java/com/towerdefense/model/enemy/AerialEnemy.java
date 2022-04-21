@@ -11,8 +11,8 @@ public class AerialEnemy extends Enemy {
 
     private BufferedImage image;
 
-    public AerialEnemy(Game game) {
-        super(game, 0, game.getBoard().getSize() * game.getBoard().getNbCases() / 2, 100, 100);
+    public AerialEnemy(Game game, int y) {
+        super(game, 0, y, 100, 100);
         try {
             this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile1003.png"));
         } catch (IOException e1) {

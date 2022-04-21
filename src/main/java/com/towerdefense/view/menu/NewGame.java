@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.Player;
 import com.towerdefense.view.Window;
 
@@ -24,17 +25,17 @@ public class NewGame extends JPanel {
 		
 		JButton hard = new JButton("Difficle");
 		hard.addActionListener(e -> {
-			window.play(); // Mode hard
+			window.play(Level.DIFFICULT); // Mode hard
 		});
 		
 		JButton medium = new JButton("Intermédiaire");
 		medium.addActionListener(e -> {
-				window.play(); // Mode moyen
+				window.play(Level.EASY); // Mode moyen
 			});
 		
 		JButton easy = new JButton("Facile");
 		easy.addActionListener(e -> {
-			window.play(); // Mode facile
+			window.play(Level.EASY); // Mode facile
 		});
 
 		JButton back = new JButton("Retour");
