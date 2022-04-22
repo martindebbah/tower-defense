@@ -45,6 +45,7 @@ public class WaveView extends JPanel {
             faster.setText("x"+gv.getSpeed());
         });
 
+        add(wave.getEnemiesLeft());
         add(wave.getMoneyPlayer());
         add(wave.getCptWave());
         add(wave.getChrono());

@@ -1,5 +1,6 @@
 package com.towerdefense.model;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.Tower;
 
@@ -7,10 +8,16 @@ public class Game {
 
     private Board board;
     private Player player;
+    private Level level;
 
-    public Game(int size, int nbCases, Player player) {
+    public Game(int size, int nbCases, Player player, Level level) {
         this.board = new Board(size, nbCases, this);
         this.player = player;
+        this.level = level;
+    }
+
+    public Level getLevel(){
+        return level;
     }
 
     public Player getPlayer() {

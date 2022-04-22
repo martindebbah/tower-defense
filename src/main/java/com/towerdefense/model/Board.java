@@ -3,6 +3,7 @@ package com.towerdefense.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.BasicTower;
@@ -163,6 +164,18 @@ public class Board {
 
         boolean r = true;
         cases[x][y].setTower(new BasicTower(0));
+        if(game.getLevel() == Level.DIFFICULT){
+            Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 4);
+            Enemy e2 = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() * 3 / 4);
+            try {
+                e.setPath();
+                e2.setPath();
+            }catch(IndexOutOfBoundsException ioe) {
+                r = false;
+            }
+            removeTower(x, y);
+            return r;
+        }
         Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
         try {
             e.setPath();
