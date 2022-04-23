@@ -7,6 +7,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.System.Logger.Level;
 
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
@@ -80,13 +81,28 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
-                if (x == 10 && y == 0) {
-                    g.setColor(Color.PINK);
-                    g.fillRect(y * size, x * size, size, size);
-                }
-                if (x == 10 && y == 19) {
-                    g.setColor(Color.GREEN);
-                    g.fillRect(y * size, x * size, size, size);
+                if(board.getGame().getLevel() == com.towerdefense.level.Level.DIFFICULT){
+                    if (x == 5 && y == 0) {
+                        g.setColor(Color.PINK);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                    if (x == 15 && y == 0) {
+                        g.setColor(Color.PINK);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                    if (x == 10 && y == 19) {
+                        g.setColor(Color.GREEN);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                } else {
+                    if (x == 10 && y == 0) {
+                        g.setColor(Color.PINK);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                    if (x == 10 && y == 19) {
+                        g.setColor(Color.GREEN);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
                 }
                 if (board.getBoard()[x][y].containsTower()) {
                     try {

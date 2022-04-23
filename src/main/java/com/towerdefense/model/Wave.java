@@ -34,14 +34,12 @@ public class Wave implements ActionListener {
 
     private int nbWaves;
 
-    public Wave(Game game, int time, Level level) {
+    public Wave(Game game, Level level) {
         chrono = new JLabel();
         cptWave = new JLabel();
         moneyPlayer = new JLabel();
         enemiesLeft = new JLabel();
         this.game = game;
-        this.timeWave = time;
-        this.countDown = time;
         this.level = level;
         if(level == Level.DIFFICULT){
             this.nbWaves = 15;
@@ -63,6 +61,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies = 10;
                 }
+                this.timeWave = 70;
+                this.countDown = this.timeWave;
                 break;
             case 2 :
                 if(level == Level.DIFFICULT){
@@ -70,6 +70,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 15;
                 }
+                this.timeWave = 70;
+                this.countDown = this.timeWave;
                 break;
             case 3 :
                 if(level == Level.DIFFICULT){
@@ -77,6 +79,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 20;
                 }
+                this.timeWave = 70;
+                this.countDown = this.timeWave;
                 break;
             case 4 :
                 if(level == Level.DIFFICULT){
@@ -84,6 +88,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 25;
                 }
+                this.timeWave = 70;
+                this.countDown = this.timeWave;
                 break;
             case 5 :
                 if(level == Level.DIFFICULT){
@@ -91,6 +97,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 30;
                 }
+                this.timeWave = 90;
+                this.countDown = this.timeWave;
                 break;
             case 6 :
                 if(level == Level.DIFFICULT){
@@ -98,6 +106,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 35;
                 }
+                this.timeWave = 90;
+                this.countDown = this.timeWave;
                 break;
             case 7 :
                 if(level == Level.DIFFICULT){
@@ -105,6 +115,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 40;
                 }
+                this.timeWave = 90;
+                this.countDown = this.timeWave;
                 break;
             case 8 :
                 if(level == Level.DIFFICULT){
@@ -112,6 +124,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 45;
                 }
+                this.timeWave = 100;
+                this.countDown = this.timeWave;
                 break;
             case 9 :
                 if(level == Level.DIFFICULT){
@@ -119,6 +133,8 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 50;
                 }
+                this.timeWave = 120;
+                this.countDown = this.timeWave;
                 break;
             case 10 :
                 if(level == Level.DIFFICULT){
@@ -126,21 +142,33 @@ public class Wave implements ActionListener {
                 } else {
                     nbEnemies += 60;
                 }
+                this.timeWave = 120;
+                this.countDown = this.timeWave;
                 break;
             case 11 :
                 nbEnemies += (level == Level.DIFFICULT)?125:0;
+                this.timeWave = 150;
+                this.countDown = this.timeWave;
                 break;
             case 12 :
                 nbEnemies += (level == Level.DIFFICULT)?135:0;
+                this.timeWave = 150;
+                this.countDown = this.timeWave;
                 break;
             case 13 :
                 nbEnemies += (level == Level.DIFFICULT)?150:0;
+                this.timeWave = 170;
+                this.countDown = this.timeWave;
                 break;
             case 14 :
                 nbEnemies += (level == Level.DIFFICULT)?150:0;
+                this.timeWave = 180;
+                this.countDown = this.timeWave;
                 break;
             case 15 :
                 nbEnemies += (level == Level.DIFFICULT)?180:0;
+                this.timeWave = 190;
+                this.countDown = this.timeWave;
                 break;
         }
     }
@@ -183,6 +211,10 @@ public class Wave implements ActionListener {
 
     public int getCurrentWave() {
         return currentWave;
+    }
+
+    public void setCountDown(int c){
+        countDown = c;
     }
 
     public void setFinChrono(boolean finChrono) {
@@ -519,7 +551,7 @@ public class Wave implements ActionListener {
                     if (countdownStarter % 6 == 0) {
                         createEnemy(2, 1500);
                     }
-                    if (countdownStarter % 60 == 0) {
+                    if (countdownStarter % 100 == 0) {
                         createEnemy(10, 0);
                     }
                 } else {
@@ -532,7 +564,7 @@ public class Wave implements ActionListener {
                     if (countdownStarter % 6 == 0) {
                         createEnemy(2, 1500);
                     }
-                    if (countdownStarter % 60 == 0) {
+                    if (countdownStarter % 100 == 0) {
                         createEnemy(10, 0);
                     }
                 }
@@ -548,9 +580,6 @@ public class Wave implements ActionListener {
                     if (countdownStarter % 8 == 0) {
                         createEnemy(2, 2500);
                     }
-                } else {
-                    currentWave = 10;
-                    wave(currentWave, countdownStarter);
                 }
                 break;
             case 12 :
@@ -603,7 +632,7 @@ public class Wave implements ActionListener {
                     if (countdownStarter % 6 == 0) {
                         createEnemy(2, 8000);
                     }
-                    if (countdownStarter % 60 == 0) {
+                    if (countdownStarter % 120 == 0) {
                         createEnemy(10, 10000);
                     }
                 }

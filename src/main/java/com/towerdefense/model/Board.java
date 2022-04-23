@@ -83,6 +83,10 @@ public class Board {
         return enemies;
     }
 
+    public Game getGame(){
+        return game;
+    }
+
     public void addKillEnemy(Enemy enemy) {
         killEnemies.add(enemy);
     }

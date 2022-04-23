@@ -12,11 +12,11 @@ import java.awt.Graphics;
 public class WaveView extends JPanel {
 
     private Wave wave;
+    private JButton nextWave = new JButton("Vague suivante");
 
     public WaveView(Wave wave, GameView gv) {
         this.wave = wave;
         setPreferredSize(new java.awt.Dimension(1000, 112));
-        //wave.start();
 
         JPanel pausePanel = new JPanel();
         JButton pause =  new JButton("Pause");
@@ -26,6 +26,7 @@ public class WaveView extends JPanel {
         pausePanel.add(pause);
         buttonPanel.add(pausePanel);
         buttonPanel.add(faster);
+        buttonPanel.add(nextWave);
         buttonPanel.setOpaque(false);
 
         pause.addActionListener(e -> {
@@ -44,6 +45,9 @@ public class WaveView extends JPanel {
             gv.changeSpeed();
             faster.setText("x"+gv.getSpeed());
         });
+        nextWave.addActionListener(e -> {
+            wave.setCountDown(-1);
+        });
 
         add(wave.getEnemiesLeft());
         add(wave.getMoneyPlayer());
@@ -58,6 +62,8 @@ public class WaveView extends JPanel {
         g.setColor(Color.GREEN);
         g.drawRect(230, 50, 500, 20); // affiche la barre de vie du joueur (peut etre il faudrait l aligner au centre)
         g.fillRect(230, 50, wave.getPlayer().getHP() * 500 / 1000, 20);
+
+        nextWave.setEnabled(wave.getNbEnemies() <= 0);
     }    
     
 }
