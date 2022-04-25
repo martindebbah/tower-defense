@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.towerdefense.model.Board;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.tower.AerialTower;
 import com.towerdefense.model.tower.BasicTower;
@@ -28,6 +29,7 @@ public class Shop extends JPanel {
     private Description description;
     private boolean wantPurchase;
     protected Player player;
+    protected Board board;
 
     public Shop(Player player) {
         setPreferredSize(new Dimension(300, 700));
@@ -46,6 +48,14 @@ public class Shop extends JPanel {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Board getBoard(){
+        return board;
+    }
+
+    public void setBoard(Board b){
+        this.board = b;
     }
 
     public void refreshDesc(Tower t) {
@@ -124,6 +134,7 @@ public class Shop extends JPanel {
         private JLabel attackSpeed;
         private JLabel price;
         private JButton upgrade;
+        private JButton sellTower;
         private JButton cancel;
         private JPanel labels;
         private Tower selected;
@@ -138,12 +149,19 @@ public class Shop extends JPanel {
             this.attackSpeed = new JLabel();
             this.price = new JLabel();
             this.upgrade = new JButton("Améliorer");
+            this.sellTower = new JButton("Vendre");
             this.cancel = new JButton("Annuler");
             upgrade.setVisible(false);
             upgrade.addActionListener(e -> {
                 player.setMoney(player.getMoney()-selected.moneyOnLevel());
                 selected.upgrade();
                 refresh(selected);
+            });
+            sellTower.setVisible(false);
+            sellTower.addActionListener(e -> {
+                player.setMoney(player.getMoney()+selected.getPrice()/2);
+                getBoard().removeTower(selected.getCoord()[0], selected.getCoord()[1]);
+                refresh(null);
             });
             cancel.addActionListener(e -> {
                 Shop.this.refreshDesc(null);
@@ -158,6 +176,7 @@ public class Shop extends JPanel {
             labels.add(attackSpeed);
             labels.add(price);
             labels.add(upgrade);
+            labels.add(sellTower);
             labels.add(cancel);
 
             JPanel border = new JPanel();
@@ -184,6 +203,8 @@ public class Shop extends JPanel {
                 upgrade.setVisible(true);
                 upgrade.setText("Améliorer "+selected.moneyOnLevel());
                 upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player)); // changer la premiere condition
+                sellTower.setVisible(true);
+                sellTower.setEnabled(selected.getDamage() != 0);
 
                 labels.setVisible(true);
             }

@@ -28,9 +28,9 @@ public class NewGame extends JPanel {
 			window.play(Level.DIFFICULT); // Mode hard
 		});
 		
-		JButton medium = new JButton("Intermédiaire");
-		medium.addActionListener(e -> {
-				window.play(Level.EASY); // Mode moyen
+		JButton infiny = new JButton("Mode Infini");
+		infiny.addActionListener(e -> {
+				window.play(Level.INFINY); // Mode moyen
 			});
 		
 		JButton easy = new JButton("Facile");
@@ -49,8 +49,8 @@ public class NewGame extends JPanel {
 
 		buttons.add(label);
 		buttons.add(easy);
-		buttons.add(medium);
 		buttons.add(hard);
+		buttons.add(infiny);
 		buttons.add(back);
 	}
 

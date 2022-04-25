@@ -43,8 +43,12 @@ public class Wave implements ActionListener {
         this.level = level;
         if(level == Level.DIFFICULT){
             this.nbWaves = 15;
-        } else {
+        }
+        if(level == Level.EASY){
             this.nbWaves = 10;
+        }
+        if(level == Level.INFINY){
+            this.nbWaves = 100;
         }
         initializeWave();
     }
@@ -146,28 +150,53 @@ public class Wave implements ActionListener {
                 this.countDown = this.timeWave;
                 break;
             case 11 :
-                nbEnemies += (level == Level.DIFFICULT)?125:0;
+                if(level == Level.INFINY){
+                    nbEnemies += 70;    
+                } else {
+                    if(level == Level.DIFFICULT) nbEnemies += 125;
+                }
                 this.timeWave = 150;
                 this.countDown = this.timeWave;
                 break;
             case 12 :
-                nbEnemies += (level == Level.DIFFICULT)?135:0;
+                if(level == Level.INFINY){
+                    nbEnemies += 80;    
+                } else {
+                    if(level == Level.DIFFICULT) nbEnemies += 135;
+                }
                 this.timeWave = 150;
                 this.countDown = this.timeWave;
                 break;
             case 13 :
-                nbEnemies += (level == Level.DIFFICULT)?150:0;
+                if(level == Level.INFINY){
+                    nbEnemies += 90;    
+                } else {
+                    if(level == Level.DIFFICULT) nbEnemies += 150;
+                }
                 this.timeWave = 170;
                 this.countDown = this.timeWave;
                 break;
             case 14 :
-                nbEnemies += (level == Level.DIFFICULT)?150:0;
+                if(level == Level.INFINY){
+                    nbEnemies += 120;    
+                } else {
+                    if(level == Level.DIFFICULT) nbEnemies += 150;
+                }
                 this.timeWave = 180;
                 this.countDown = this.timeWave;
                 break;
             case 15 :
-                nbEnemies += (level == Level.DIFFICULT)?180:0;
+                if(level == Level.INFINY){
+                    nbEnemies += 140;    
+                } else {
+                    if(level == Level.DIFFICULT) nbEnemies += 180;
+                }
                 this.timeWave = 190;
+                this.countDown = this.timeWave;
+                break;
+            default :
+                nbEnemies += (level == Level.INFINY)?currentWave*10:0;
+                this.timeWave = 200;
                 this.countDown = this.timeWave;
                 break;
         }
@@ -262,6 +291,7 @@ public class Wave implements ActionListener {
             chrono.setText("Next Wave");
             countDown = timeWave;
             finChrono = true;
+            game.getPlayer().setMoney(currentWave*10);
             return;
         }
     }
@@ -358,18 +388,18 @@ public class Wave implements ActionListener {
         }
         switch (currentWave) {
             case 1:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 8 == 0) {
                         createEnemy(0, 0);
                     }
                 } else {
-                    if (countdownStarter % 5 == 0) {
+                    if (countdownStarter % 6 == 0) {
                         createEnemy(0, 0);
                     }
                 }
                 break;
             case 2:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 6 == 0) {
                         createEnemy(0, 0);
                     }
@@ -377,16 +407,16 @@ public class Wave implements ActionListener {
                         createEnemy(1, 0);
                     }
                 } else {
-                    if (countdownStarter % 4 == 0) {
+                    if (countdownStarter % 5 == 0) {
                         createEnemy(0, 0);
                     }
-                    if (countdownStarter % 6 == 0) {
+                    if (countdownStarter % 7 == 0) {
                         createEnemy(1, 0);
                     }
                 }
                 break;
             case 3:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 5 == 0) {
                         createEnemy(0, 50);
                     }
@@ -403,7 +433,7 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 4:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 5 == 0) {
                         createEnemy(0, 100);
                     }
@@ -426,7 +456,7 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 5:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 4 == 0) {
                         createEnemy(0, 200);
                     }
@@ -449,7 +479,7 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 6:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 4 == 0) {
                         createEnemy(0, 250);
                     }
@@ -472,7 +502,7 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 7:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
                         createEnemy(0, 300);
                     }
@@ -495,9 +525,9 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 8:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 300);
+                        createEnemy(0, 500);
                     }
                     if (countdownStarter % 4 == 0) {
                         createEnemy(1, 200);
@@ -507,7 +537,7 @@ public class Wave implements ActionListener {
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 300);
+                        createEnemy(0, 500);
                     }
                     if (countdownStarter % 4 == 0) {
                         createEnemy(1, 200);
@@ -518,9 +548,9 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 9:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(0, 500);
+                        createEnemy(0, 800);
                     }
                     if (countdownStarter % 6 == 0) {
                         createEnemy(1, 400);
@@ -530,7 +560,7 @@ public class Wave implements ActionListener {
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 500);
+                        createEnemy(0, 800);
                     }
                     if (countdownStarter % 4 == 0) {
                         createEnemy(1, 400);
@@ -541,9 +571,9 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 10:
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 800);
+                        createEnemy(0, 1000);
                     }
                     if (countdownStarter % 4 == 0) {
                         createEnemy(1, 500);
@@ -556,7 +586,7 @@ public class Wave implements ActionListener {
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 800);
+                        createEnemy(0, 1000);
                     }
                     if (countdownStarter % 4 == 0) {
                         createEnemy(1, 500);
@@ -570,9 +600,9 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 11 :
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1000);
+                        createEnemy(0, 1500);
                     }
                     if (countdownStarter % 4 == 0) {
                         createEnemy(1, 800);
@@ -583,9 +613,9 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 12 :
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1500);
+                        createEnemy(0, 2000);
                     }
                     if (countdownStarter % 4 == 0) {
                         createEnemy(1, 1000);
@@ -596,12 +626,12 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 13 :
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1500);
+                        createEnemy(0, 3000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 1200);
+                        createEnemy(1, 1500);
                     }
                     if (countdownStarter % 6 == 0) {
                         createEnemy(2, 5000);
@@ -609,12 +639,12 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 14 :
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1500);
+                        createEnemy(0, 3000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 3000);
+                        createEnemy(1, 2000);
                     }
                     if (countdownStarter % 8 == 0) {
                         createEnemy(2, 5000);
@@ -622,18 +652,34 @@ public class Wave implements ActionListener {
                 }
                 break;
             case 15 :
-                if(level == Level.DIFFICULT){
+                if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1500);
+                        createEnemy(0, 5000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 2000);
+                        createEnemy(1, 3000);
                     }
                     if (countdownStarter % 6 == 0) {
                         createEnemy(2, 8000);
                     }
                     if (countdownStarter % 120 == 0) {
                         createEnemy(10, 10000);
+                    }
+                }
+                break;
+            default :
+                if(level == Level.INFINY){
+                    if (countdownStarter % 2 == 0) {
+                        createEnemy(0, 500*currentWave);
+                    }
+                    if (countdownStarter % 4 == 0) {
+                        createEnemy(1, 300*currentWave);
+                    }
+                    if (countdownStarter % 6 == 0) {
+                        createEnemy(2, 800*currentWave);
+                    }
+                    if (countdownStarter % 120 == 0 && currentWave%10 == 0) {
+                        createEnemy(10, 1000*currentWave);
                     }
                 }
                 break;

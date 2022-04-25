@@ -22,7 +22,7 @@ public class BasicEnemy extends Enemy {
 
     @Override
     public int getGold() {
-        return 20;
+        return 30;
     }
 
     @Override

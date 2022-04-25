@@ -22,7 +22,7 @@ public class Mo extends Enemy {
 
     @Override
     public int getGold() {
-        return 1000;
+        return 1500;
     }
 
     @Override
