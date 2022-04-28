@@ -32,7 +32,7 @@ public class Window extends JFrame {
     }
 
     public void setAccueil() {
-        getContentPane().add(new Accueil(this));
+        getContentPane().add(new Accueil(this,"src/main/resources/Images/towerDefense_tile5000.png"));
         refresh();
     }
 

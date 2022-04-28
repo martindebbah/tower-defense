@@ -33,10 +33,11 @@ public class GameView extends JPanel implements ActionListener {
 
         // Création du plateau de jeu
         this.player = new Player();
-        this.game = new Game(32, 20, player);
+        this.game = new Game(32, 20, player, level);
         createShop();
         createBoard();
-        this.wave = new Wave(this.game,70,level);
+        this.shop.setBoard(board.getBoard());
+        this.wave = new Wave(this.game,level);
         WaveView w = new WaveView(wave, this);
         add(w, BorderLayout.NORTH);
     }
@@ -98,23 +99,24 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // soucis avec fin de game
         wave.actionPerformed(e);
         if (player.isAlive()){ // condition d'arrêter wave supérieure au max de wave + aucun enemy sur le board
             if(wave.getCurrentWave() < wave.getNbWaves()){
                 if (wave.getFinChrono()){ // check si le chrono est fini pour passer à la wave suivante
                     wave.incrementWave(); // passe à la wave suivante
+                    wave.initializeWave();
                     wave.setFinChrono(false);
                 }
                 wave.play();
                 window.refresh();
             } else {
-                if(board.getBoard().getEnemies().isEmpty()){
+                if(wave.getNbEnemies() <= 0 && board.getBoard().getEnemies().isEmpty()){
                     endGame(0);
-                } else {
-                    wave.play();
-                    window.refresh();
+                    return;
                 }
+                wave.play();
+                window.refresh();
             }
         }else{
             endGame(1);

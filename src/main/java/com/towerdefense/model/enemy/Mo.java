@@ -14,7 +14,7 @@ public class Mo extends Enemy {
     public Mo(Game game, int y) {
         super(game, 0, y, 10000, 10000);
         try {
-            this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile300.png"));
+            this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile1002.png"));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -22,7 +22,7 @@ public class Mo extends Enemy {
 
     @Override
     public int getGold() {
-        return 1000;
+        return 1500;
     }
 
     @Override

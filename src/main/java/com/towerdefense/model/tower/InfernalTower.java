@@ -47,7 +47,7 @@ public class InfernalTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 400;
+        return 500;
     }
 
     @Override
