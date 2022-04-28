@@ -147,12 +147,14 @@ public class BoardView extends JPanel implements MouseInputListener {
             }
         }
 
-        if (shop.wantPurchase() || shop.getDescription().getSelected() == null)
+        if (shop.wantPurchase() || shop.getDescription().getSelected() == null){
             selection = null;
+        }
 
         if (selection != null) {
             g.setColor(Color.WHITE);
             g.drawRect(selection[0], selection[1], size, size);
+            shop.refreshDesc(board.getBoard()[selection[0]/board.getSize()][selection[1]/board.getSize()].getTower());
         }
 
     }

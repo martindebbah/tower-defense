@@ -16,32 +16,23 @@ import com.towerdefense.view.Window;
 
 public class Accueil extends JPanel {
 
-	public Accueil(Window window) {
-		setSize(1000, 1000);
+	private ImageIcon background;
+
+	public Accueil(Window window, String filename) {
+		super();
+		this.background = new ImageIcon(filename);
 		setLayout(new BorderLayout());
 
-		JPanel panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
-		panel.setSize(100, 100); // A modifier
-
-		JButton start = new JButton("Lancer le jeu");
+		MyButton start = new MyButton("Cliquez pour jouer", null, null);
 		start.addActionListener(e -> {
 			window.setMenu();
 		});
-
-		panel.add(start);
+		add(start);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		try {
-			BufferedImage image = ImageIO
-					.read(new File(
-							"src/main/resources/Images/towerDefense_tile5000.png"));
-			g.drawImage(image, 32, 32, null);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		g.drawImage(background.getImage(), 0, 0, 1500, 1000, this);
 
 	}
 

@@ -140,7 +140,7 @@ public class Shop extends JPanel {
         private Tower selected;
 
         public Description(Player player) {
-            setPreferredSize(new Dimension(500, 500));
+            setPreferredSize(new Dimension(900, 900));
             setLayout(new FlowLayout(FlowLayout.CENTER, 0, 200));
 
             this.name = new JLabel();
@@ -180,7 +180,7 @@ public class Shop extends JPanel {
             labels.add(cancel);
 
             JPanel border = new JPanel();
-            border.setPreferredSize(new Dimension(150, 150));
+            border.setPreferredSize(new Dimension(160, 160));
             border.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             border.add(labels);
 
@@ -196,14 +196,43 @@ public class Shop extends JPanel {
                 labels.setVisible(false);
             }else {
                 name.setText(t.toString());
-                damage.setText("Dégâts : " + t.getDamage());
+                if(t.getDamage() == 0 && t instanceof BasicTower || t instanceof AerialTower){
+                    damage.setText("Dégâts : 20");
+                } else {
+                    if(t.getDamage() == 0 && t instanceof RapidTower){
+                        damage.setText("Dégâts : 10");
+                    } else {
+                        if(t.getDamage() == 0 && t instanceof InfernalTower){
+                            damage.setText("Dégâts : 5->2000");
+                        } else {
+                            if(t.getDamage() == 0 && t instanceof SuperTower){
+                                damage.setText("Dégâts : 50");
+                            } else {
+                                if(t.getDamage() == 0 && t instanceof DestructiveTower){
+                                    damage.setText("Dégâts : 150");
+                                } else {
+                                    damage.setText("Dégâts : " + t.getDamage());
+                                }
+                            }
+                        }
+                    }
+                }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
                 price.setText("Prix : " + t.getPrice());
-                upgrade.setVisible(true);
-                upgrade.setText("Améliorer "+selected.moneyOnLevel());
+                if(t.getDamage() != 0){
+                    sellTower.setVisible(true);
+                    upgrade.setVisible(true);
+                } else {
+                    sellTower.setVisible(false);
+                    upgrade.setVisible(false);
+                }
+                if(selected.moneyOnLevel() == 400){
+                    upgrade.setText("MAX");
+                } else {
+                    upgrade.setText("Améliorer "+selected.moneyOnLevel());
+                }
                 upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player)); // changer la premiere condition
-                sellTower.setVisible(true);
                 sellTower.setEnabled(selected.getDamage() != 0);
 
                 labels.setVisible(true);

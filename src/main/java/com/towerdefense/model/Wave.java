@@ -291,7 +291,7 @@ public class Wave implements ActionListener {
             chrono.setText("Next Wave");
             countDown = timeWave;
             finChrono = true;
-            game.getPlayer().setMoney(currentWave*10);
+            game.getPlayer().setMoney(game.getPlayer().getMoney()+currentWave*10);
             return;
         }
     }
