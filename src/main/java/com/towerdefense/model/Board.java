@@ -88,6 +88,7 @@ public class Board {
     }
 
     public void addKillEnemy(Enemy enemy) {
+        enemy.stop();
         killEnemies.add(enemy);
     }
 

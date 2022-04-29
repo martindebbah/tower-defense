@@ -15,10 +15,10 @@ import com.towerdefense.view.menu.*;
 
 public class Window extends JFrame {
 
-    SoundManager s = new SoundManager("src/main/resources/sound/su.wav");
+    private SoundManager s = new SoundManager();
 
     public Window() {
-        s.play();
+        s.play(2);
         // Définition de la fenêtre
         setSize(1200, 1000);
         setTitle("Tower Defense");
@@ -45,12 +45,14 @@ public class Window extends JFrame {
     }
 
     public void setNewGame() {
+        getContentPane().removeAll();
         setContentPane(new NewGame(this));
         refresh();
     }
 
     public void setParametres() {
-        setContentPane(new Parametres(this));
+        getContentPane().removeAll();
+        setContentPane(new Parametres(this,s));
         refresh();
     }
 
@@ -60,12 +62,14 @@ public class Window extends JFrame {
     }
 
     public void play(Level level) {
+        s.stop();
         GameView gameView = new GameView(this,level);
         setContentPane(gameView);
         gameView.start();
     }
 
     public void endGame(int status, Player p) {
+        getContentPane().removeAll();
         setContentPane(new EndGame(this, status, p));
         refresh();
     }

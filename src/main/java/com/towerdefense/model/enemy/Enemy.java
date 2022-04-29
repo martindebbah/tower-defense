@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tile;
+import com.towerdefense.view.menu.SoundManager;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -26,6 +27,7 @@ public class Enemy {
     private int y;
     private Stack<Tile> path;
     private int direction;
+    private SoundManager s = new SoundManager();
 
     public Enemy(Game game, int x, int y, int maxHealth, int health) { // x et y donnent l'endroit où apparaît l'unité
         this.maxHealth = maxHealth;
@@ -320,6 +322,14 @@ public class Enemy {
 
     public BufferedImage getImage() { // Dans chaque classe
         return null;
+    }
+
+    public void stop() {
+        s.stop();
+    }
+
+    public void sound(){
+        s.play(3);
     }
 
 }

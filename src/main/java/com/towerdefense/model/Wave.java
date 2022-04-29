@@ -12,6 +12,7 @@ import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.enemy.TankEnemy;
+import com.towerdefense.view.menu.SoundManager;
 
 public class Wave implements ActionListener {
     private Game game;
@@ -45,7 +46,8 @@ public class Wave implements ActionListener {
             this.nbWaves = 15;
         }
         if(level == Level.EASY){
-            this.nbWaves = 10;
+            //this.nbWaves = 10;
+            this.nbWaves = 1;
         }
         if(level == Level.INFINY){
             this.nbWaves = 100;
@@ -285,7 +287,8 @@ public class Wave implements ActionListener {
         } else {
             enemiesLeft.setText("ennemies restants : "+nbEnemies+" /");
         }
-        wave(currentWave, countDown);
+        //wave(currentWave, countDown);
+        waveTest(countDown);
         countDown--; // une seconde passe
         if (countDown < 0) {
             chrono.setText("Next Wave");
@@ -315,17 +318,20 @@ public class Wave implements ActionListener {
                     e.setHealth(healthSupp);
                     e.setPath();
                     game.getBoard().addEnemy(e);
+                    e.sound();
                     Enemy e1 = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() * 3 / 4);
                     e1.setHealth(healthSupp);
                     e1.setPath();
                     game.getBoard().addEnemy(e1);
                     nbEnemies -= 2;
+                    e1.sound();
                 } else {
                     Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
                     e.setHealth(healthSupp);
                     e.setPath();
                     game.getBoard().addEnemy(e);
                     nbEnemies--;
+                    e.sound();
                 }
                 break;
             case 1:
@@ -681,6 +687,16 @@ public class Wave implements ActionListener {
                     if (countdownStarter % 120 == 0 && currentWave%10 == 0) {
                         createEnemy(10, 1000*currentWave);
                     }
+                }
+                break;
+        }
+    }
+
+    public void waveTest(int countdownStarter){
+        switch(currentWave){
+            case 1 :
+                if (countdownStarter % 5 == 0) {
+                    createEnemy(0, 0);
                 }
                 break;
         }

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import com.towerdefense.model.Game;
+import com.towerdefense.view.menu.SoundManager;
 
 public class BasicEnemy extends Enemy {
 
