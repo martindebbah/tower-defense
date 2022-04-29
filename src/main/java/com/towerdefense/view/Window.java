@@ -34,7 +34,7 @@ public class Window extends JFrame {
     }
 
     public void setAccueil() {
-        getContentPane().add(new Accueil(this,"src/main/resources/Images/towerDefense_tile5000.png"));
+        getContentPane().add(new Accueil(this, "src/main/resources/Images/towerDefense_tile5000.png"));
         refresh();
     }
 
@@ -60,7 +60,7 @@ public class Window extends JFrame {
     }
 
     public void play(Level level) {
-        GameView gameView = new GameView(this,level);
+        GameView gameView = new GameView(this, level);
         setContentPane(gameView);
         gameView.start();
     }

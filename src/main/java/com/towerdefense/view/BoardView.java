@@ -7,8 +7,6 @@ import javax.swing.event.MouseInputListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.System.Logger.Level;
-
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
@@ -42,9 +40,9 @@ public class BoardView extends JPanel implements MouseInputListener {
         addMouseListener(this);
         addMouseMotionListener(this);
 
-        try{
+        try {
             this.background = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile024.png"));
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -81,7 +79,7 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
-                if(board.getGame().getLevel() == com.towerdefense.level.Level.DIFFICULT){
+                if (board.getGame().getLevel() == com.towerdefense.level.Level.DIFFICULT) {
                     if (x == 5 && y == 0) {
                         g.setColor(Color.PINK);
                         g.fillRect(y * size, x * size, size, size);
@@ -107,7 +105,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                 if (board.getBoard()[x][y].containsTower()) {
                     try {
                         g.drawImage(board.getBoard()[x][y].getTower().getImage(), x * size, y * size, size, size, null);
-                    }catch (NullPointerException ex) {
+                    } catch (NullPointerException ex) {
                         g.setColor(board.getBoard()[x][y].getTower().getColor());
                         g.fillRect(x * size, y * size, size, size);
                     }
@@ -120,7 +118,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         for (Enemy e : board.getEnemies()) {
             try {
                 g.drawImage(e.getImage(), e.getX(), e.getY(), size, size, null);
-            }catch (NullPointerException ex) {
+            } catch (NullPointerException ex) {
                 g.setColor(Color.RED);
                 g.fillOval(e.getX(), e.getY(), size, size);
             }
@@ -147,14 +145,15 @@ public class BoardView extends JPanel implements MouseInputListener {
             }
         }
 
-        if (shop.wantPurchase() || shop.getDescription().getSelected() == null){
+        if (shop.wantPurchase() || shop.getDescription().getSelected() == null) {
             selection = null;
         }
 
         if (selection != null) {
             g.setColor(Color.WHITE);
             g.drawRect(selection[0], selection[1], size, size);
-            shop.refreshDesc(board.getBoard()[selection[0]/board.getSize()][selection[1]/board.getSize()].getTower());
+            shop.refreshDesc(
+                    board.getBoard()[selection[0] / board.getSize()][selection[1] / board.getSize()].getTower());
         }
 
     }
@@ -174,10 +173,12 @@ public class BoardView extends JPanel implements MouseInputListener {
             selection = new int[2];
             selection[0] = x - x % size;
             selection[1] = y - y % size;
-        }else { // ou pose une tour
+        } else { // ou pose une tour
             if (canPurchase(x, y)) {
                 addTower(shop.addNewTower(), x / size, y / size);
-                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète la tour
+                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète
+                                                                                                               // la
+                                                                                                               // tour
             }
             selection = null; // Faire pareil si on clique sur une autre tour dans le shop
             if (!shop.wantPurchase())
@@ -186,9 +187,10 @@ public class BoardView extends JPanel implements MouseInputListener {
     }
 
     public boolean canPurchase(int x, int y) {
-        // Vérifie que le joueur a assez d'argent, veut acheter une tour, peut poser la tour (qu'il n'y a pas un ennemi ou une tour)et que le jeu n'est pas en pause
+        // Vérifie que le joueur a assez d'argent, veut acheter une tour, peut poser la
+        // tour (qu'il n'y a pas un ennemi ou une tour)et que le jeu n'est pas en pause
         return shop.wantPurchase() && player.canAfford(shop.getTowerPanel().getSelected().getTower()) && !isPaused
-        && board.canBuildOn(x / size, y / size) && !board.containsEnemyOn(x / size, y / size);
+                && board.canBuildOn(x / size, y / size) && !board.containsEnemyOn(x / size, y / size);
     }
 
     public void pause() {

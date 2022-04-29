@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 import com.towerdefense.model.Game;
 
-public class TankEnemy extends Enemy{
+public class TankEnemy extends Enemy {
 
     private BufferedImage image;
 
@@ -39,5 +39,5 @@ public class TankEnemy extends Enemy{
     public BufferedImage getImage() {
         return image;
     }
-    
+
 }

@@ -14,7 +14,7 @@ public class BasicEnemy extends Enemy {
     public BasicEnemy(Game game, int y) {
         super(game, 0, y, 150, 150);
         try {
-            this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile001.png"));
+            this.image = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile1009.png"));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -39,5 +39,5 @@ public class BasicEnemy extends Enemy {
     public BufferedImage getImage() {
         return image;
     }
-    
+
 }
