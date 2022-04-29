@@ -18,7 +18,11 @@ public class EndGame extends JPanel{
 	private ImageIcon background;
     
     public EndGame(Window w, int status, Player p){
-		sound.play(status);
+		if(status == 0){
+			sound.play(0);
+		} else {
+			sound.play(1);
+		}
 		setSize(1000, 1000);
 
 		this.window = w;

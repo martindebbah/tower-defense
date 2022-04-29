@@ -46,8 +46,7 @@ public class Wave implements ActionListener {
             this.nbWaves = 15;
         }
         if(level == Level.EASY){
-            //this.nbWaves = 10;
-            this.nbWaves = 1;
+            this.nbWaves = 10;
         }
         if(level == Level.INFINY){
             this.nbWaves = 100;
@@ -287,8 +286,8 @@ public class Wave implements ActionListener {
         } else {
             enemiesLeft.setText("ennemies restants : "+nbEnemies+" /");
         }
-        //wave(currentWave, countDown);
-        waveTest(countDown);
+        wave(currentWave, countDown);
+        //waveTest(countDown);
         countDown--; // une seconde passe
         if (countDown < 0) {
             chrono.setText("Next Wave");
