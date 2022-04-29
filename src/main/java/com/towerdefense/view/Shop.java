@@ -30,16 +30,23 @@ public class Shop extends JPanel {
     private boolean wantPurchase;
     protected Player player;
     protected Board board;
+    private Window window;
 
-    public Shop(Player player) {
+    public Shop(Player player, Window window) {
         setPreferredSize(new Dimension(300, 700));
         setLayout(new BorderLayout());
 
         this.player = player;
+        this.window = window;
+        JButton back = new JButton("Quitter");
+        back.addActionListener(e -> {
+			this.window.setMenu();
+		});
         towerPanel = new TowerPanel();
         add(towerPanel, BorderLayout.NORTH);
         description = new Description(player);
-        add(description, BorderLayout.SOUTH);
+        add(description, BorderLayout.CENTER);
+        add(back, BorderLayout.SOUTH);
     }
 
     public TowerPanel getTowerPanel(){

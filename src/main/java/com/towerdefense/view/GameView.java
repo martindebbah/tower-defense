@@ -51,7 +51,7 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     private void createShop() {
-        shop = new Shop(player);
+        shop = new Shop(player, window);
         add(shop, BorderLayout.EAST);
     }
 

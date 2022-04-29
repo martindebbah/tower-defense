@@ -7,7 +7,7 @@ import java.awt.GridLayout;
 
 import com.towerdefense.view.Window;
 
-import javafx.scene.text.Font;
+//import javafx.scene.text.Font;
 
 public class Menu extends JPanel {
 

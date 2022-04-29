@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -21,18 +22,19 @@ public class Accueil extends JPanel {
 	public Accueil(Window window, String filename) {
 		super();
 		this.background = new ImageIcon(filename);
-		setLayout(new BorderLayout());
+		setLayout(null);
 
 		MyButton start = new MyButton("Cliquez pour jouer", null, null);
 		start.addActionListener(e -> {
 			window.setMenu();
 		});
+		start.setBounds(500,400,200,100);
 		add(start);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(background.getImage(), 0, 0, 1500, 1000, this);
+		g.drawImage(background.getImage(), 0, 0, 1200, 1000, this);
 
 	}
 

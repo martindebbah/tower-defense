@@ -15,10 +15,12 @@ import com.towerdefense.view.menu.*;
 
 public class Window extends JFrame {
 
-    public Window() {
+    SoundManager s = new SoundManager("src/main/resources/sound/su.wav");
 
+    public Window() {
+        s.play();
         // Définition de la fenêtre
-        setSize(1000, 1000);
+        setSize(1200, 1000);
         setTitle("Tower Defense");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
