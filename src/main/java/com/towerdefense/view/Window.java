@@ -40,13 +40,13 @@ public class Window extends JFrame {
 
     public void setMenu() {
         getContentPane().removeAll();
-        getContentPane().add(new Menu(this));
+        getContentPane().add(new Menu(this,"src/main/resources/Images/towerDefense_tile5000.png"));
         refresh();
     }
 
     public void setNewGame() {
         getContentPane().removeAll();
-        setContentPane(new NewGame(this));
+        setContentPane(new NewGame(this,"src/main/resources/Images/towerDefense_tile5000.png"));
         refresh();
     }
 

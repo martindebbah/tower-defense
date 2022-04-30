@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 import com.towerdefense.level.Level;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
+import com.towerdefense.model.Tile;
 import com.towerdefense.model.Wave;
+import com.towerdefense.model.enemy.Enemy;
 
 public class GameView extends JPanel implements ActionListener {
 
@@ -51,7 +53,7 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     private void createShop() {
-        shop = new Shop(player, window);
+        shop = new Shop(player, window, this);
         add(shop, BorderLayout.EAST);
     }
 
@@ -124,8 +126,24 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     public void endGame(int status) {
-        pause();
+        killBoard();
         window.endGame(status, game.getPlayer());
+    }
+
+    public void killBoard(){
+        pause();
+        for(Enemy e : board.getBoard().getEnemies()){
+            board.getBoard().addKillEnemy(e);
+        }
+        board.getBoard().kill();
+        for(int i = 0; i < board.getBoard().getBoard().length; i++){
+            for(int j = 0; j < board.getBoard().getBoard().length; j++){
+                if(board.getBoard().getBoard()[i][j].containsTower()){
+                    board.getBoard().removeTower(i, j);
+                }
+            }
+        }
+        window.refresh();
     }
 
 }

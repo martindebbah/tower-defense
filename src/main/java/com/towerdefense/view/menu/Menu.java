@@ -1,9 +1,11 @@
 package com.towerdefense.view.menu;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import java.awt.GridLayout;
+import java.awt.Graphics;
 
 import com.towerdefense.view.Window;
 
@@ -12,12 +14,15 @@ import com.towerdefense.view.Window;
 public class Menu extends JPanel {
 
 	private JPanel buttons;
+	private ImageIcon background;
 
-	public Menu(Window window) {
-		setSize(1000, 1000);
+	public Menu(Window window, String filename) {
+		super();
+		this.background = new ImageIcon(filename);
+		//setSize(1000, 1000);
 
 		buttons = new JPanel();
-		buttons.setSize(1000, 1000);
+		buttons.setSize(500, 500);
 		add(buttons);
 		buttons.setLayout(new GridLayout(0, 1));
 
@@ -47,4 +52,9 @@ public class Menu extends JPanel {
 		buttons.add(parametres);
 	}
 
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(background.getImage(), 0, 0, 1200, 1000, this);
+
+	}
 }

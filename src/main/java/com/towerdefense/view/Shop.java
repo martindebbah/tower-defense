@@ -32,7 +32,7 @@ public class Shop extends JPanel {
     protected Board board;
     private Window window;
 
-    public Shop(Player player, Window window) {
+    public Shop(Player player, Window window, GameView g) {
         setPreferredSize(new Dimension(300, 700));
         setLayout(new BorderLayout());
 
@@ -40,7 +40,8 @@ public class Shop extends JPanel {
         this.window = window;
         JButton back = new JButton("Quitter");
         back.addActionListener(e -> {
-			this.window.setMenu();
+			g.killBoard();
+            this.window.setMenu();
 		});
         towerPanel = new TowerPanel();
         add(towerPanel, BorderLayout.NORTH);
