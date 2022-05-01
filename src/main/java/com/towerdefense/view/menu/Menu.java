@@ -24,14 +24,14 @@ public class Menu extends JPanel {
 			window.setNewGame();
 		});
 
-		JButton resumeGame = new JButton("Continuer");
-		resumeGame.addActionListener(e -> {
-			new ResumeGame();
-		});
-
 		JButton discover = new JButton("Découvrir");
 		discover.addActionListener(e -> {
 			new Discover();
+		});
+
+		JButton highScore = new JButton("High Score");
+		highScore.addActionListener(e -> {
+			window.setHighScore();
 		});
 
 		JButton parametres = new JButton("Paramètres");
@@ -40,8 +40,8 @@ public class Menu extends JPanel {
 		});
 
 		buttons.add(newGame);
-		buttons.add(resumeGame);
 		buttons.add(discover);
+		buttons.add(highScore);
 		buttons.add(parametres);
 	}
 

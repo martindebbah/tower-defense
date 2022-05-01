@@ -39,7 +39,7 @@ public class RapidTower extends Tower {
     @Override
     public int getPrice() {
         return 250;
-    } // à voir
+    }
 
     @Override
     public int getRange() {

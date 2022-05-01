@@ -37,7 +37,7 @@ public class DestructiveTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 11000;
+        return 1000;
     } 
 
     @Override
@@ -47,20 +47,16 @@ public class DestructiveTower extends Tower {
 
     @Override
     public Color getColor() {
-        return new Color(0,0,0);
+        return Color.BLACK;
     }
 
 	@Override
 	public BufferedImage getImage() {
 		return image;
 	}
-
-    @Override
-    public Color getPreviewColor() {
-        return new Color(0,0, 0);
-    }
 	  
-	public boolean canFocus(Enemy e) {
+	@Override
+	public boolean canFocusAerial(Enemy e) {
 	    return true; // s'attaque à tous les types d'ennemis
 	}
 

@@ -3,18 +3,13 @@ package com.towerdefense.model.tower;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Tower {
 
@@ -85,7 +80,7 @@ public class Tower {
             return;
 
         if (coolDown == 0) {
-            addProjectile(new Projectile(getSource(), target));
+            addProjectile(new Projectile(getSource(), target, getColor()));
         }
         if (coolDown <= getAttackSpeed()) { // tire toutes les 20 * 50 millisecondes
             coolDown++;
@@ -107,7 +102,7 @@ public class Tower {
     }
 
     public boolean canFocusAerial(Enemy e) {
-        return !e.isAerial(); // true sie e n'est pas un ennemi aérien
+        return !e.isAerial(); // true si e n'est pas un ennemi aérien
     } // est overriden dans AerialTower
 
     public void focus(Board board) {
@@ -145,18 +140,13 @@ public class Tower {
         killProjectiles.clear();
     }
 
-    public Color getColor() { // Première méthode pour afficher une tour
-        return null;
-    }
-
-    public Color getPreviewColor() {
-        return null;
+    public Color getColor() { // Pour la couleur des projectiles, bleus par défaut
+        return Color.BLUE;
     }
 
     public BufferedImage getImage() { // Dans chaque classe
         return null;
     }
-    //g.drawImage(image, x, y, 35, 35, null);
 
     public int moneyOnLevel() {
         return (level + 1) * 100;

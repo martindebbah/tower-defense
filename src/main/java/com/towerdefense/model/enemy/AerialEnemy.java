@@ -2,10 +2,14 @@ package com.towerdefense.model.enemy;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import com.towerdefense.model.Game;
+import com.towerdefense.model.Tile;
 
 public class AerialEnemy extends Enemy {
 
@@ -41,8 +45,16 @@ public class AerialEnemy extends Enemy {
     }
 
     @Override
-    public void move(){
-        this.moveRight();
+    public void setPath() { // Nouvelle façon de calculer le chemin des ennemis aériens
+        List<Tile> reversed = new ArrayList<Tile>();
+        int n = game.getBoard().getNbCases();
+
+        for (int i = n - 1; i > getX() / game.getBoard().getSize(); i--)
+            reversed.add(game.getBoard().getBoard()[i][n / 2]);
+
+        path = new Stack<Tile>();
+        for (Tile t : reversed)
+            path.push(t);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class SuperTower extends Tower {
 
     @Override
 	public int getAttackSpeed() {
-	    return 20;
+	    return 25;
 	}
 
 	@Override
@@ -55,13 +55,8 @@ public class SuperTower extends Tower {
 	public BufferedImage getImage() {
 		return image;
 	}
-
-	@Override
-	public Color getPreviewColor() {
-	    return new Color(184, 43, 14);
-	}
-
 	    
+	@Override
 	public boolean canFocusAerial(Enemy e) {
         return true; // s'attaque à tous les types d'ennemis
     }

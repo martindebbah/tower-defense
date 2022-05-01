@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import com.towerdefense.model.Player;
 import com.towerdefense.model.enemy.Enemy;
 
 public class AerialTower extends Tower {
@@ -55,11 +54,6 @@ public class AerialTower extends Tower {
     @Override
     public BufferedImage getImage() {
         return image;
-    }
-
-    @Override
-    public Color getPreviewColor() {
-        return new Color(234, 232, 104);
     }
 
     @Override

@@ -71,10 +71,6 @@ public class Shop extends JPanel {
         return towerPanel.getSelected().newTower();
     }
 
-    public Color getPreviewColor() {
-        return towerPanel.getSelected().getTower().getPreviewColor();
-    }
-
     public class TowerPanel extends JPanel {
 
         private List<TowerView> towers; // La liste des tours dans le shop

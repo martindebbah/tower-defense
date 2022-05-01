@@ -3,9 +3,7 @@ package com.towerdefense.view.menu;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;

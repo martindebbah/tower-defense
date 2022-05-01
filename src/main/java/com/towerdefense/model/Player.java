@@ -8,11 +8,13 @@ public class Player {
     private int health;
     private int money;
     private String name;
+    private int score;
 
     public Player(String name) {
         this.health = 1000;
-        this.money = 100000; // Combien ?
+        this.money = 300; // Combien ?
         this.name = name;
+        this.score = 0;
     }
 
     public Player() {
@@ -21,6 +23,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void increaseScore(int n) {
+        score += n;
     }
 
     public int getMoney() {

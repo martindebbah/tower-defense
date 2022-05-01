@@ -1,13 +1,7 @@
 package com.towerdefense.view;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import com.towerdefense.model.Player;
 import com.towerdefense.view.menu.*;
@@ -15,7 +9,6 @@ import com.towerdefense.view.menu.*;
 public class Window extends JFrame {
 
     public Window() {
-
         // Définition de la fenêtre
         setSize(1000, 1000);
         setTitle("Tower Defense");
@@ -24,9 +17,6 @@ public class Window extends JFrame {
         setVisible(true);
         setResizable(false);
         setAccueil();
-
-        // test
-        // play();
 
     }
 
@@ -43,6 +33,16 @@ public class Window extends JFrame {
 
     public void setNewGame() {
         setContentPane(new NewGame(this));
+        refresh();
+    }
+
+    public void setHighScore() {
+        setContentPane(new HighScore(null, this));
+        JButton back = new JButton("Retour");
+        back.addActionListener(e -> {
+            setMenu();
+        });
+        add(back);
         refresh();
     }
 

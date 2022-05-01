@@ -5,7 +5,7 @@ import java.awt.Color;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.Tower;
 
-public class Projectile {
+public class Projectile { // changer la couleur en fonction de la tour qui tire
 
     private Tower source;
     private Enemy target;
@@ -29,6 +29,10 @@ public class Projectile {
 
     public Projectile(Tower source, Enemy target) {
         this(source, target, Color.BLUE, target.getGame().getBoard().getSize());
+    }
+
+    public Projectile(Tower source, Enemy target, Color color) {
+        this(source, target, color, target.getGame().getBoard().getSize());
     }
 
     public Color getColor() {
@@ -61,6 +65,8 @@ public class Projectile {
 		double deltaX = targetX - x;
 		if (deltaX > 0)
 			return Math.atan(deltaY / deltaX);
+        if (deltaX == 0)
+            return Math.atan(deltaY / 0.00001);
 		return Math.atan(deltaY / deltaX) + Math.PI;
     }
 

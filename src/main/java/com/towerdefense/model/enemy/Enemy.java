@@ -4,27 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tile;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Enemy {
 
-    private Game game;
+    protected Game game;
     protected int health;
     protected int maxHealth;
     private int x;
     private int y;
-    private Stack<Tile> path;
+    protected Stack<Tile> path;
     private int direction;
 
     public Enemy(Game game, int x, int y, int maxHealth, int health) { // x et y donnent l'endroit où apparaît l'unité
@@ -251,7 +244,7 @@ public class Enemy {
             case 8:
                 return board.getBoard()[x / board.getSize()][y / board.getSize()];
         }
-        return board.getBoard()[x / board.getSize()][y / board.getSize()];
+        return board.getBoard()[x / board.getSize()][y / board.getSize()]; // ArrayIndexOutOfBoundsExcepetion !
     }
 
     public Stack<Tile> goodPath(Tile tile, Stack<Tile> path) {
