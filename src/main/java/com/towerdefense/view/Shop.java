@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.towerdefense.model.Board;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.tower.AerialTower;
 import com.towerdefense.model.tower.BasicTower;
@@ -28,16 +29,25 @@ public class Shop extends JPanel {
     private Description description;
     private boolean wantPurchase;
     protected Player player;
+    protected Board board;
+    private Window window;
 
-    public Shop(Player player) {
+    public Shop(Player player, Window window, GameView g) {
         setPreferredSize(new Dimension(300, 700));
         setLayout(new BorderLayout());
 
         this.player = player;
+        this.window = window;
+        JButton back = new JButton("Quitter");
+        back.addActionListener(e -> {
+			g.killBoard();
+            this.window.setMenu();
+		});
         towerPanel = new TowerPanel();
         add(towerPanel, BorderLayout.NORTH);
         description = new Description(player);
-        add(description, BorderLayout.SOUTH);
+        add(description, BorderLayout.CENTER);
+        add(back, BorderLayout.SOUTH);
     }
 
     public TowerPanel getTowerPanel(){
@@ -46,6 +56,14 @@ public class Shop extends JPanel {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Board getBoard(){
+        return board;
+    }
+
+    public void setBoard(Board b){
+        this.board = b;
     }
 
     public void refreshDesc(Tower t) {
@@ -120,12 +138,13 @@ public class Shop extends JPanel {
         private JLabel attackSpeed;
         private JLabel price;
         private JButton upgrade;
+        private JButton sellTower;
         private JButton cancel;
         private JPanel labels;
         private Tower selected;
 
         public Description(Player player) {
-            setPreferredSize(new Dimension(500, 500));
+            setPreferredSize(new Dimension(900, 900));
             setLayout(new FlowLayout(FlowLayout.CENTER, 0, 200));
 
             this.name = new JLabel();
@@ -134,12 +153,19 @@ public class Shop extends JPanel {
             this.attackSpeed = new JLabel();
             this.price = new JLabel();
             this.upgrade = new JButton("Améliorer");
+            this.sellTower = new JButton("Vendre");
             this.cancel = new JButton("Annuler");
             upgrade.setVisible(false);
             upgrade.addActionListener(e -> {
                 player.setMoney(player.getMoney()-selected.moneyOnLevel());
                 selected.upgrade();
                 refresh(selected);
+            });
+            sellTower.setVisible(false);
+            sellTower.addActionListener(e -> {
+                player.setMoney(player.getMoney()+selected.getPrice()/2);
+                getBoard().removeTower(selected.getCoord()[0], selected.getCoord()[1]);
+                refresh(null);
             });
             cancel.addActionListener(e -> {
                 Shop.this.refreshDesc(null);
@@ -154,10 +180,11 @@ public class Shop extends JPanel {
             labels.add(attackSpeed);
             labels.add(price);
             labels.add(upgrade);
+            labels.add(sellTower);
             labels.add(cancel);
 
             JPanel border = new JPanel();
-            border.setPreferredSize(new Dimension(150, 150));
+            border.setPreferredSize(new Dimension(160, 160));
             border.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             border.add(labels);
 
@@ -173,13 +200,44 @@ public class Shop extends JPanel {
                 labels.setVisible(false);
             }else {
                 name.setText(t.toString());
-                damage.setText("Dégâts : " + t.getDamage());
+                if(t.getDamage() == 0 && t instanceof BasicTower || t instanceof AerialTower){
+                    damage.setText("Dégâts : 20");
+                } else {
+                    if(t.getDamage() == 0 && t instanceof RapidTower){
+                        damage.setText("Dégâts : 10");
+                    } else {
+                        if(t.getDamage() == 0 && t instanceof InfernalTower){
+                            damage.setText("Dégâts : 5->2000");
+                        } else {
+                            if(t.getDamage() == 0 && t instanceof SuperTower){
+                                damage.setText("Dégâts : 50");
+                            } else {
+                                if(t.getDamage() == 0 && t instanceof DestructiveTower){
+                                    damage.setText("Dégâts : 150");
+                                } else {
+                                    damage.setText("Dégâts : " + t.getDamage());
+                                }
+                            }
+                        }
+                    }
+                }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
                 price.setText("Prix : " + t.getPrice());
-                upgrade.setVisible(true);
-                upgrade.setText("Améliorer "+selected.moneyOnLevel());
+                if(t.getDamage() != 0){
+                    sellTower.setVisible(true);
+                    upgrade.setVisible(true);
+                } else {
+                    sellTower.setVisible(false);
+                    upgrade.setVisible(false);
+                }
+                if(selected.moneyOnLevel() == 400){
+                    upgrade.setText("MAX");
+                } else {
+                    upgrade.setText("Améliorer "+selected.moneyOnLevel());
+                }
                 upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player)); // changer la premiere condition
+                sellTower.setEnabled(selected.getDamage() != 0);
 
                 labels.setVisible(true);
             }

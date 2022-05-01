@@ -7,6 +7,7 @@ import java.util.Stack;
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tile;
+import com.towerdefense.view.menu.SoundManager;
 
 import java.awt.image.BufferedImage;
 
@@ -19,6 +20,7 @@ public class Enemy {
     private int y;
     protected Stack<Tile> path;
     private int direction;
+    private SoundManager s = new SoundManager();
 
     public Enemy(Game game, int x, int y, int maxHealth, int health) { // x et y donnent l'endroit où apparaît l'unité
         this.maxHealth = maxHealth;
@@ -202,8 +204,9 @@ public class Enemy {
 
             neighbors = board.getNeighborsOf(current);
 
-            for (Tile t : neighbors)
+            for (Tile t : neighbors){
                 validNode(t.getX() / board.getSize(), t.getY() / board.getSize(), fx, fy, board, closed, open, current);
+            }
 
             Tile best = open.get(0);
             for (int i = 1; i < open.size(); i++) // check le noeud qui possède la meilleure qualité
@@ -313,6 +316,14 @@ public class Enemy {
 
     public BufferedImage getImage() { // Dans chaque classe
         return null;
+    }
+
+    public void stop() {
+        s.stop();
+    }
+
+    public void sound(){
+        s.play(3);
     }
 
 }

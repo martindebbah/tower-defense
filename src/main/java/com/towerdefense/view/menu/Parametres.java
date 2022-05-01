@@ -14,7 +14,7 @@ public class Parametres extends JPanel { //implements Music, Sound {
 	private boolean soundCut = false;
 	private boolean musicCut = false;
 	
-	public Parametres(Window window) {	
+	public Parametres(Window window, SoundManager s) {	
 		setSize(1000, 1000);
 		setLayout(new GridLayout(0, 1));
 
@@ -33,7 +33,7 @@ public class Parametres extends JPanel { //implements Music, Sound {
 
 		JButton cutMusic = new JButton("Couper la musique");
 		cutMusic.addActionListener(e -> {
-			musicCut = !musicCut;
+			s.stop();
 		});
 
 		panel = new JPanel();
@@ -48,16 +48,8 @@ public class Parametres extends JPanel { //implements Music, Sound {
 			window.setMenu();
 		});
 
-		JButton save = new JButton("Enregistrer");
-		save.addActionListener(e -> {
-			// save();
-			// On récupère les données des JSlider
-			// et des boolean
-		});
-
 		JPanel buttons = new JPanel();
 		buttons.add(back);
-		buttons.add(save);
 
 		add(panel);
 		add(buttons);

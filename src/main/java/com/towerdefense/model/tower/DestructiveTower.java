@@ -37,7 +37,7 @@ public class DestructiveTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 1000;
+        return 10000;
     } 
 
     @Override

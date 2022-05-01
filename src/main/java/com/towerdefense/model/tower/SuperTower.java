@@ -38,7 +38,7 @@ public class SuperTower extends Tower {
 
 	@Override
 	public int getPrice() {
-	    return 650;
+	    return 1200;
 	} 
 
 	@Override

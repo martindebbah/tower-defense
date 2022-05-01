@@ -3,6 +3,7 @@ package com.towerdefense.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.BasicTower;
@@ -33,7 +34,7 @@ public class Board {
         cases = new Tile[n][m];
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
-                cases[i][j] = new Tile(i, j);
+                cases[i][j] = new Tile(i, j,size);
             }
         }
     }
@@ -82,7 +83,12 @@ public class Board {
         return enemies;
     }
 
+    public Game getGame(){
+        return game;
+    }
+
     public void addKillEnemy(Enemy enemy) {
+        enemy.stop();
         killEnemies.add(enemy);
     }
 
@@ -163,7 +169,19 @@ public class Board {
 
         boolean r = true;
         cases[x][y].setTower(new BasicTower(0));
-        Enemy e = new BasicEnemy(game);
+        if(game.getLevel() == Level.DIFFICULT){
+            Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 4);
+            Enemy e2 = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() * 3 / 4);
+            try {
+                e.setPath();
+                e2.setPath();
+            }catch(IndexOutOfBoundsException ioe) {
+                r = false;
+            }
+            removeTower(x, y);
+            return r;
+        }
+        Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
         try {
             e.setPath();
         }catch(IndexOutOfBoundsException ioe) {

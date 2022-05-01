@@ -8,9 +8,12 @@ import javax.swing.Timer;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
+import com.towerdefense.model.Tile;
 import com.towerdefense.model.Wave;
+import com.towerdefense.model.enemy.Enemy;
 
 public class GameView extends JPanel implements ActionListener {
 
@@ -25,17 +28,18 @@ public class GameView extends JPanel implements ActionListener {
     private Timer timer5 = new Timer(10, this);
     private int speed = 1;
 
-    public GameView(Window window) {
+    public GameView(Window window, Level level) {
         this.window = window;
         setSize(1000, 1000);
         setLayout(new BorderLayout());
 
         // Création du plateau de jeu
         this.player = new Player();
-        this.game = new Game(32, 20, player);
+        this.game = new Game(40, 20, player, level);
         createShop();
         createBoard();
-        this.wave = new Wave(this.game,70);
+        this.shop.setBoard(board.getBoard());
+        this.wave = new Wave(this.game,level);
         WaveView w = new WaveView(wave, this);
         add(w, BorderLayout.NORTH);
     }
@@ -49,7 +53,7 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     private void createShop() {
-        shop = new Shop(player);
+        shop = new Shop(player, window, this);
         add(shop, BorderLayout.EAST);
     }
 
@@ -97,20 +101,24 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // soucis avec fin de game
         wave.actionPerformed(e);
         if (player.isAlive()){ // condition d'arrêter wave supérieure au max de wave + aucun enemy sur le board
             if(wave.getCurrentWave() < wave.getNbWaves()){
                 if (wave.getFinChrono()){ // check si le chrono est fini pour passer à la wave suivante
                     wave.incrementWave(); // passe à la wave suivante
+                    wave.initializeWave();
                     wave.setFinChrono(false);
                 }
                 wave.play();
                 window.refresh();
             } else {
-                if(board.getBoard().getEnemies().isEmpty()){
+                if(wave.getNbEnemies() <= 0 && board.getBoard().getEnemies().isEmpty()){
                     endGame(0);
+                    return;
                 }
+                wave.play();
+                window.refresh();
             }
         }else{
             endGame(1);
@@ -118,8 +126,24 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     public void endGame(int status) {
-        pause();
+        killBoard();
         window.endGame(status, game.getPlayer());
+    }
+
+    public void killBoard(){
+        pause();
+        for(Enemy e : board.getBoard().getEnemies()){
+            board.getBoard().addKillEnemy(e);
+        }
+        board.getBoard().kill();
+        for(int i = 0; i < board.getBoard().getBoard().length; i++){
+            for(int j = 0; j < board.getBoard().getBoard().length; j++){
+                if(board.getBoard().getBoard()[i][j].containsTower()){
+                    board.getBoard().removeTower(i, j);
+                }
+            }
+        }
+        window.refresh();
     }
 
 }

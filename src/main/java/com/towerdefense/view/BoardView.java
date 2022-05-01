@@ -7,13 +7,14 @@ import javax.swing.event.MouseInputListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
+import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -30,6 +31,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     private boolean isPaused = false;
     private Player player;
     private BufferedImage background;
+    private BufferedImage background2;
 
     public BoardView(Game game, Shop shop) {
         this.board = game.getBoard();
@@ -41,9 +43,9 @@ public class BoardView extends JPanel implements MouseInputListener {
         addMouseListener(this);
         addMouseMotionListener(this);
 
-        try{
-            this.background = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile024.png"));
-        }catch (IOException e) {
+        try {
+            this.background = ImageIO.read(new File("src/main/resources/Images/floor_1.png"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -63,7 +65,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     public void paintComponentInit(Graphics g) {
         for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
-                g.drawImage(background, x * size, y * size, 34, 34, null);
+                g.drawImage(background, x * size, y * size, size, size, null);
             }
         }
     }
@@ -80,35 +82,55 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
-                if (x == 10 && y == 0) {
-                    g.setColor(Color.PINK);
-                    g.fillRect(y * size, x * size, size, size);
-                }
-                if (x == 10 && y == 19) {
-                    g.setColor(Color.GREEN);
-                    g.fillRect(y * size, x * size, size, size);
+                if (board.getGame().getLevel() == com.towerdefense.level.Level.DIFFICULT) {
+                    if (x == 5 && y == 0) {
+                        g.setColor(Color.PINK);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                    if (x == 15 && y == 0) {
+                        g.setColor(Color.PINK);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                    if (x == 10 && y == 19) {
+                        g.setColor(Color.GREEN);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                } else {
+                    if (x == 10 && y == 0) {
+                        g.setColor(Color.PINK);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
+                    if (x == 10 && y == 19) {
+                        g.setColor(Color.GREEN);
+                        g.fillRect(y * size, x * size, size, size);
+                    }
                 }
                 if (board.getBoard()[x][y].containsTower()) {
                     try {
                         g.drawImage(board.getBoard()[x][y].getTower().getImage(), x * size, y * size, size, size, null);
-                    }catch (NullPointerException ex) {
+                    } catch (NullPointerException ex) {
                         g.setColor(board.getBoard()[x][y].getTower().getColor());
                         g.fillRect(x * size, y * size, size, size);
                     }
                 }
-                g.setColor(Color.BLACK);
-                g.drawRect(y * size, x * size, size, size);
+                //g.setColor(Color.BLACK);
+                //g.drawRect(y * size, x * size, size, size);
             }
         }
 
         for (Enemy e : board.getEnemies()) {
             try {
-                g.drawImage(e.getImage(), e.getX(), e.getY(), size, size, null);
-            }catch (NullPointerException ex) {
+                if(e instanceof Mo){
+                    g.drawImage(e.getImage(), e.getX(), e.getY()-15, size+5, size+15, null);
+                } else{
+                    g.drawImage(e.getImage(), e.getX(), e.getY()-5, size-5, size+5, null);
+                }
+            } catch (NullPointerException ex) {
                 g.setColor(Color.RED);
                 g.fillOval(e.getX(), e.getY(), size, size);
             }
-            g.setColor(Color.GREEN);
+            if(!(e instanceof Mo)){g.setColor(Color.GREEN);}
+            else{g.setColor(Color.RED);}
             g.drawRect(e.getCoord()[0], e.getCoord()[1] - 10, size, 5);
             g.fillRect(e.getCoord()[0], e.getCoord()[1] - 10, e.getHP() * size / 100, 5);
         }
@@ -131,12 +153,15 @@ public class BoardView extends JPanel implements MouseInputListener {
             }
         }
 
-        if (shop.wantPurchase() || shop.getDescription().getSelected() == null)
+        if (shop.wantPurchase() || shop.getDescription().getSelected() == null) {
             selection = null;
+        }
 
         if (selection != null) {
             g.setColor(Color.WHITE);
             g.drawRect(selection[0], selection[1], size, size);
+            shop.refreshDesc(
+                    board.getBoard()[selection[0] / board.getSize()][selection[1] / board.getSize()].getTower());
         }
 
     }
@@ -156,10 +181,12 @@ public class BoardView extends JPanel implements MouseInputListener {
             selection = new int[2];
             selection[0] = x - x % size;
             selection[1] = y - y % size;
-        }else { // ou pose une tour
+        } else { // ou pose une tour
             if (canPurchase(x, y)) {
                 addTower(shop.addNewTower(), x / size, y / size);
-                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète la tour
+                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète
+                                                                                                               // la
+                                                                                                               // tour
             }
             selection = null; // Faire pareil si on clique sur une autre tour dans le shop
             if (!shop.wantPurchase())
@@ -168,9 +195,10 @@ public class BoardView extends JPanel implements MouseInputListener {
     }
 
     public boolean canPurchase(int x, int y) {
-        // Vérifie que le joueur a assez d'argent, veut acheter une tour, peut poser la tour (qu'il n'y a pas un ennemi ou une tour)et que le jeu n'est pas en pause
+        // Vérifie que le joueur a assez d'argent, veut acheter une tour, peut poser la
+        // tour (qu'il n'y a pas un ennemi ou une tour)et que le jeu n'est pas en pause
         return shop.wantPurchase() && player.canAfford(shop.getTowerPanel().getSelected().getTower()) && !isPaused
-        && board.canBuildOn(x / size, y / size) && !board.containsEnemyOn(x / size, y / size);
+                && board.canBuildOn(x / size, y / size) && !board.containsEnemyOn(x / size, y / size);
     }
 
     public void pause() {

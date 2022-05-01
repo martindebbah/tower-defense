@@ -3,14 +3,18 @@ package com.towerdefense.view;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.Player;
 import com.towerdefense.view.menu.*;
 
 public class Window extends JFrame {
 
+    private SoundManager s = new SoundManager();
+
     public Window() {
+        s.play(2);
         // Définition de la fenêtre
-        setSize(1000, 1000);
+        setSize(1200, 1000);
         setTitle("Tower Defense");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -21,18 +25,19 @@ public class Window extends JFrame {
     }
 
     public void setAccueil() {
-        getContentPane().add(new Accueil(this));
+        getContentPane().add(new Accueil(this, "src/main/resources/Images/towerDefense_tile5000.png"));
         refresh();
     }
 
     public void setMenu() {
         getContentPane().removeAll();
-        getContentPane().add(new Menu(this));
+        getContentPane().add(new Menu(this,"src/main/resources/Images/towerDefense_tile5000.png"));
         refresh();
     }
 
     public void setNewGame() {
-        setContentPane(new NewGame(this));
+        getContentPane().removeAll();
+        setContentPane(new NewGame(this,"src/main/resources/Images/towerDefense_tile5000.png"));
         refresh();
     }
 
@@ -47,7 +52,8 @@ public class Window extends JFrame {
     }
 
     public void setParametres() {
-        setContentPane(new Parametres(this));
+        getContentPane().removeAll();
+        setContentPane(new Parametres(this,s));
         refresh();
     }
 
@@ -56,13 +62,15 @@ public class Window extends JFrame {
         repaint();
     }
 
-    public void play() {
-        GameView gameView = new GameView(this);
+    public void play(Level level) {
+        s.stop();
+        GameView gameView = new GameView(this,level);
         setContentPane(gameView);
         gameView.start();
     }
 
     public void endGame(int status, Player p) {
+        getContentPane().removeAll();
         setContentPane(new EndGame(this, status, p));
         refresh();
     }
