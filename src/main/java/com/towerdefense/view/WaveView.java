@@ -14,16 +14,16 @@ public class WaveView extends JPanel {
 
     private Wave wave;
     private JButton nextWave = new JButton("Vague suivante");
-    private MyButton mute = new MyButton("", "src/main/resources/Images/mute.png", "src/main/resources/Images/mute.png");
-    private MyButton demute = new MyButton("", "src/main/resources/Images/button.png", "src/main/resources/Images/button.png");
+    private MyButton mute = new MyButton("", "src/main/resources/Images/mute.png", "src/main/resources/Images/mute2.png");
+    private MyButton demute = new MyButton("", "src/main/resources/Images/button.png", "src/main/resources/Images/button2.png");
 
     public WaveView(Wave wave, GameView gv) {
         this.wave = wave;
         setPreferredSize(new java.awt.Dimension(1000, 112));
 
         JPanel pausePanel = new JPanel();
-        JButton pause =  new JButton("Pause");
-        JButton resume = new JButton("Reprendre");
+        MyButton pause =  new MyButton("","src/main/resources/Images/pause.png","src/main/resources/Images/pause.png");
+        MyButton resume = new MyButton("","src/main/resources/Images/continue.png","src/main/resources/Images/continue.png");
         JButton faster = new JButton("x1");
         JPanel buttonPanel = new JPanel();
         pausePanel.add(pause);
@@ -75,8 +75,8 @@ public class WaveView extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.GREEN);
-        g.drawRect(230, 50, 500, 20); // affiche la barre de vie du joueur (peut etre il faudrait l aligner au centre)
-        g.fillRect(230, 50, wave.getPlayer().getHP() * 500 / 1000, 20);
+        g.drawRect(230, 70, 500, 20); // affiche la barre de vie du joueur (peut etre il faudrait l aligner au centre)
+        g.fillRect(230, 70, wave.getPlayer().getHP() * 500 / 1000, 20);
 
         nextWave.setEnabled(wave.getNbEnemies() <= 0);
         if(wave.getMute()){
