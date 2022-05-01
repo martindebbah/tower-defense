@@ -75,11 +75,7 @@ public class Discover extends JFrame {
 		public Step3(String s ) {
 			img= new ImageIcon(s);
 			labelDisc=new JLabel(img);
-<<<<<<< HEAD
-			labelDisc.setSize(1464,1100);
-=======
 			   labelDisc.setSize(1500,1000);
->>>>>>> d74c0c9d1f137af7e6b1f4d74359b6ccd1e82104
 			   
 			   next= new JButton("Next");
 			    next.setBackground(Color.RED); 
