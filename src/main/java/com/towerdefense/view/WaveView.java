@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.towerdefense.model.Wave;
+import com.towerdefense.view.menu.MyButton;
 
 import java.awt.Graphics;
 
@@ -13,6 +14,8 @@ public class WaveView extends JPanel {
 
     private Wave wave;
     private JButton nextWave = new JButton("Vague suivante");
+    private MyButton mute = new MyButton("", "src/main/resources/Images/mute.png", "src/main/resources/Images/mute.png");
+    private MyButton demute = new MyButton("", "src/main/resources/Images/button.png", "src/main/resources/Images/button.png");
 
     public WaveView(Wave wave, GameView gv) {
         this.wave = wave;
@@ -27,6 +30,8 @@ public class WaveView extends JPanel {
         buttonPanel.add(pausePanel);
         buttonPanel.add(faster);
         buttonPanel.add(nextWave);
+        buttonPanel.add(mute);
+        buttonPanel.add(demute);
         buttonPanel.setOpaque(false);
 
         pause.addActionListener(e -> {
@@ -48,6 +53,16 @@ public class WaveView extends JPanel {
         nextWave.addActionListener(e -> {
             wave.setCountDown(-1);
         });
+        mute.setVisible(true);
+        mute.addActionListener(e -> {
+            gv.muteEnemies();
+            wave.setMute(true);
+        });
+        demute.setVisible(false);
+        demute.addActionListener(e -> {
+            gv.demuteEnemies();
+            wave.setMute(false);
+        });
 
         add(wave.getEnemiesLeft());
         add(wave.getMoneyPlayer());
@@ -64,6 +79,13 @@ public class WaveView extends JPanel {
         g.fillRect(230, 50, wave.getPlayer().getHP() * 500 / 1000, 20);
 
         nextWave.setEnabled(wave.getNbEnemies() <= 0);
+        if(wave.getMute()){
+            mute.setVisible(false);
+            demute.setVisible(true);
+        } else {
+            mute.setVisible(true);
+            demute.setVisible(false);
+        }
     }    
     
 }

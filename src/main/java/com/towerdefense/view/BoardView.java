@@ -202,10 +202,16 @@ public class BoardView extends JPanel implements MouseInputListener {
     }
 
     public void pause() {
+        for(Enemy e : board.getEnemies()){
+            e.stop();
+        }
         isPaused = true;
     }
 
     public void start() {
+        for(Enemy e : board.getEnemies()){
+            e.sound();
+        }
         isPaused = false;
     }
 
