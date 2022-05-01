@@ -698,6 +698,9 @@ public class Wave implements ActionListener {
                 if (countdownStarter % 5 == 0) {
                     createEnemy(0, 0);
                 }
+                if (countdownStarter % 10 == 0) {
+                    createEnemy(10, 0);
+                }
                 break;
         }
     }

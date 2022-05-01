@@ -10,9 +10,9 @@ public class Tile {
     private double distance; // La distance "à vol d'oiseau" jusqu'à la sortie
     private double totalDistance; // La somme des deux distances précédentes
 
-    public Tile(int x, int y){
-        this.x = x*32;
-        this.y = y*32;
+    public Tile(int x, int y, int size){
+        this.x = x*size;
+        this.y = y*size;
         this.t = null;
         this.parent = null;
     }

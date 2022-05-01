@@ -15,6 +15,7 @@ public class SoundManager implements Runnable{
     private final AtomicBoolean running = new AtomicBoolean(false);
     private SourceDataLine auline = null;
     private Thread worker;
+    private int status;
 
     public boolean fin = false;
     
@@ -22,6 +23,7 @@ public class SoundManager implements Runnable{
     //public SoundManager(String s){sound = s;}
     
     public void play(int status){
+        this.status = status;
         switch(status){
             case 0:
                 sound = "src/main/resources/sound/victory.wav"; // musique victoire
@@ -33,7 +35,7 @@ public class SoundManager implements Runnable{
                 sound = "src/main/resources/sound/su.wav"; // musique intro
                 break;
             case 3:
-                sound = "src/main/resources/sound/goblin_true.wav";
+                sound = "src/main/resources/sound/goblin_true.wav"; // son basicEnemy
                 break;
 
         }
@@ -46,7 +48,8 @@ public class SoundManager implements Runnable{
         running.set(true);
         while (running.get()) {
             try {
-                Thread.sleep(1000);
+                if(status <= 2) Thread.sleep(100);
+                if(status == 3) Thread.sleep(3000);
             } catch (InterruptedException e){
                 Thread.currentThread().interrupt();
                 System.out.println(
@@ -107,7 +110,7 @@ public class SoundManager implements Runnable{
 
     public void stop() {
         running.set(false);
-        System.out.println(running.get()+" : "+sound);
+        //System.out.println(running.get()+" : "+sound);
     }
   
 }

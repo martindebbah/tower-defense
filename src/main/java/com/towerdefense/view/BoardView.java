@@ -12,7 +12,9 @@ import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
+import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -29,6 +31,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     private boolean isPaused = false;
     private Player player;
     private BufferedImage background;
+    private BufferedImage background2;
 
     public BoardView(Game game, Shop shop) {
         this.board = game.getBoard();
@@ -41,7 +44,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         addMouseMotionListener(this);
 
         try {
-            this.background = ImageIO.read(new File("src/main/resources/Images/towerDefense_tile024.png"));
+            this.background = ImageIO.read(new File("src/main/resources/Images/floor_1.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,7 +65,7 @@ public class BoardView extends JPanel implements MouseInputListener {
     public void paintComponentInit(Graphics g) {
         for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
-                g.drawImage(background, x * size, y * size, 34, 34, null);
+                g.drawImage(background, x * size, y * size, size, size, null);
             }
         }
     }
@@ -110,19 +113,24 @@ public class BoardView extends JPanel implements MouseInputListener {
                         g.fillRect(x * size, y * size, size, size);
                     }
                 }
-                g.setColor(Color.BLACK);
-                g.drawRect(y * size, x * size, size, size);
+                //g.setColor(Color.BLACK);
+                //g.drawRect(y * size, x * size, size, size);
             }
         }
 
         for (Enemy e : board.getEnemies()) {
             try {
-                g.drawImage(e.getImage(), e.getX(), e.getY(), size, size, null);
+                if(e instanceof Mo){
+                    g.drawImage(e.getImage(), e.getX(), e.getY()-15, size+5, size+15, null);
+                } else{
+                    g.drawImage(e.getImage(), e.getX(), e.getY()-5, size-5, size+5, null);
+                }
             } catch (NullPointerException ex) {
                 g.setColor(Color.RED);
                 g.fillOval(e.getX(), e.getY(), size, size);
             }
-            g.setColor(Color.GREEN);
+            if(!(e instanceof Mo)){g.setColor(Color.GREEN);}
+            else{g.setColor(Color.RED);}
             g.drawRect(e.getCoord()[0], e.getCoord()[1] - 10, size, 5);
             g.fillRect(e.getCoord()[0], e.getCoord()[1] - 10, e.getHP() * size / 100, 5);
         }

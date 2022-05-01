@@ -55,6 +55,5 @@ public class Menu extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background.getImage(), 0, 0, 1200, 1000, this);
-
 	}
 }

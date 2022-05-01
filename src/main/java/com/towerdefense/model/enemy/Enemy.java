@@ -211,8 +211,9 @@ public class Enemy {
 
             neighbors = board.getNeighborsOf(current);
 
-            for (Tile t : neighbors)
+            for (Tile t : neighbors){
                 validNode(t.getX() / board.getSize(), t.getY() / board.getSize(), fx, fy, board, closed, open, current);
+            }
 
             Tile best = open.get(0);
             for (int i = 1; i < open.size(); i++) // check le noeud qui possède la meilleure qualité
