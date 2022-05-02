@@ -302,7 +302,7 @@ public class Wave implements ActionListener {
         if(nbEnemies < 0){
             enemiesLeft.setText("Ennemis restants : 0 /");
         } else {
-            enemiesLeft.setText("Ennelis restants : "+nbEnemies+" /");
+            enemiesLeft.setText("Ennemis restants : "+nbEnemies+" /");
         }
         wave(currentWave, countDown);
         //waveTest(countDown);
