@@ -12,9 +12,11 @@ import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
+import com.towerdefense.model.enemy.AerialEnemy;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
+import com.towerdefense.model.enemy.TankEnemy;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -31,7 +33,6 @@ public class BoardView extends JPanel implements MouseInputListener {
     private boolean isPaused = false;
     private Player player;
     private BufferedImage background;
-    private BufferedImage background2;
 
     public BoardView(Game game, Shop shop) {
         this.board = game.getBoard();
@@ -123,7 +124,20 @@ public class BoardView extends JPanel implements MouseInputListener {
                 if(e instanceof Mo){
                     g.drawImage(e.getImage(), e.getX(), e.getY()-15, size+5, size+15, null);
                 } else{
-                    g.drawImage(e.getImage(), e.getX(), e.getY()-5, size-5, size+5, null);
+                    if(e instanceof BasicEnemy){
+                        g.drawImage(e.getImage(), e.getX(), e.getY()-5, size-5, size+5, null);
+                    } else {
+                        if(e instanceof AerialEnemy){
+                            g.drawImage(e.getImage(), e.getX(), e.getY()-5, size+2, size+8, null);
+                        } else {
+                            if(e instanceof TankEnemy){
+                                g.drawImage(e.getImage(), e.getX(), e.getY()-13, size+10, size+10, null);
+                            } else{
+                                g.drawImage(e.getImage(), e.getX(), e.getY(), size, size, null);
+                            }
+                        }
+                    }
+                    
                 }
             } catch (NullPointerException ex) {
                 g.setColor(Color.RED);
@@ -131,8 +145,13 @@ public class BoardView extends JPanel implements MouseInputListener {
             }
             if(!(e instanceof Mo)){g.setColor(Color.GREEN);}
             else{g.setColor(Color.RED);}
-            g.drawRect(e.getCoord()[0], e.getCoord()[1] - 10, size, 5);
-            g.fillRect(e.getCoord()[0], e.getCoord()[1] - 10, e.getHP() * size / 100, 5);
+            if(e instanceof TankEnemy){
+                g.drawRect(e.getCoord()[0]+5, e.getCoord()[1] - 15, size, 5);
+                g.fillRect(e.getCoord()[0]+5, e.getCoord()[1] - 15, e.getHP() * size / 100, 5);
+            } else{
+                g.drawRect(e.getCoord()[0], e.getCoord()[1] - 10, size, 5);
+                g.fillRect(e.getCoord()[0], e.getCoord()[1] - 10, e.getHP() * size / 100, 5);
+            }
         }
 
         for (Tile[] tab : board.getBoard())
@@ -202,10 +221,16 @@ public class BoardView extends JPanel implements MouseInputListener {
     }
 
     public void pause() {
+        for(Enemy e : board.getEnemies()){
+            e.stop();
+        }
         isPaused = true;
     }
 
     public void start() {
+        for(Enemy e : board.getEnemies()){
+            e.sound();
+        }
         isPaused = false;
     }
 

@@ -12,10 +12,12 @@ public class MyButton extends JButton{ // inutile
         super(txt);
         setForeground(Color.BLACK);
 
-        //setOpaque(false);
-        //setContentAreaFilled(false);
-        //setBorderPainted(false);
-        //setFocusPainted(false);
+        if(icon != null){
+            setOpaque(false);
+            setContentAreaFilled(false);
+            setBorderPainted(false);
+            setFocusPainted(false);
+        }
 
         setHorizontalAlignment(SwingConstants.CENTER);
         setHorizontalTextPosition(SwingConstants.CENTER);

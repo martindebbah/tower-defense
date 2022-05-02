@@ -32,6 +32,7 @@ public class Wave implements ActionListener {
     private boolean finChrono = false;
     private boolean WinGame = false;
     private boolean LoseGame = false;
+    private boolean mute = false;
 
     private int currentWave = 1;
 
@@ -271,6 +272,14 @@ public class Wave implements ActionListener {
         return finChrono;
     }
 
+    public boolean getMute(){
+        return mute;
+    }
+
+    public void setMute(boolean b){
+        mute = b;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (delay != 0) {
@@ -329,20 +338,20 @@ public class Wave implements ActionListener {
                     e.setHealth(healthSupp);
                     e.setPath();
                     game.getBoard().addEnemy(e);
-                    e.sound();
+                    if(!mute)e.sound();
                     Enemy e1 = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() * 3 / 4);
                     e1.setHealth(healthSupp);
                     e1.setPath();
                     game.getBoard().addEnemy(e1);
                     nbEnemies -= 2;
-                    e1.sound();
+                    if(!mute)e1.sound();
                 } else {
                     Enemy e = new BasicEnemy(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
                     e.setHealth(healthSupp);
                     e.setPath();
                     game.getBoard().addEnemy(e);
                     nbEnemies--;
-                    e.sound();
+                    if(!mute)e.sound();
                 }
                 break;
             case 1:
@@ -707,11 +716,8 @@ public class Wave implements ActionListener {
     public void waveTest(int countdownStarter){
         switch(currentWave){
             case 1 :
-                if (countdownStarter % 5 == 0) {
-                    createEnemy(0, 0);
-                }
-                if (countdownStarter % 10 == 0) {
-                    createEnemy(10, 0);
+                if (countdownStarter % 2 == 0) {
+                    createEnemy(2, 0);
                 }
                 break;
         }

@@ -213,6 +213,10 @@ public class Shop extends JPanel {
                 } else {
                     damage.setText("Dégâts : " + t.getDamage());
                 }
+                if(t.getDamage() != 0){
+                    damage.setText("Dégâts : " + t.getDamage());
+                    System.out.println(t.getDamage());
+                }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
                 price.setText("Prix : " + t.getPrice());
@@ -223,7 +227,7 @@ public class Shop extends JPanel {
                     sellTower.setVisible(false);
                     upgrade.setVisible(false);
                 }
-                if(selected.moneyOnLevel() == 400){
+                if(selected.moneyOnLevel() > 1000){
                     upgrade.setText("MAX");
                 } else {
                     upgrade.setText("Améliorer "+selected.moneyOnLevel());

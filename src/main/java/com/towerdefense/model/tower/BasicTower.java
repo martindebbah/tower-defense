@@ -67,13 +67,13 @@ public class BasicTower extends Tower {
         level++;
         switch(level){
             case 1:
-                initialDamage += 20;
+                initialDamage += 15;
                 break;
             case 2:
-                initialDamage += 40;
+                initialDamage += 50;
                 break;
             case 3:
-                initialDamage += 100;
+                initialDamage += 145;
                 break;
         }
     }

@@ -149,7 +149,15 @@ public class Tower {
     }
 
     public int moneyOnLevel() {
-        return (level + 1) * 100;
+        switch(level){
+            case 0:
+                return 150;
+            case 1:
+                return 500;
+            case 2:
+                return 1000;
+        }
+        return 1001;
     }
 
     public int getLevel() {

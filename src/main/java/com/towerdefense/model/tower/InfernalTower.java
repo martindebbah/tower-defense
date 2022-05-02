@@ -114,11 +114,11 @@ public class InfernalTower extends Tower {
                 damage += 5;
                 break;
             case 2:
-                initialDamage += 10;
+                initialDamage += 15;
                 damage += 10;
                 break;
             case 3:
-                initialDamage += 15;
+                initialDamage += 30;
                 damage += 15;
                 break;
         }

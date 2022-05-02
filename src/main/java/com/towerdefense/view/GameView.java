@@ -146,4 +146,20 @@ public class GameView extends JPanel implements ActionListener {
         window.refresh();
     }
 
+    public void muteEnemies(){
+        for(Enemy e : board.getBoard().getEnemies()){
+            e.stop();
+        }
+    }
+
+    public void demuteEnemies(){
+        for(Enemy e : board.getBoard().getEnemies()){
+            e.sound();
+        }
+    }
+
+    public BoardView getBoardView(){
+        return board;
+    }
+
 }
