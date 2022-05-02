@@ -1,6 +1,8 @@
 package com.towerdefense.view.menu;
 
 import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
@@ -19,14 +21,16 @@ public class NewGame extends JPanel {
 	private ImageIcon background;
     
     public NewGame(Window w, String filename){
-		//setSize(1000, 1000);
 		super();
 		this.background = new ImageIcon(filename);
 
 		this.window = w;
 
+		setLayout(new GridBagLayout());
+
 		buttons = new JPanel();
 		buttons.setLayout(new GridLayout(0, 1));
+		buttons.setOpaque(false);
 		
 		JButton hard = new JButton("Difficle");
 		hard.addActionListener(e -> {
@@ -50,7 +54,7 @@ public class NewGame extends JPanel {
 		
 		JLabel label = new JLabel("Choisissez la difficulté");
 
-		add(buttons);
+		add(buttons, new GridBagConstraints());
 
 		buttons.add(label);
 		buttons.add(easy);

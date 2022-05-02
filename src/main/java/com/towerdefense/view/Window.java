@@ -2,15 +2,19 @@ package com.towerdefense.view;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 import com.towerdefense.level.Level;
 import com.towerdefense.model.Player;
 import com.towerdefense.view.menu.*;
-import com.towerdefense.view.menu.SoundManager;
 
 public class Window extends JFrame {
 
     private SoundManager s = new SoundManager();
+    private String background = "src/main/resources/Images/towerDefense_tile5000.png";
 
     public Window() {
         s.play(2);
@@ -26,35 +30,31 @@ public class Window extends JFrame {
     }
 
     public void setAccueil() {
-        getContentPane().add(new Accueil(this, "src/main/resources/Images/towerDefense_tile5000.png"));
+        getContentPane().add(new Accueil(this, background));
         refresh();
     }
 
     public void setMenu() {
         getContentPane().removeAll();
-        getContentPane().add(new Menu(this,"src/main/resources/Images/towerDefense_tile5000.png"));
+        setContentPane(new Menu(this,background));
         refresh();
     }
 
     public void setNewGame() {
         getContentPane().removeAll();
-        setContentPane(new NewGame(this,"src/main/resources/Images/towerDefense_tile5000.png"));
+        setContentPane(new NewGame(this,background));
         refresh();
     }
 
     public void setHighScore() {
-        setContentPane(new HighScore(null, this));
-        JButton back = new JButton("Retour");
-        back.addActionListener(e -> {
-            setMenu();
-        });
-        add(back);
+        getContentPane().removeAll();
+        setContentPane(new HighScoreInMenu(this, background));
         refresh();
     }
 
     public void setParametres() {
         getContentPane().removeAll();
-        setContentPane(new Parametres(this,s));
+        setContentPane(new Parametres(this, s, background));
         refresh();
     }
 
