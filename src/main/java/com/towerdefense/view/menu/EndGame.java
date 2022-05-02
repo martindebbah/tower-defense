@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.Graphics;
 
 import com.towerdefense.model.Player;
 import com.towerdefense.view.Window;
@@ -19,6 +20,7 @@ public class EndGame extends JPanel{
 	private ImageIcon background;
     
     public EndGame(Window w, int status, Player p){
+		super();
 		if(status == 0){
 			sound.play(0);
 		} else {
@@ -35,15 +37,18 @@ public class EndGame extends JPanel{
 		JButton back = new JButton("Retour");
 		back.addActionListener(e -> {
 			sound.stop();
+			this.background = null;
 			window.setMenu();
 		});
 		
         JLabel label = new JLabel();
 
         if(status == 0){
+			this.background = null;
             label = new JLabel("Vous avez gagné !");
         }
         if(status == 1){
+			this.background = new ImageIcon("src/main/resources/Images/defeat.png");
             label = new JLabel("Vous avez perdu :(");
         }
 
@@ -71,5 +76,9 @@ public class EndGame extends JPanel{
 	// Enregistrer score
 	// Score 
 	// Relancer
-    
+    public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if(background != null)g.drawImage(background.getImage(), 0, 0, 1200, 1000, this);
+
+	}
 }

@@ -69,10 +69,10 @@ public class AerialTower extends Tower {
                 initialDamage += 20;
                 break;
             case 2:
-                initialDamage += 40;
+                initialDamage += 80;
                 break;
             case 3:
-                initialDamage += 100;
+                initialDamage += 150;
         }
     }
 

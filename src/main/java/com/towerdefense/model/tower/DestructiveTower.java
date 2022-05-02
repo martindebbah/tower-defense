@@ -68,10 +68,10 @@ public class DestructiveTower extends Tower {
 				initialDamage += 20;
 				break;
 			case 2:
-				initialDamage += 40;
+				initialDamage += 120;
 				break;
 			case 3:
-				initialDamage += 100;
+				initialDamage += 260;
 				break;
 		}
 	}
