@@ -41,6 +41,11 @@ public class Mo extends Enemy {
     }
 
     @Override
+    public int getScore() {
+        return 50;
+    }
+
+    @Override
     public int getMovementSpeed() {
         return 1;
     }

@@ -46,6 +46,11 @@ public class BasicEnemy extends Enemy {
     }
 
     @Override
+    public int getScore() {
+        return 20;
+    }
+
+    @Override
     public int getMovementSpeed() {
         return 1;
     }

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import com.towerdefense.level.Level;
 import com.towerdefense.model.Player;
 import com.towerdefense.view.menu.*;
+import com.towerdefense.view.menu.SoundManager;
 
 public class Window extends JFrame {
 

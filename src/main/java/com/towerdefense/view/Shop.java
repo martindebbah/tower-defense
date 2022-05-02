@@ -202,24 +202,16 @@ public class Shop extends JPanel {
                 name.setText(t.toString());
                 if(t.getDamage() == 0 && t instanceof BasicTower || t instanceof AerialTower){
                     damage.setText("Dégâts : 20");
+                } else if(t.getDamage() == 0 && t instanceof RapidTower){
+                    damage.setText("Dégâts : 10");
+                } else if(t.getDamage() == 0 && t instanceof InfernalTower){
+                    damage.setText("Dégâts : 5->2000");
+                } else if(t.getDamage() == 0 && t instanceof SuperTower){
+                    damage.setText("Dégâts : 50");
+                } else if(t.getDamage() == 0 && t instanceof DestructiveTower){
+                    damage.setText("Dégâts : 150");
                 } else {
-                    if(t.getDamage() == 0 && t instanceof RapidTower){
-                        damage.setText("Dégâts : 10");
-                    } else {
-                        if(t.getDamage() == 0 && t instanceof InfernalTower){
-                            damage.setText("Dégâts : 5->2000");
-                        } else {
-                            if(t.getDamage() == 0 && t instanceof SuperTower){
-                                damage.setText("Dégâts : 50");
-                            } else {
-                                if(t.getDamage() == 0 && t instanceof DestructiveTower){
-                                    damage.setText("Dégâts : 150");
-                                } else {
-                                    damage.setText("Dégâts : " + t.getDamage());
-                                }
-                            }
-                        }
-                    }
+                    damage.setText("Dégâts : " + t.getDamage());
                 }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");

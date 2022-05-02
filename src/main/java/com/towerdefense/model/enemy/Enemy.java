@@ -79,6 +79,10 @@ public class Enemy {
         return 0;
     }
 
+    public int getScore() {
+        return 0;
+    }
+
     public int getMovementSpeed() { // Dans les classes
         return 0;
     }

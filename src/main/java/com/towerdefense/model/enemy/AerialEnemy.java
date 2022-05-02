@@ -29,6 +29,10 @@ public class AerialEnemy extends Enemy {
         return 50;
     }
 
+    public int getScore() {
+        return 30;
+    }
+
     @Override
     public int getMovementSpeed() {
         return 2;

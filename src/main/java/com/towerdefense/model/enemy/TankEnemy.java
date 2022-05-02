@@ -26,6 +26,11 @@ public class TankEnemy extends Enemy {
     }
 
     @Override
+    public int getScore() {
+        return 30;
+    }
+
+    @Override
     public int getMovementSpeed() {
         return 1;
     }

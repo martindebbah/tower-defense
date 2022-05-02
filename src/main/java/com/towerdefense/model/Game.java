@@ -47,6 +47,7 @@ public class Game {
                 if (!e.isAlive()){
                     board.addKillEnemy(e);
                     player.setMoney(player.getMoney()+e.getGold());
+                    player.increaseScore(e.getScore());
                 }
             }
             //System.out.println(e.getHealth()+"/"+e.getMaxHealth());

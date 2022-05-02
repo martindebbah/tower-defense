@@ -1,9 +1,11 @@
 package com.towerdefense.view;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import com.towerdefense.model.Wave;
 
@@ -49,8 +51,12 @@ public class WaveView extends JPanel {
             wave.setCountDown(-1);
         });
 
-        add(wave.getEnemiesLeft());
+        setLayout(new GridLayout(2, 3));
+        setBorder(new EmptyBorder(0, 10, 0, 10));
+
+        add(wave.getScore());
         add(wave.getMoneyPlayer());
+        add(wave.getEnemiesLeft());
         add(wave.getCptWave());
         add(wave.getChrono());
         add(buttonPanel);

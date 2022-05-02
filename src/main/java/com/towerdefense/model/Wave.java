@@ -20,9 +20,11 @@ public class Wave implements ActionListener {
     private JLabel cptWave;
     private JLabel moneyPlayer;
     private JLabel enemiesLeft;
+    private JLabel score;
 
     private int timeWave;
     private int countDown;
+    private int scoreToAdd;
     private int delay = 0;
     private Level level;
     private int nbEnemies;
@@ -40,6 +42,7 @@ public class Wave implements ActionListener {
         cptWave = new JLabel();
         moneyPlayer = new JLabel();
         enemiesLeft = new JLabel();
+        score = new JLabel();
         this.game = game;
         this.level = level;
         if(level == Level.DIFFICULT){
@@ -201,10 +204,15 @@ public class Wave implements ActionListener {
                 this.countDown = this.timeWave;
                 break;
         }
+        scoreToAdd = countDown;
     }
 
     public JLabel getMoneyPlayer() {
         return moneyPlayer;
+    }
+
+    public JLabel getScore() {
+        return score;
     }
 
     public JLabel getChrono() {
@@ -274,26 +282,30 @@ public class Wave implements ActionListener {
         }
         delay++;
 
-        moneyPlayer.setText("money : "+game.getPlayer().getMoney() + " $ /");
+        moneyPlayer.setText("Argent : "+game.getPlayer().getMoney() + " $ /");
+        score.setText("Score : " + game.getPlayer().getScore() + " /");
         if(currentWave <= nbWaves){
-            cptWave.setText("Wave " + currentWave + " /");
+            cptWave.setText("Vague " + currentWave + " /");
         } else {
-            cptWave.setText("Wave " + nbWaves + " /");
+            cptWave.setText("Vague " + nbWaves + " /");
         }
         chrono.setText(convertSecondToMinute(countDown));
         if(nbEnemies < 0){
-            enemiesLeft.setText("ennemies restants : 0 /");
+            enemiesLeft.setText("Ennemis restants : 0 /");
         } else {
-            enemiesLeft.setText("ennemies restants : "+nbEnemies+" /");
+            enemiesLeft.setText("Ennelis restants : "+nbEnemies+" /");
         }
         wave(currentWave, countDown);
         //waveTest(countDown);
         countDown--; // une seconde passe
+        scoreToAdd--;
         if (countDown < 0) {
             chrono.setText("Next Wave");
             countDown = timeWave;
             finChrono = true;
             game.getPlayer().setMoney(game.getPlayer().getMoney()+currentWave*10);
+            if (scoreToAdd > 0)
+                game.getPlayer().increaseScore(scoreToAdd); // Le joueur gagne le nombre de secondes restantes en points
             return;
         }
     }
