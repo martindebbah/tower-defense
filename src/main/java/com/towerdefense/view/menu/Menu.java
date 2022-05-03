@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import java.awt.Graphics;
 
 import com.towerdefense.view.Window;
@@ -17,14 +19,17 @@ public class Menu extends JPanel {
 	private ImageIcon background;
 
 	public Menu(Window window, String filename) {
-		super();
+		//super();
 		this.background = new ImageIcon(filename);
 		//setSize(1000, 1000);
 
+		setLayout(new GridBagLayout());
+
 		buttons = new JPanel();
 		buttons.setSize(500, 500);
-		add(buttons);
+		add(buttons, new GridBagConstraints());
 		buttons.setLayout(new GridLayout(0, 1));
+		buttons.setOpaque(false);
 
 		JButton newGame = new JButton("Nouvelle partie");
 		newGame.addActionListener(e -> {

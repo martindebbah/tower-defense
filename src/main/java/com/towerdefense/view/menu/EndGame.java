@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import java.awt.Graphics;
 
 import com.towerdefense.model.Player;
@@ -27,12 +29,16 @@ public class EndGame extends JPanel{
 			sound.play(1);
 		}
 		setSize(1000, 1000);
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 
 		this.window = w;
 		this.player = new NewPlayer(window, p, this);
 
 		buttons = new JPanel();
 		buttons.setLayout(new GridLayout(0,1));
+		buttons.setOpaque(false);
 
 		JButton back = new JButton("Retour");
 		back.addActionListener(e -> {
@@ -53,13 +59,14 @@ public class EndGame extends JPanel{
         }
 
 		this.scorePanel = new JPanel();
-		add(scorePanel);
+		scorePanel.setOpaque(false);
+		add(scorePanel, gbc);
 		
 		refreshScore(null);
 
-		add(player);
+		add(player, gbc);
 
-		add(buttons);
+		add(buttons, gbc);
 
 		buttons.add(label);
 		buttons.add(back);

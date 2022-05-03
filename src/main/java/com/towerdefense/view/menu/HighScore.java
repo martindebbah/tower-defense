@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -22,14 +21,13 @@ public class HighScore extends JPanel {
 
     private File file;
     private List<Score> scores;
-    private JPanel panel;
     private Window window;
 
     public HighScore(Player player, Window window) {
         this.file = new File("highscore.txt");
         this.scores = new ArrayList<Score>();
-        this.panel = new JPanel();
-        panel.setLayout(new GridLayout(0, 1));
+        setLayout(new GridLayout(0, 1));
+        setOpaque(false);
         this.window = window;
 
         if (!file.exists())
@@ -38,17 +36,6 @@ public class HighScore extends JPanel {
         read();
         if (player != null)
             add(player);
-
-        // Bouton pour supprimer les données
-        JButton reset = new JButton("Supprimer les scores");
-        reset.addActionListener(e -> {
-            reset();
-            display();
-        });
-
-        // Affichage des scores
-        add(panel);
-        add(reset);
 
         display();
     }
@@ -161,11 +148,15 @@ public class HighScore extends JPanel {
     }
 
     public void display() {
-        panel.removeAll();
+        removeAll();
         int n = 1;
         for (Score score : scores)
-            panel.add(new JLabel(n++ + ": " + score.getName() + " " + score.getScore() + " points"));
+            add(new JLabel(n++ + ": " + score.getName() + " " + score.getScore() + " points"));
         window.refresh();
+    }
+
+    public int getNbScores() {
+        return scores.size();
     }
     
 }

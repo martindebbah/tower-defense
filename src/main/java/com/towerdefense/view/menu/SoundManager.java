@@ -112,5 +112,9 @@ public class SoundManager implements Runnable{
         running.set(false);
         //System.out.println(running.get()+" : "+sound);
     }
+
+    public boolean isRunning() {
+        return running.get();
+    }
   
 }

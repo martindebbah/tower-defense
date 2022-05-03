@@ -5,7 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -19,6 +20,7 @@ public class NewPlayer extends JPanel {
 
 	public NewPlayer(Window window, Player p, EndGame endGame) {
 		setSize(1000, 1000);
+		setOpaque(false);
 
 		JLabel label = new JLabel("Entrez un nom d'utilisateur");
 
@@ -47,13 +49,16 @@ public class NewPlayer extends JPanel {
 		});
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0, 1));
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panel.setSize(300, 200);
+		panel.setOpaque(false);
 
-		panel.add(label);
-		panel.add(name);
-		panel.add(start);
-		panel.add(error);
+		panel.add(label, gbc);
+		panel.add(name, gbc);
+		panel.add(start, gbc);
+		panel.add(error, gbc);
 
 		add(panel);
 	}
