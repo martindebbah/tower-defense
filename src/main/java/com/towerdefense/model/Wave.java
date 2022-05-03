@@ -428,14 +428,14 @@ public class Wave implements ActionListener {
             case 2:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(0, 0);
+                        createEnemy(0, 20);
                     }
                     if (countdownStarter % 8 == 0) {
                         createEnemy(1, 0);
                     }
                 } else {
                     if (countdownStarter % 5 == 0) {
-                        createEnemy(0, 0);
+                        createEnemy(0, 20);
                     }
                     if (countdownStarter % 7 == 0) {
                         createEnemy(1, 0);
@@ -448,21 +448,21 @@ public class Wave implements ActionListener {
                         createEnemy(0, 50);
                     }
                     if (countdownStarter % 10 == 0) {
-                        createEnemy(1, 50);
+                        createEnemy(1, 20);
                     }
                 } else {
                     if (countdownStarter % 4 == 0) {
                         createEnemy(0, 50);
                     }
                     if (countdownStarter % 8 == 0) {
-                        createEnemy(1, 50);
+                        createEnemy(1, 20);
                     }
                 }
                 break;
             case 4:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 5 == 0) {
-                        createEnemy(0, 100);
+                        createEnemy(0, 150);
                     }
                     if (countdownStarter % 8 == 0) {
                         createEnemy(1, 100);
@@ -475,7 +475,7 @@ public class Wave implements ActionListener {
                         createEnemy(0, 150);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(1, 150);
+                        createEnemy(1, 100);
                     }
                     if (countdownStarter % 10 == 0) {
                         createEnemy(2, 0);
@@ -485,141 +485,141 @@ public class Wave implements ActionListener {
             case 5:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(0, 200);
+                        createEnemy(0, 300);
                     }
                     if (countdownStarter % 6 == 0) {
                         createEnemy(1, 150);
                     }
                     if (countdownStarter % 8 == 0) {
-                        createEnemy(2, 100);
+                        createEnemy(2, 300);
                     }
                 } else {
                     if (countdownStarter % 3 == 0) {
-                        createEnemy(0, 200);
+                        createEnemy(0, 300);
                     }
                     if (countdownStarter % 6 == 0) {
                         createEnemy(1, 150);
                     }
                     if (countdownStarter % 8 == 0) {
-                        createEnemy(2, 100);
+                        createEnemy(2, 300);
                     }
                 }
                 break;
             case 6:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(0, 250);
+                        createEnemy(0, 400);
                     }
                     if (countdownStarter % 6 == 0) {
                         createEnemy(1, 250);
                     }
                     if (countdownStarter % 8 == 0) {
-                        createEnemy(2, 250);
+                        createEnemy(2, 500);
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 300);
+                        createEnemy(0, 400);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 100);
+                        createEnemy(1, 250);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 250);
+                        createEnemy(2, 500);
                     }
                 }
                 break;
             case 7:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 300);
+                        createEnemy(0, 1000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 200);
+                        createEnemy(1, 500);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 400);
+                        createEnemy(2, 1000);
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 300);
+                        createEnemy(0, 1000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 200);
+                        createEnemy(1, 500);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 400);
+                        createEnemy(2, 1000);
                     }
                 }
                 break;
             case 8:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 500);
+                        createEnemy(0, 1500);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 200);
+                        createEnemy(1, 600);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 1000);
+                        createEnemy(2, 1500);
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 500);
+                        createEnemy(0, 1500);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 200);
+                        createEnemy(1, 600);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 1000);
+                        createEnemy(2, 1500);
                     }
                 }
                 break;
             case 9:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(0, 800);
+                        createEnemy(0, 2000);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(1, 400);
+                        createEnemy(1, 1000);
                     }
                     if (countdownStarter % 8 == 0) {
-                        createEnemy(2, 1000);
+                        createEnemy(2, 2000);
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 800);
+                        createEnemy(0, 2000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 400);
+                        createEnemy(1, 1000);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 1000);
+                        createEnemy(2, 2000);
                     }
                 }
                 break;
             case 10:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1000);
+                        createEnemy(0, 2000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 500);
+                        createEnemy(1, 1500);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 1500);
+                        createEnemy(2, 2000);
                     }
                     if (countdownStarter % 100 == 0) {
                         createEnemy(10, 0);
                     }
                 } else {
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1000);
+                        createEnemy(0, 2000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 500);
+                        createEnemy(1, 1500);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 1500);
+                        createEnemy(2, 2000);
                     }
                     if (countdownStarter % 100 == 0) {
                         createEnemy(10, 0);
@@ -629,10 +629,10 @@ public class Wave implements ActionListener {
             case 11 :
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 1500);
+                        createEnemy(0, 2500);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 800);
+                        createEnemy(1, 2000);
                     }
                     if (countdownStarter % 8 == 0) {
                         createEnemy(2, 2500);
@@ -642,23 +642,23 @@ public class Wave implements ActionListener {
             case 12 :
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 2000);
+                        createEnemy(0, 2500);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 1000);
+                        createEnemy(1, 2000);
                     }
                     if (countdownStarter % 8 == 0) {
-                        createEnemy(2, 5000);
+                        createEnemy(2, 2500);
                     }
                 }
                 break;
             case 13 :
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 3000);
+                        createEnemy(0, 5000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 1500);
+                        createEnemy(1, 3000);
                     }
                     if (countdownStarter % 6 == 0) {
                         createEnemy(2, 5000);
@@ -668,45 +668,45 @@ public class Wave implements ActionListener {
             case 14 :
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 3000);
+                        createEnemy(0, 8000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 2000);
+                        createEnemy(1, 3000);
                     }
                     if (countdownStarter % 8 == 0) {
-                        createEnemy(2, 5000);
+                        createEnemy(2, 8000);
                     }
                 }
                 break;
             case 15 :
                 if(level == Level.DIFFICULT || level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 5000);
+                        createEnemy(0, 10000);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 3000);
+                        createEnemy(1, 5000);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 8000);
+                        createEnemy(2, 10000);
                     }
                     if (countdownStarter % 120 == 0) {
-                        createEnemy(10, 10000);
+                        createEnemy(10, 20000);
                     }
                 }
                 break;
             default :
                 if(level == Level.INFINY){
                     if (countdownStarter % 2 == 0) {
-                        createEnemy(0, 500*currentWave);
+                        createEnemy(0, 1000*currentWave);
                     }
                     if (countdownStarter % 4 == 0) {
-                        createEnemy(1, 300*currentWave);
+                        createEnemy(1, 800*currentWave);
                     }
                     if (countdownStarter % 6 == 0) {
-                        createEnemy(2, 800*currentWave);
+                        createEnemy(2, 1500*currentWave);
                     }
                     if (countdownStarter % 120 == 0 && currentWave%10 == 0) {
-                        createEnemy(10, 1000*currentWave);
+                        createEnemy(10, 2000*currentWave);
                     }
                 }
                 break;
@@ -717,7 +717,7 @@ public class Wave implements ActionListener {
         switch(currentWave){
             case 1 :
                 if (countdownStarter % 2 == 0) {
-                    createEnemy(2, 0);
+                    createEnemy(0, 0);
                 }
                 break;
         }

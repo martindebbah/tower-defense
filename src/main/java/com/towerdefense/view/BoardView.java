@@ -154,13 +154,27 @@ public class BoardView extends JPanel implements MouseInputListener {
             }
         }
 
-        for (Tile[] tab : board.getBoard())
+        for (Tile[] tab : board.getBoard()){
             for (Tile t : tab)
                 if (t.containsTower())
                     for (Projectile p : t.getTower().getProjectiles()) {
-                        g.setColor(p.getColor());
-                        g.fillOval((int) p.getX(), (int) p.getY(), size / 4, size / 4);
+                        g.drawImage(p.getImage(), (int)p.getX(), (int)p.getY(), size/4, size/4,null);
                     }
+        }
+
+        for (Tile[] tab : board.getBoard())
+            for (Tile t : tab)
+                if (t.containsTower()){
+                    for (Projectile p : t.getTower().getKillProjectiles()) {
+                        g.drawImage(p.getImage(), (int)p.getX()-10, (int)p.getY()-10, size, size,null);
+                    }
+                }
+        
+        for (Tile[] tab : board.getBoard()){
+            for (Tile t : tab)
+                if (t.containsTower())
+                    if(t.getTower().getTarget() == null) t.getTower().getKillProjectiles().clear();
+        }            
 
         if (preview != null) {
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {

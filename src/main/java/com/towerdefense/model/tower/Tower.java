@@ -71,6 +71,10 @@ public class Tower {
         return this;
     }
 
+    public Enemy getTarget(){
+        return target;
+    }
+
     public int getDamage() { // Dans chaque classe
         return initialDamage;
     }
@@ -95,6 +99,10 @@ public class Tower {
 
     public List<Projectile> getProjectiles() {
         return projectiles;
+    }
+
+    public List<Projectile> getKillProjectiles() {
+        return killProjectiles;
     }
 
     public boolean canAttack() {
@@ -137,7 +145,7 @@ public class Tower {
 
     public void killProjectiles() {
         projectiles.removeAll(killProjectiles);
-        killProjectiles.clear();
+        //killProjectiles.clear();
     }
 
     public Color getColor() { // Pour la couleur des projectiles, bleus par défaut

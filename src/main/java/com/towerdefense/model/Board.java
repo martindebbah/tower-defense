@@ -195,4 +195,8 @@ public class Board {
         cases[x][y].setTower(null);
     }
 
+    public List<Enemy> getKillEnemies(){
+        return killEnemies;
+    }
+
 }

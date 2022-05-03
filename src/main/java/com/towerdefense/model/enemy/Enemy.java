@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.imageio.ImageIO;
+
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tile;
 import com.towerdefense.view.menu.SoundManager;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Enemy {
 
