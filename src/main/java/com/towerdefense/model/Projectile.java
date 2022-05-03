@@ -65,7 +65,7 @@ public class Projectile { // changer la couleur en fonction de la tour qui tire
 		double deltaX = targetX - x;
 		if (deltaX > 0)
 			return Math.atan(deltaY / deltaX);
-        if (deltaX == 0)
+        if (deltaX == 0) // Pour éviter une division par 0
             return Math.atan(deltaY / 0.00001);
 		return Math.atan(deltaY / deltaX) + Math.PI;
     }

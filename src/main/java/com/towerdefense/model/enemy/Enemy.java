@@ -226,32 +226,11 @@ public class Enemy {
         return current;
     }
 
-    public Tile getFirstTile(Board board) {
-        /*
-         * Donne la première case que l'ennemi doit visiter
-         * en fonction de la direction dans laquelle il se dirige
-         */
-        switch (direction) {
-            case 1:
-                return board.getBoard()[x / board.getSize()][y / board.getSize()];
-            case 2:
-                return board.getBoard()[x / board.getSize() + 1][y / board.getSize()];
-            case 3:
-                return board.getBoard()[x / board.getSize()][y / board.getSize()];
-            case 4:
-                return board.getBoard()[x / board.getSize()][y / board.getSize() + 1];
-            case 5:
-                return board.getBoard()[x / board.getSize() + 1][y / board.getSize() + 1];
-            case 6:
-                return board.getBoard()[x / board.getSize()][y / board.getSize() + 1];
-            case 7:
-                if (x >= (board.getNbCases() - 1) * board.getSize()) // S'il a atteint la sortie pour éviter ArrayIndexOutOfBoundsException
-                    return board.getBoard()[board.getNbCases() - 1][board.getNbCases() / 2];
-                return board.getBoard()[x / board.getSize() + 1][y / board.getSize()];
-            case 8:
-                return board.getBoard()[x / board.getSize()][y / board.getSize()];
-        }
-        return board.getBoard()[x / board.getSize()][y / board.getSize()]; // ArrayIndexOutOfBoundsExcepetion !
+    public Tile getFirstTile(Board board) { // Donne la première case que l'ennemi doit visiter
+        if (path != null && !path.isEmpty())
+            return path.peek();
+        else
+            return board.getBoard()[0][board.getNbCases() / 2];
     }
 
     public Stack<Tile> goodPath(Tile tile, Stack<Tile> path) {
