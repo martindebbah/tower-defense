@@ -17,6 +17,7 @@ import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.enemy.TankEnemy;
+import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -166,7 +167,11 @@ public class BoardView extends JPanel implements MouseInputListener {
             for (Tile t : tab)
                 if (t.containsTower()){
                     for (Projectile p : t.getTower().getKillProjectiles()) {
-                        g.drawImage(p.getImage(), (int)p.getX()-10, (int)p.getY()-10, size, size,null);
+                        if(t.getTower() instanceof SuperTower){
+                            g.drawImage(p.getImage(), (int)p.getX()-40, (int)p.getY()-50, size+30, size+30,null);
+                        } else{
+                            g.drawImage(p.getImage(), (int)p.getX()-30, (int)p.getY()-15, size+5, size+5,null);
+                        }
                     }
                 }
         

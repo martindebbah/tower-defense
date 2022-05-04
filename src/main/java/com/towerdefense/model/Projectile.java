@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.BasicTower;
+import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.image.BufferedImage;
@@ -31,6 +32,12 @@ public class Projectile { // changer la couleur en fonction de la tour qui tire
     private BufferedImage boom4;
     private BufferedImage boom5;
     private BufferedImage boom6;
+    private BufferedImage boom7;
+    private BufferedImage boom8;
+    private BufferedImage boom9;
+    private BufferedImage boom10;
+    private BufferedImage boom11;
+    private BufferedImage boom12;
     private int currentAnime = 0;
 
     public Projectile(Tower source, Enemy target, Color color, int size) {
@@ -50,6 +57,40 @@ public class Projectile { // changer la couleur en fonction de la tour qui tire
                 this.boom4 = ImageIO.read(new File("src/main/resources/Images/projectile/boom4.png"));
                 this.boom5 = ImageIO.read(new File("src/main/resources/Images/projectile/boom5.png"));
                 this.boom6 = ImageIO.read(new File("src/main/resources/Images/projectile/boom6.png"));
+                this.boom7 = null;
+                this.boom8 = null;
+                this.boom9 = null;
+                this.boom10 = null;
+                this.boom11 = null;
+                this.boom12 = null;
+            } else if(source instanceof SuperTower){
+                this.image = ImageIO.read(new File("src/main/resources/Images/projectile/projectile.png"));
+                this.boom1 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl1.png"));
+                this.boom2 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl2.png"));
+                this.boom3 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl3.png"));
+                this.boom4 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl4.png"));
+                this.boom5 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl5.png"));
+                this.boom6 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl6.png"));
+                this.boom7 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl7.png"));
+                this.boom8 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl8.png"));
+                this.boom9 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl9.png"));
+                this.boom10 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl10.png"));
+                this.boom11 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl11.png"));
+                this.boom12 = ImageIO.read(new File("src/main/resources/Images/explosion_sprite/expl12.png"));
+            } else {
+                this.image = ImageIO.read(new File("src/main/resources/Images/projectile/projectile.png"));
+                this.boom1 = null;
+                this.boom2 = null;
+                this.boom3 = null;
+                this.boom4 = null;
+                this.boom5 = null;
+                this.boom6 = null;
+                this.boom7 = null;
+                this.boom8 = null;
+                this.boom9 = null;
+                this.boom10 = null;
+                this.boom11 = null;
+                this.boom12 = null;
             }
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -141,6 +182,24 @@ public class Projectile { // changer la couleur en fonction de la tour qui tire
             case 6:
                 currentAnime++;
                 return boom6;
+            case 7:
+                currentAnime++;
+                return boom7;
+            case 8:
+                currentAnime++;
+                return boom8;
+            case 9:
+                currentAnime++;
+                return boom9;
+            case 10:
+                currentAnime++;
+                return boom10;
+            case 11:
+                currentAnime++;
+                return boom11;
+            case 12:
+                currentAnime++;
+                return boom12;
         }
         return null;
     }
