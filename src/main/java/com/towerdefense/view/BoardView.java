@@ -17,6 +17,7 @@ import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Mo;
 import com.towerdefense.model.enemy.TankEnemy;
+import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
 
 import java.awt.Color;
@@ -154,13 +155,31 @@ public class BoardView extends JPanel implements MouseInputListener {
             }
         }
 
-        for (Tile[] tab : board.getBoard())
+        for (Tile[] tab : board.getBoard()){
             for (Tile t : tab)
                 if (t.containsTower())
                     for (Projectile p : t.getTower().getProjectiles()) {
-                        g.setColor(p.getColor());
-                        g.fillOval((int) p.getX(), (int) p.getY(), size / 4, size / 4);
+                        g.drawImage(p.getImage(), (int)p.getX(), (int)p.getY(), size/4, size/4,null);
                     }
+        }
+
+        for (Tile[] tab : board.getBoard())
+            for (Tile t : tab)
+                if (t.containsTower()){
+                    for (Projectile p : t.getTower().getKillProjectiles()) {
+                        if(t.getTower() instanceof SuperTower){
+                            g.drawImage(p.getImage(), (int)p.getX()-40, (int)p.getY()-50, size+30, size+30,null);
+                        } else{
+                            g.drawImage(p.getImage(), (int)p.getX()-30, (int)p.getY()-15, size+5, size+5,null);
+                        }
+                    }
+                }
+        
+        for (Tile[] tab : board.getBoard()){
+            for (Tile t : tab)
+                if (t.containsTower())
+                    if(t.getTower().getTarget() == null) t.getTower().getKillProjectiles().clear();
+        }            
 
         if (preview != null) {
             if (!board.getBoard()[preview[0] / size][preview[1] / size].containsTower()) {
