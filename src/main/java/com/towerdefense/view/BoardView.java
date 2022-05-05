@@ -178,9 +178,16 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         if (selection != null) {
             g.setColor(Color.WHITE);
+
+            // Sélection de la tour
             g.drawRect(selection[0], selection[1], size, size);
-            shop.refreshDesc(
-                    board.getBoard()[selection[0] / board.getSize()][selection[1] / board.getSize()].getTower());
+            
+            // Affichage de la portée de la tour
+            Tower t = board.getBoard()[selection[0] / size][selection[1] / size].getTower();
+            g.drawOval(selection[0] - t.getRange() * size + size / 2, selection[1] - t.getRange() * size + size / 2, t.getRange() * size * 2, t.getRange() * size * 2);
+            
+            // Mise à jour du shop
+            shop.refreshDesc(t);
         }
 
     }
