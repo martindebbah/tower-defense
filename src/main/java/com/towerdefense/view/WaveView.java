@@ -16,16 +16,16 @@ public class WaveView extends JPanel {
 
     private Wave wave;
     private JButton nextWave = new JButton("Vague suivante");
-    private MyButton mute = new MyButton("", "src/main/resources/Images/mute.png", "src/main/resources/Images/mute2.png");
-    private MyButton demute = new MyButton("", "src/main/resources/Images/button.png", "src/main/resources/Images/button2.png");
+    private MyButton mute = new MyButton("", "src/main/resources/Images/button.png", "src/main/resources/Images/button2.png");
+    private MyButton demute = new MyButton("", "src/main/resources/Images/mute.png", "src/main/resources/Images/mute2.png");
 
     public WaveView(Wave wave, GameView gv) {
         this.wave = wave;
         setPreferredSize(new java.awt.Dimension(1000, 112));
 
         JPanel pausePanel = new JPanel();
-        MyButton pause =  new MyButton("","src/main/resources/Images/pause.png","src/main/resources/Images/pause.png");
-        MyButton resume = new MyButton("","src/main/resources/Images/continue.png","src/main/resources/Images/continue.png");
+        MyButton pause =  new MyButton("","src/main/resources/Images/continue.png","src/main/resources/Images/continue.png");
+        MyButton resume = new MyButton("","src/main/resources/Images/pause.png","src/main/resources/Images/pause.png");
         JButton faster = new JButton("x1");
         JPanel buttonPanel = new JPanel();
         pausePanel.add(pause);

@@ -291,18 +291,18 @@ public class Wave implements ActionListener {
         }
         delay++;
 
-        moneyPlayer.setText("Argent : "+game.getPlayer().getMoney() + " $ /");
-        score.setText("Score : " + game.getPlayer().getScore() + " /");
+        moneyPlayer.setText("Argent : "+game.getPlayer().getMoney() + "$");
+        score.setText("Score : " + game.getPlayer().getScore());
         if(currentWave <= nbWaves){
-            cptWave.setText("Vague " + currentWave + " /");
+            cptWave.setText("Vague " + currentWave);
         } else {
-            cptWave.setText("Vague " + nbWaves + " /");
+            cptWave.setText("Vague " + nbWaves);
         }
         chrono.setText(convertSecondToMinute(countDown));
         if(nbEnemies < 0){
-            enemiesLeft.setText("Ennemis restants : 0 /");
+            enemiesLeft.setText("Ennemis restants : 0");
         } else {
-            enemiesLeft.setText("Ennemis restants : "+nbEnemies+" /");
+            enemiesLeft.setText("Ennemis restants : "+nbEnemies);
         }
         wave(currentWave, countDown);
         //waveTest(countDown);
@@ -320,7 +320,8 @@ public class Wave implements ActionListener {
     }
 
     public String convertSecondToMinute(int second) {
-        return second / 60 + ":" + second % 60 + " ";
+        String sec = "" + second % 60;
+        return second / 60 + ":" + (sec.length() == 1 ? "0" + sec : sec);
     }
 
     public void play() {

@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -145,7 +147,7 @@ public class Shop extends JPanel {
 
         public Description(Player player) {
             setPreferredSize(new Dimension(900, 900));
-            setLayout(new FlowLayout(FlowLayout.CENTER, 0, 200));
+            setLayout(new FlowLayout(FlowLayout.CENTER, 300, 0));
 
             this.name = new JLabel();
             this.damage = new JLabel();
@@ -179,16 +181,23 @@ public class Shop extends JPanel {
             labels.add(range);
             labels.add(attackSpeed);
             labels.add(price);
-            labels.add(upgrade);
-            labels.add(sellTower);
-            labels.add(cancel);
+
+            // Boutons
+            JPanel buttons = new JPanel();
+            buttons.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
+            buttons.add(upgrade, gbc);
+            buttons.add(sellTower, gbc);
+            buttons.add(cancel, gbc);
 
             JPanel border = new JPanel();
-            border.setPreferredSize(new Dimension(160, 160));
+            border.setPreferredSize(new Dimension(160, 90));
             border.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             border.add(labels);
 
             add(border);
+            add(buttons);
 
             refresh(null);
         }
@@ -198,7 +207,11 @@ public class Shop extends JPanel {
             
             if (t == null) {
                 labels.setVisible(false);
+                upgrade.setVisible(false);;
+                sellTower.setVisible(false);;
+                cancel.setVisible(false);;
             }else {
+                cancel.setVisible(true);
                 name.setText(t.toString());
                 if(t.getDamage() == 0 && t instanceof BasicTower || t instanceof AerialTower){
                     damage.setText("Dégâts : 20");
@@ -219,7 +232,7 @@ public class Shop extends JPanel {
                 }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
-                price.setText("Prix : " + t.getPrice());
+                price.setText("Prix : " + t.getPrice() + "$");
                 if(t.getDamage() != 0){
                     sellTower.setVisible(true);
                     upgrade.setVisible(true);
@@ -230,9 +243,10 @@ public class Shop extends JPanel {
                 if(selected.moneyOnLevel() > 1000){
                     upgrade.setText("MAX");
                 } else {
-                    upgrade.setText("Améliorer "+selected.moneyOnLevel());
+                    upgrade.setText("Améliorer : " + selected.moneyOnLevel() + "$");
                 }
                 upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player)); // changer la premiere condition
+                sellTower.setText("Vendre : +" + selected.getPrice() / 2 + "$");
                 sellTower.setEnabled(selected.getDamage() != 0);
 
                 labels.setVisible(true);
