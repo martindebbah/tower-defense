@@ -35,6 +35,7 @@ public class GameView extends JPanel implements ActionListener {
 
         // Création du plateau de jeu
         this.player = new Player();
+        player.setMode(level);
         this.game = new Game(40, 20, player, level);
         createShop();
         createBoard();

@@ -53,6 +53,7 @@ public class HighScore extends JPanel {
             for (Score score : scores) {
                 writer.append(score.getName() + ":");
                 writer.append(score.getScore() + ":");
+                writer.append(score.getMode() + ":");
             }
             writer.close();
         }catch (IOException e) {
@@ -67,11 +68,12 @@ public class HighScore extends JPanel {
             Scanner sc = new Scanner(file);
             sc.useDelimiter(""); // Pour lire caractère par caractère
 
-            String name, score;
+            String name, score, mode;
 
             while (true) {
                 name = "";
                 score = "";
+                mode = "";
 
                 while (sc.hasNext()) {
                     char c = sc.next().charAt(0);
@@ -85,9 +87,15 @@ public class HighScore extends JPanel {
                         break;
                     score += c;
                 }
+                while (sc.hasNext()) {
+                    char c = sc.next().charAt(0);
+                    if (c == ':')
+                        break;
+                    mode += c;
+                }
 
-                if (!name.equals("") && !score.equals(""))
-                    scores.add(new Score(name, Integer.valueOf(score)));
+                if (!name.equals("") && !score.equals("") && !mode.equals(""))
+                    scores.add(new Score(name, Integer.valueOf(score), mode));
 
                 if (!sc.hasNext())
                     break;
@@ -101,7 +109,7 @@ public class HighScore extends JPanel {
 
     // Ajoute le score d'un joueur au meilleurs scores
     public void add(Player p) {
-        Score score = new Score(p.toString(), p.getScore());
+        Score score = new Score(p.toString(), p.getScore(), p.getMode());
 
         boolean b = false; // Si le joueur a refait le même score -> true
         int i = 0; // L'indice où on ajoute le score les meilleurs au début
@@ -150,8 +158,18 @@ public class HighScore extends JPanel {
     public void display() {
         removeAll();
         int n = 1;
-        for (Score score : scores)
-            add(new JLabel(n++ + ": " + score.getName() + " " + score.getScore() + " points"));
+        for (Score score : scores) {
+            String m = "";
+            switch (score.getMode()) {
+                case "easy": m = "(facile)";
+                    break;
+                case "difficult": m = "(difficile)";
+                    break;
+                case "infiny": m = "(infini)";
+                    break;
+            }
+            add(new JLabel(n++ + ": " + score.getName() + " " + score.getScore() + " pts " + m));
+        }
         window.refresh();
     }
 

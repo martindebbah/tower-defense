@@ -1,5 +1,6 @@
 package com.towerdefense.model;
 
+import com.towerdefense.level.Level;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.Tower;
 
@@ -9,6 +10,7 @@ public class Player {
     private int money;
     private String name;
     private int score;
+    private String mode;
 
     public Player(String name) {
         this.health = 1000;
@@ -23,6 +25,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setMode(Level l) {
+        this.mode = l.name().toLowerCase();
+    }
+
+    public String getMode() {
+        return mode;
     }
 
     public int getScore() {

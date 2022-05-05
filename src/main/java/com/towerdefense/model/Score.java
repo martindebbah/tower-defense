@@ -4,10 +4,12 @@ public class Score implements Comparable<Score> {
 
     private String name;
     private int score;
+    private String mode;
 
-    public Score(String name, int score) {
+    public Score(String name, int score, String mode) {
         this.name = name;
         this.score = score;
+        this.mode = mode;
     }
 
     public int getScore() {
@@ -16,6 +18,10 @@ public class Score implements Comparable<Score> {
 
     public String getName() {
         return name;
+    }
+
+    public String getMode() {
+        return mode;
     }
 
     @Override
