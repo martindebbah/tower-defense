@@ -66,7 +66,7 @@ public class GameView extends JPanel implements ActionListener {
             case 5: timer5.start();
                 break;
         }
-        board.start();
+        board.start(wave.getMute());
         window.refresh();
     }
 

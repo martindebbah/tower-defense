@@ -48,7 +48,7 @@ public class SoundManager implements Runnable{
         while (running.get()) {
             try {
                 if(status <= 2) Thread.sleep(100);
-                if(status == 3) Thread.sleep(3000);
+                if(status == 3) Thread.sleep(1000);
             } catch (InterruptedException e){
                 Thread.currentThread().interrupt();
                 System.out.println(

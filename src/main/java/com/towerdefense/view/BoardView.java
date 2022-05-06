@@ -12,6 +12,7 @@ import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
+import com.towerdefense.model.Wave;
 import com.towerdefense.model.enemy.AerialEnemy;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
@@ -243,9 +244,11 @@ public class BoardView extends JPanel implements MouseInputListener {
         isPaused = true;
     }
 
-    public void start() {
-        for(Enemy e : board.getEnemies()){
-            e.sound();
+    public void start(boolean mute) {
+        if(!mute){
+            for(Enemy e : board.getEnemies()){
+                e.sound();
+            }
         }
         isPaused = false;
     }
