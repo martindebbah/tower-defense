@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import com.towerdefense.model.Game;
-import com.towerdefense.view.menu.SoundManager;
 
 public class BasicEnemy extends Enemy {
 
@@ -57,7 +56,7 @@ public class BasicEnemy extends Enemy {
 
     @Override
     public String toString() {
-        return "Ennemi de base"; // Peut-être nom à changer
+        return "Ennemi de base";
     }
 
     @Override

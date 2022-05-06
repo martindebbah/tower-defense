@@ -15,7 +15,7 @@ public class TowerView extends JPanel {
     private Tower tower;
     private Shop shop;
 
-    public TowerView(Tower tower, Shop shop) { // L'affichage des tours se fera sûrement depuis cette classe.
+    public TowerView(Tower tower, Shop shop) {
         this.tower = tower;
         this.shop = shop;
 

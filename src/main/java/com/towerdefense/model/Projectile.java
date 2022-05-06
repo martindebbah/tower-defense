@@ -2,7 +2,6 @@ package com.towerdefense.model;
 
 import java.awt.Color;
 
-import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.BasicTower;
 import com.towerdefense.model.tower.SuperTower;

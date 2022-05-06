@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import com.towerdefense.level.Level;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
-import com.towerdefense.model.Tile;
 import com.towerdefense.model.Wave;
 import com.towerdefense.model.enemy.Enemy;
 
@@ -102,7 +101,7 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) { // soucis avec fin de game
+    public void actionPerformed(ActionEvent e) {
         wave.actionPerformed(e);
         if (player.isAlive()){ // condition d'arrêter wave supérieure au max de wave + aucun enemy sur le board
             if(wave.getCurrentWave() < wave.getNbWaves()){

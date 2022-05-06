@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Projectile;
-import com.towerdefense.model.enemy.Enemy;
+import com.towerdefense.model.enemy.*;
 
 public class InfernalTower extends Tower {
     
@@ -32,7 +32,7 @@ public class InfernalTower extends Tower {
 
     @Override
     public Tower newTower() {
-        return new InfernalTower(5);
+        return new InfernalTower(2);
     }
 
     @Override
@@ -47,7 +47,11 @@ public class InfernalTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 500;
+        switch (level) {
+            case 1: return 400;
+            case 2: return 500;
+            default: return 300;
+        }
     }
 
     @Override
@@ -73,7 +77,7 @@ public class InfernalTower extends Tower {
         if (coolDown == 0) {
             addProjectile(new Projectile(getSource(), target));
         }
-        if (coolDown <= getAttackSpeed()) {  // tire toutes les 20 * 50 millisecondes
+        if (coolDown <= getAttackSpeed()) {  // tire toutes les 30 * 50 millisecondes
             coolDown++;
         }else {
             coolDown = 0;
@@ -96,9 +100,17 @@ public class InfernalTower extends Tower {
         List<Enemy> enemies = board.getEnemies();
         for (Enemy e : enemies) {
             if (isInRange(e.getCoord(), board.getSize()) && canFocusAerial(e)) {
-                target = e;
-                newTarget = true;
-                return;
+                if (e instanceof TankEnemy || e instanceof Boss) {
+                    // Focus d'abord les tanks
+                    target = e;
+                    newTarget = true;
+                    return;
+                    // Dès qu'on en focus un on arrête la fonction
+                }
+                if (target == null) { // Si c'est pas un tank, garde la première cible qu'il a vérouillé
+                    target = e;
+                    newTarget = true;
+                }
             }else {
                 target = null;
             }
@@ -110,16 +122,16 @@ public class InfernalTower extends Tower {
         level++;
         switch(level){
             case 1:
-                initialDamage += 5;
-                damage += 5;
+                initialDamage += 8;
+                damage += 6;
                 break;
             case 2:
-                initialDamage += 15;
-                damage += 10;
+                initialDamage += 16;
+                damage += 16;
                 break;
             case 3:
-                initialDamage += 30;
-                damage += 15;
+                initialDamage += 32;
+                damage += 32;
                 break;
         }
     }

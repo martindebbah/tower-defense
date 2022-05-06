@@ -24,7 +24,7 @@ public class BasicTower extends Tower {
 
     @Override
     public Tower newTower() {
-        return new BasicTower(20);
+        return new BasicTower(5);
     }
 
     @Override
@@ -39,7 +39,11 @@ public class BasicTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 100;
+        switch (level) {
+            case 1: return 100;
+            case 2: return 150;
+            default: return 50;
+        }
     }
 
     @Override
@@ -70,10 +74,10 @@ public class BasicTower extends Tower {
                 initialDamage += 15;
                 break;
             case 2:
-                initialDamage += 50;
+                initialDamage += 30;
                 break;
             case 3:
-                initialDamage += 145;
+                initialDamage += 60;
                 break;
         }
     }

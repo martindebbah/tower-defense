@@ -23,7 +23,7 @@ public class AerialTower extends Tower {
 
     @Override
     public Tower newTower() {
-        return new AerialTower(20);
+        return new AerialTower(10);
     }
 
     @Override
@@ -38,8 +38,12 @@ public class AerialTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 150;
-    } // plus cher ou pas ?
+        switch (level) {
+            default: return 100;
+            case 1: return 150;
+            case 2: return 250;
+        }
+    }
 
     @Override
     public int getRange() {
@@ -69,10 +73,10 @@ public class AerialTower extends Tower {
                 initialDamage += 20;
                 break;
             case 2:
-                initialDamage += 80;
+                initialDamage += 40;
                 break;
             case 3:
-                initialDamage += 150;
+                initialDamage += 80;
         }
     }
 

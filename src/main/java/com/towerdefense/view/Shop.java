@@ -159,7 +159,7 @@ public class Shop extends JPanel {
             this.cancel = new JButton("Annuler");
             upgrade.setVisible(false);
             upgrade.addActionListener(e -> {
-                player.setMoney(player.getMoney()-selected.moneyOnLevel());
+                player.setMoney(player.getMoney() - selected.getPrice());
                 selected.upgrade();
                 refresh(selected);
             });
@@ -232,20 +232,21 @@ public class Shop extends JPanel {
                 }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
-                price.setText("Prix : " + t.getPrice() + "$");
                 if(t.getDamage() != 0){
+                    price.setText("Amélioration : " + t.getPrice() + "$");
                     sellTower.setVisible(true);
                     upgrade.setVisible(true);
                 } else {
+                    price.setText("Prix : " + t.getPrice() + "$");
                     sellTower.setVisible(false);
                     upgrade.setVisible(false);
                 }
-                if(selected.moneyOnLevel() > 1000){
+                if(selected.getLevel() >= 3){
                     upgrade.setText("MAX");
                 } else {
-                    upgrade.setText("Améliorer : " + selected.moneyOnLevel() + "$");
+                    upgrade.setText("Améliorer : " + selected.getPrice() + "$");
                 }
-                upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player)); // changer la premiere condition
+                upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player));
                 sellTower.setText("Vendre : +" + selected.getPrice() / 2 + "$");
                 sellTower.setEnabled(selected.getDamage() != 0);
 

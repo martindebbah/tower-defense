@@ -23,7 +23,7 @@ public class SuperTower extends Tower {
 
 	@Override
 	public Tower newTower() {
-        return new SuperTower(50);
+        return new SuperTower(30);
     }
 
 	@Override
@@ -38,7 +38,11 @@ public class SuperTower extends Tower {
 
 	@Override
 	public int getPrice() {
-	    return 1200;
+		switch (level) {
+			case 1: return 1200;
+			case 2: return 1600;
+			default: return 1000;
+		}
 	} 
 
 	@Override
@@ -67,13 +71,13 @@ public class SuperTower extends Tower {
 		System.out.println(level);
     	switch(level){
         	case 1:
-            	initialDamage += 20;
+            	initialDamage += 30;
             	break;
          	case 2:
-            	initialDamage += 100;
+            	initialDamage += 60;
             	break;
         	case 3:
-            	initialDamage += 280;
+            	initialDamage += 150;
 				break;
         }
     }

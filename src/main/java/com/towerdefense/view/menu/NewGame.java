@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.towerdefense.level.Level;
-import com.towerdefense.model.Player;
 import com.towerdefense.view.Window;
 
 public class NewGame extends JPanel {

@@ -9,7 +9,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.plaf.BorderUIResource.MatteBorderUIResource;
 
 import com.towerdefense.view.Window;
 
