@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class MyButton extends JButton{ // inutile
+public class MyButton extends JButton{
     
     public MyButton(String txt, String icon, String iconHover){
         super(txt);
