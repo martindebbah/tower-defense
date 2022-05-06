@@ -52,8 +52,8 @@ public class TowerView extends JPanel {
     public void select() {
         shop.refreshDesc(tower);
         setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK),
-                BorderFactory.createMatteBorder(3, 3, 3, 3, Color.WHITE)));
+                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK),
+                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.WHITE)));
         shop.purchase(this);
     }
 
