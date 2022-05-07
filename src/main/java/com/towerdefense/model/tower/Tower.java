@@ -123,11 +123,14 @@ public class Tower {
         List<Enemy> enemies = board.getEnemies();
         for (Enemy e : enemies) {
             if (isInRange(e.getCoord(), board.getSize()) && canFocusAerial(e)) {
-                target = e;
-                newTarget = true;
-                return;
-            } else {
-                target = null;
+                if (target == null) {
+                    target = e;
+                    newTarget = true;
+                }else { // On prend l'ennemi le plus proche de la sortie
+                    if (e.distToEnd() < target.distToEnd()) {
+                        target = e;
+                    }
+                }
             }
         }
     }
