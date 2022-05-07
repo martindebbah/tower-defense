@@ -160,8 +160,14 @@ public class Enemy {
         move(-1, 0);
     }
 
-    public double dist(int x1, int y1, int x2, int y2) { // renvoie la distance entre l'ennemi et le point d'arrivée
+    public double dist(int x1, int y1, int x2, int y2) { // renvoie la distance entre deux cases
         return (double) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    public double distToEnd() { // Renvoie la distance entre l'ennemi et le point d'arrivée
+        if (path == null)
+            return 0;
+        return path.size();
     }
 
     public void validNode(int x, int y, int fx, int fy, Board board, ArrayList<Tile> closed, ArrayList<Tile> open,
