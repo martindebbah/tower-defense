@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 public class Tower {
 
     protected Enemy target;
-    private int[] coord;
+    protected int[] coord;
     protected boolean newTarget;
     private List<Projectile> projectiles;
     private List<Projectile> killProjectiles;
@@ -180,6 +180,10 @@ public class Tower {
     }
 
     public void upgrade() {
+        return;
+    }
+
+    public void rotateTower(){
         return;
     }
 

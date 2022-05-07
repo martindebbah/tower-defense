@@ -110,14 +110,13 @@ public class BoardView extends JPanel implements MouseInputListener {
                 }
                 if (board.getBoard()[x][y].containsTower()) {
                     try {
-                        g.drawImage(board.getBoard()[x][y].getTower().getImage(), x * size, y * size, size, size, null);
+                        if(board.getBoard()[x][y].getTower().getLevel() <= 1) g.drawImage(board.getBoard()[x][y].getTower().getImage(), (x * size)+3, (y * size)+3, size-5, size-5, null);
+                        if(board.getBoard()[x][y].getTower().getLevel() >= 2) g.drawImage(board.getBoard()[x][y].getTower().getImage(), x * size, y * size-12, size, size+10, null);
                     } catch (NullPointerException ex) {
                         g.setColor(board.getBoard()[x][y].getTower().getColor());
                         g.fillRect(x * size, y * size, size, size);
                     }
                 }
-                //g.setColor(Color.BLACK);
-                //g.drawRect(y * size, x * size, size, size);
             }
         }
 
@@ -158,10 +157,12 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         for (Tile[] tab : board.getBoard()){
             for (Tile t : tab)
-                if (t.containsTower())
+                if (t.containsTower()){
                     for (Projectile p : t.getTower().getProjectiles()) {
                         g.drawImage(p.getImage(), (int)p.getX(), (int)p.getY(), size/4, size/4,null);
                     }
+                    t.getTower().rotateTower();
+                }
         }
 
         for (Tile[] tab : board.getBoard())

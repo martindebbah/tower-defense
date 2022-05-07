@@ -228,7 +228,6 @@ public class Shop extends JPanel {
                 }
                 if(t.getDamage() != 0){
                     damage.setText("Dégâts : " + t.getDamage());
-                    System.out.println(t.getDamage());
                 }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
