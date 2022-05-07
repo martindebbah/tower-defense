@@ -6,13 +6,11 @@ import com.towerdefense.level.Level;
 import com.towerdefense.model.enemy.AerialEnemy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
-import com.towerdefense.model.enemy.Mo;
+import com.towerdefense.model.enemy.Boss;
 import com.towerdefense.model.enemy.TankEnemy;
-import com.towerdefense.view.menu.SoundManager;
 
 public class Wave implements ActionListener {
     private Game game;
@@ -395,13 +393,13 @@ public class Wave implements ActionListener {
                 break;
             case 10:
                 if(level == Level.DIFFICULT){
-                    Enemy e10 = new Mo(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 4);
+                    Enemy e10 = new Boss(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 4);
                     e10.setPath();
                     game.getBoard().addEnemy(e10);
                     nbEnemies--;
                     break;
                 }
-                Enemy e10 = new Mo(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
+                Enemy e10 = new Boss(game, game.getBoard().getSize() * game.getBoard().getNbCases() / 2);
                 e10.setPath();
                 game.getBoard().addEnemy(e10);
                 nbEnemies--;

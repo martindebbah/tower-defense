@@ -70,7 +70,7 @@ public class RapidTower extends Tower {
 
     @Override
     public Tower newTower() {
-        return new RapidTower(10);
+        return new RapidTower(5);
     }
 
     @Override
@@ -81,12 +81,16 @@ public class RapidTower extends Tower {
     @Override
     public int getAttackSpeed() {
         return 10;
-    } // pour l'instant 3x plus
+    }
 
     @Override
     public int getPrice() {
-        return 300;
-    } // à voir
+        switch (level) {
+            case 1: return 150;
+            case 2: return 250;
+            default: return 100;
+        }
+    }
 
     @Override
     public int getRange() {
@@ -163,13 +167,13 @@ public class RapidTower extends Tower {
         level++;
         switch(level){
             case 1:
-                initialDamage += 20;
+                initialDamage += 15;
                 break;
             case 2:
-                initialDamage += 50;
+                initialDamage += 30;
                 break;
             case 3:
-                initialDamage += 180;
+                initialDamage += 60;
                 break;
         }
     }

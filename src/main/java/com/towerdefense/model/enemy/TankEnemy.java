@@ -52,7 +52,7 @@ public class TankEnemy extends Enemy {
 
     @Override
     public String toString() {
-        return "Ennemi tank"; // Peut-être nom à changer ("Tank")
+        return "Ennemi tank";
     }
 
     @Override

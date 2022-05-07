@@ -155,6 +155,7 @@ public class HighScore extends JPanel {
         reset();
     }
 
+    // Affiche les scores
     public void display() {
         removeAll();
         int n = 1;

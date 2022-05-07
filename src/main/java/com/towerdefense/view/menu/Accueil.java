@@ -1,16 +1,9 @@
 package com.towerdefense.view.menu;
 
-import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.io.File;
-import java.io.IOException;
 
 import com.towerdefense.view.Window;
 

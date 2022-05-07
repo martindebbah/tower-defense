@@ -16,7 +16,7 @@ import com.towerdefense.model.Wave;
 import com.towerdefense.model.enemy.AerialEnemy;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
-import com.towerdefense.model.enemy.Mo;
+import com.towerdefense.model.enemy.Boss;
 import com.towerdefense.model.enemy.TankEnemy;
 import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
@@ -75,13 +75,7 @@ public class BoardView extends JPanel implements MouseInputListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.paintComponentInit(g);// ok mais ça freeze demander à Martin
-
-        /*
-         * Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création
-         * de Board)
-         * Est-ce qu'on dessine les cases quand le tableau est vide ?
-         */
+        this.paintComponentInit(g);
 
         for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
@@ -122,7 +116,7 @@ public class BoardView extends JPanel implements MouseInputListener {
 
         for (Enemy e : board.getEnemies()) {
             try {
-                if(e instanceof Mo){
+                if(e instanceof Boss){
                     g.drawImage(e.getImage(), e.getX(), e.getY()-15, size+5, size+15, null);
                 } else{
                     if(e instanceof BasicEnemy){
@@ -144,7 +138,7 @@ public class BoardView extends JPanel implements MouseInputListener {
                 g.setColor(Color.RED);
                 g.fillOval(e.getX(), e.getY(), size, size);
             }
-            if(!(e instanceof Mo)){g.setColor(Color.GREEN);}
+            if(!(e instanceof Boss)){g.setColor(Color.GREEN);}
             else{g.setColor(Color.RED);}
             if(e instanceof TankEnemy){
                 g.drawRect(e.getCoord()[0]+5, e.getCoord()[1] - 15, size, 5);
@@ -229,13 +223,11 @@ public class BoardView extends JPanel implements MouseInputListener {
             selection[0] = x - x % size;
             selection[1] = y - y % size;
         } else { // ou pose une tour
-            if (canPurchase(x, y)) {
+            if (canPurchase(x, y)) { // Achète la tour
                 addTower(shop.addNewTower(), x / size, y / size);
-                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice()); // achète
-                                                                                                               // la
-                                                                                                               // tour
+                player.setMoney(player.getMoney() - shop.getTowerPanel().getSelected().getTower().getPrice());
             }
-            selection = null; // Faire pareil si on clique sur une autre tour dans le shop
+            selection = null;
             if (!shop.wantPurchase())
                 shop.refreshDesc(null);
         }

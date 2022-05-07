@@ -69,7 +69,7 @@ public class DestructiveTower extends Tower {
 
 	@Override
 	public Tower newTower() {
-	    return new DestructiveTower(150);
+	    return new DestructiveTower(50);
 	}
 
 	    @Override
@@ -84,7 +84,11 @@ public class DestructiveTower extends Tower {
 
     @Override
     public int getPrice() {
-        return 10000;
+		switch (level) {
+			case 1: return 3200;
+			case 2:	return 3600;
+			default: return 3000;
+		}
     } 
 
     @Override
@@ -162,13 +166,13 @@ public class DestructiveTower extends Tower {
 		level++;
 		switch(level){
 			case 1:
-				initialDamage += 20;
+				initialDamage += 50;
 				break;
 			case 2:
-				initialDamage += 120;
+				initialDamage += 100;
 				break;
 			case 3:
-				initialDamage += 260;
+				initialDamage += 200;
 				break;
 		}
 	}

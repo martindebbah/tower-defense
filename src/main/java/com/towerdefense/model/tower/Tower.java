@@ -59,8 +59,7 @@ public class Tower {
     }
 
     public int getAttackSpeed() { // Dans chaque classe
-        return 0; // La fonction retourne n tel que la tour attaque toutes les n * 50
-                  // millisecondes
+        return 0; // La fonction retourne n tel que la tour attaque toutes les n * 50 millisecondes
     }
 
     public boolean isNewTarget() {
@@ -86,7 +85,7 @@ public class Tower {
         if (coolDown == 0) {
             addProjectile(new Projectile(getSource(), target, getColor()));
         }
-        if (coolDown <= getAttackSpeed()) { // tire toutes les 20 * 50 millisecondes
+        if (coolDown <= getAttackSpeed()) { // tire toutes les n * 50 millisecondes
             coolDown++;
         } else {
             coolDown = 0;
@@ -116,8 +115,7 @@ public class Tower {
     public void focus(Board board) {
         if (target != null) {
             newTarget = false;
-            if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou
-                                                                                     // meurt
+            if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou meurt
                 target = null;
 
             return; // On ne change pas de cible
@@ -156,24 +154,12 @@ public class Tower {
         return null;
     }
 
-    public int moneyOnLevel() {
-        switch(level){
-            case 0:
-                return 150;
-            case 1:
-                return 500;
-            case 2:
-                return 1000;
-        }
-        return 1001;
-    }
-
     public int getLevel() {
         return level;
     }
 
     public boolean canUpgrade(Player p) {
-        if (p.getMoney() < moneyOnLevel() || level >= 3) {
+        if (p.getMoney() < getPrice() || level >= 3) {
             return false;
         }
         return true;

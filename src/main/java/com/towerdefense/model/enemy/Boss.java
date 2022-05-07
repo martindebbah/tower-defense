@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 import com.towerdefense.model.Game;
 
-public class Mo extends Enemy {
+public class Boss extends Enemy {
 
     private BufferedImage image1;
     private BufferedImage image2;
@@ -19,7 +19,7 @@ public class Mo extends Enemy {
     private BufferedImage image8;
     private int current_img = 1;
 
-    public Mo(Game game, int y) {
+    public Boss(Game game, int y) {
         super(game, 0, y, 10000, 10000);
         try {
             this.image1 = ImageIO.read(new File("src/main/resources/Images/boss/big_demon_idle_anim_f0.png"));
@@ -52,7 +52,7 @@ public class Mo extends Enemy {
 
     @Override
     public String toString() {
-        return "Boss de donjon"; // Peut-être nom à changer
+        return "Boss de donjon";
     }
 
     @Override

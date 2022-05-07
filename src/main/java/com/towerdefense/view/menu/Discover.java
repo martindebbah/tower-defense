@@ -1,7 +1,6 @@
 package com.towerdefense.view.menu;
 
 import java.awt.Color;
-import java.io.IOException;
 
 import javax.swing.*;
 

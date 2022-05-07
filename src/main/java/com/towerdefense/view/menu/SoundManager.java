@@ -4,7 +4,6 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.Runnable;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 /**
 * @see http://www.anyexample.com/programming/java/java_play_wav_sound_file.xml

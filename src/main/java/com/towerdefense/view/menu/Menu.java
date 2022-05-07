@@ -11,17 +11,13 @@ import java.awt.Graphics;
 
 import com.towerdefense.view.Window;
 
-//import javafx.scene.text.Font;
-
 public class Menu extends JPanel {
 
 	private JPanel buttons;
 	private ImageIcon background;
 
 	public Menu(Window window, String filename) {
-		//super();
 		this.background = new ImageIcon(filename);
-		//setSize(1000, 1000);
 
 		setLayout(new GridBagLayout());
 

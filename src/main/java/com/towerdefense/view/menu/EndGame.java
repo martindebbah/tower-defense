@@ -77,12 +77,7 @@ public class EndGame extends JPanel{
 		scorePanel.add(new HighScore(p, window));
 		window.refresh();
 	}
-
-	// GridLayout :
-
-	// Enregistrer score
-	// Score 
-	// Relancer
+	
     public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if(background != null)g.drawImage(background.getImage(), 0, 0, 1200, 1000, this);
