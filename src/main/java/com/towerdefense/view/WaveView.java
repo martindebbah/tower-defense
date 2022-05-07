@@ -84,7 +84,7 @@ public class WaveView extends JPanel {
         g.drawRect(230, 50, 500, 20); // affiche la barre de vie du joueur
         g.fillRect(230, 50, wave.getPlayer().getHP() * 500 / 1000, 20);
 
-        nextWave.setEnabled(wave.getNbEnemies() <= 0);
+        nextWave.setEnabled(wave.getNbEnemies() <= 0 && wave.getCurrentWave() < wave.getNbWaves());
         if(wave.getMute()){
             mute.setVisible(false);
             demute.setVisible(true);
