@@ -193,6 +193,7 @@ public class Board {
 
     public void removeTower(int x, int y) {
         cases[x][y].setTower(null);
+        refresh();
     }
 
     public List<Enemy> getKillEnemies(){
