@@ -85,12 +85,17 @@ public class SuperTower extends Tower {
 
 	@Override
 	public int getPrice() {
-		switch (level) {
-			case 1: return 1200;
-			case 2: return 1600;
-			default: return 1000;
-		}
-	} 
+		return 1000;
+	}
+
+	@Override
+    public int getUpgradePrice() {
+        switch (level) {
+            case 0: return 1200;
+            case 1: return 1600;
+            default: return 2000;
+        }
+    }
 
 	@Override
 	public int getRange() {
@@ -168,13 +173,13 @@ public class SuperTower extends Tower {
 		System.out.println(level);
     	switch(level){
         	case 1:
-            	initialDamage += 30;
+            	initialDamage += 35;
             	break;
          	case 2:
             	initialDamage += 60;
             	break;
         	case 3:
-            	initialDamage += 150;
+            	initialDamage += 100;
 				break;
         }
     }

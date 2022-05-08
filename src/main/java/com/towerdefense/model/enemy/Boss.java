@@ -37,7 +37,7 @@ public class Boss extends Enemy {
 
     @Override
     public int getGold() {
-        return 1500;
+        return 500;
     }
 
     @Override

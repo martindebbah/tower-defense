@@ -94,10 +94,15 @@ public class InfernalTower extends Tower {
 
     @Override
     public int getPrice() {
+        return 300;
+    }
+
+    @Override
+    public int getUpgradePrice() {
         switch (level) {
-            case 1: return 400;
-            case 2: return 500;
-            default: return 300;
+            case 0: return 500;
+            case 1: return 600;
+            default: return 700;
         }
     }
 
@@ -185,7 +190,7 @@ public class InfernalTower extends Tower {
     }
 
     @Override
-    public void focus(Board board) {
+    public void focus(Board board) { // Ne pas oublier le plus proche de la sortie !!
         if (target != null) {
             newTarget = false;
             if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()){ // Si l'unité sort de la range ou meurt
@@ -197,19 +202,15 @@ public class InfernalTower extends Tower {
         List<Enemy> enemies = board.getEnemies();
         for (Enemy e : enemies) {
             if (isInRange(e.getCoord(), board.getSize()) && canFocusAerial(e)) {
-                if (e instanceof TankEnemy || e instanceof Boss) {
-                    // Focus d'abord les tanks
+                if (target == null) {
                     target = e;
                     newTarget = true;
-                    return;
-                    // Dès qu'on en focus un on arrête la fonction
+                }else if (e instanceof TankEnemy || e instanceof Boss) {
+                    if (!(target instanceof TankEnemy) && !(target instanceof Boss)) {
+                        target = e;
+                    }else if (e.distToEnd() < target.distToEnd())
+                        target = e;
                 }
-                if (target == null) { // Si c'est pas un tank, garde la première cible qu'il a vérouillé
-                    target = e;
-                    newTarget = true;
-                }
-            }else {
-                target = null;
             }
         }
     }

@@ -85,10 +85,15 @@ public class AerialTower extends Tower {
 
     @Override
     public int getPrice() {
+        return 100;
+    }
+
+    @Override
+    public int getUpgradePrice() {
         switch (level) {
-            default: return 100;
-            case 1: return 150;
-            case 2: return 250;
+            case 0: return 200;
+            case 1: return 300;
+            default: return 500;
         }
     }
 
@@ -167,13 +172,13 @@ public class AerialTower extends Tower {
         this.level++;
         switch(this.level){
             case 1:
-                initialDamage += 20;
+                initialDamage += 15;
                 break;
             case 2:
-                initialDamage += 40;
+                initialDamage += 30;
                 break;
             case 3:
-                initialDamage += 80;
+                initialDamage += 60;
         }
     }
 

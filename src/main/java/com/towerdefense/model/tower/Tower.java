@@ -58,6 +58,10 @@ public class Tower {
         return 0;
     }
 
+    public int getUpgradePrice() {
+        return 0;
+    }
+
     public int getAttackSpeed() { // Dans chaque classe
         return 0; // La fonction retourne n tel que la tour attaque toutes les n * 50 millisecondes
     }
@@ -162,7 +166,7 @@ public class Tower {
     }
 
     public boolean canUpgrade(Player p) {
-        if (p.getMoney() < getPrice() || level >= 3) {
+        if (p.getMoney() < getUpgradePrice() || level >= 3) {
             return false;
         }
         return true;

@@ -37,7 +37,7 @@ public class TankEnemy extends Enemy {
 
     @Override
     public int getGold() {
-        return 250;
+        return 150;
     }
 
     @Override

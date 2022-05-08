@@ -422,7 +422,7 @@ public class Wave implements ActionListener {
                         createEnemy(0, 0);
                     }
                 }
-                System.out.println(game.getBoard());
+                //System.out.println(game.getBoard());
                 break;
             case 2:
                 if(level == Level.DIFFICULT || level == Level.INFINY){
