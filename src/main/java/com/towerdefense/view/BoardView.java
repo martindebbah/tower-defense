@@ -18,6 +18,7 @@ import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.enemy.Boss;
 import com.towerdefense.model.enemy.TankEnemy;
+import com.towerdefense.model.tower.InfernalTower;
 import com.towerdefense.model.tower.SuperTower;
 import com.towerdefense.model.tower.Tower;
 
@@ -153,7 +154,12 @@ public class BoardView extends JPanel implements MouseInputListener {
             for (Tile t : tab)
                 if (t.containsTower()){
                     for (Projectile p : t.getTower().getProjectiles()) {
-                        g.drawImage(p.getImage(), (int)p.getX(), (int)p.getY(), size/4, size/4,null);
+                        p.rotateProjectile();
+                        if(t.getTower() instanceof InfernalTower){
+                            g.drawImage(p.getImage(), (int)p.getX()-20, (int)p.getY()-20, size, size,null);
+                        } else{
+                            g.drawImage(p.getImage(), (int)p.getX(), (int)p.getY(), size/4, size/4,null);
+                        }
                     }
                     t.getTower().rotateTower();
                 }

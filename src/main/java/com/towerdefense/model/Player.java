@@ -14,7 +14,7 @@ public class Player {
 
     public Player(String name) {
         this.health = 1000;
-        this.money = 200;
+        this.money = 20000;
         this.name = name;
         this.score = 0;
     }
