@@ -12,7 +12,6 @@ import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.Tile;
-import com.towerdefense.model.Wave;
 import com.towerdefense.model.enemy.AerialEnemy;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;

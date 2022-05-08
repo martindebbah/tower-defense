@@ -312,7 +312,7 @@ public class Wave implements ActionListener {
             finChrono = true;
             game.getPlayer().setMoney(game.getPlayer().getMoney()+currentWave*10);
             if (scoreToAdd > 0)
-                game.getPlayer().increaseScore(scoreToAdd); // Le joueur gagne le nombre de secondes restantes en points
+                game.getPlayer().increaseScore(scoreToAdd * 5); // Le joueur gagne des points en fonction du temps restant
             return;
         }
     }
