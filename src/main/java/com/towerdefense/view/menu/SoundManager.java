@@ -28,10 +28,10 @@ public class SoundManager implements Runnable{
                 sound = "src/main/resources/sound/victory.wav"; // musique victoire
                 break;
             case 1:
-                sound = "src/main/resources/sound/defeat.wav"; // musique defaite
+                sound = "src/main/resources/sound/Game_Over_2.wav"; // musique defaite
                 break;
             case 2:
-                sound = "src/main/resources/sound/su.wav"; // musique intro
+                sound = "src/main/resources/sound/Track_#1.wav"; // musique intro
                 break;
             case 3:
                 sound = "src/main/resources/sound/goblin_true.wav"; // son basicEnemy
@@ -103,6 +103,7 @@ public class SoundManager implements Runnable{
                 } finally {
                     auline.drain();
                     auline.close();
+                    if(status == 1) this.stop();
                 }
          }
     }
