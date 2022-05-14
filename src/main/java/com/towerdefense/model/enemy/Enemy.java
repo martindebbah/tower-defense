@@ -212,7 +212,7 @@ public class Enemy {
 
         while (current != board.getBoard()[fx][fy]) { // tant que le noeud actuel n'est pas le noeud de sortie
 
-            neighbors = board.getNeighborsOf(current);
+            neighbors = board.getNeighborsOf(current, this);
 
             for (Tile t : neighbors){
                 validNode(t.getX() / board.getSize(), t.getY() / board.getSize(), fx, fy, board, closed, open, current);
@@ -235,8 +235,7 @@ public class Enemy {
     public Tile getFirstTile(Board board) { // Donne la première case que l'ennemi doit visiter
         if (path != null && !path.isEmpty())
             return path.peek();
-        else
-            return board.getBoard()[0][board.getNbCases() / 2];
+        return board.getBoard()[x / board.getSize()][y / board.getSize()];
     }
 
     public Stack<Tile> goodPath(Tile tile, Stack<Tile> path) {
