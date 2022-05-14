@@ -47,7 +47,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         }catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } 
 
     public Board getBoard() {
         return board;
@@ -71,15 +71,9 @@ public class BoardView extends JPanel implements MouseInputListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.paintComponentInit(g);// ok mais ça freeze demander à Martin
+        this.paintComponentInit(g);
 
-        /*
-         * Combien de cases dans le tableau ? pour le moment 20x20 (choix dans création
-         * de Board)
-         * Est-ce qu'on dessine les cases quand le tableau est vide ?
-         */
-
-        for (int x = 0; x < board.getNbCases(); x++) {
+          for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
                 if(board.getGame().getLevel() == com.towerdefense.level.Level.DIFFICULT){
                     if (x == 5 && y == 0) {

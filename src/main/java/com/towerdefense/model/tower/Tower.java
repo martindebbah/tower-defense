@@ -107,7 +107,7 @@ public class Tower {
     }
 
     public boolean canFocusAerial(Enemy e) {
-        return !e.isAerial(); // true sie e n'est pas un ennemi aérien
+        return !e.isAerial(); 
     } // est overriden dans AerialTower
 
     public void focus(Board board) {

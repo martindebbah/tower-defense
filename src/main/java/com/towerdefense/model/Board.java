@@ -114,7 +114,8 @@ public class Board {
         setPath();
     }
 
-    public List<Tile> getNeighborsOf(Tile current) { // Renvoie les tuiles voisines accessibles de current
+    public List<Tile> getNeighborsOf(Tile current) { 
+    	// Renvoie les tuiles voisines accessibles de current
         List<Tile> neighbors = new ArrayList<Tile>();
 
         int x = current.getX() / size;

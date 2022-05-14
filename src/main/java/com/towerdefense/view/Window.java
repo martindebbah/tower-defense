@@ -26,9 +26,6 @@ public class Window extends JFrame {
         setResizable(false);
         setAccueil();
 
-        // test
-        // play();
-
     }
 
     public void setAccueil() {

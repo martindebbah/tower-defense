@@ -174,7 +174,8 @@ public class Enemy {
 
         double tempKnown = current.getKnownDistance() + dist(next.getX(), next.getY(), current.getX(), current.getY());
         
-        if(open.contains(next)) { // si le noeud est déjà dans la liste ouverte on vérifie sa qualité et on la met à jour si elle est meilleure
+        if(open.contains(next)) { 
+        	// si le noeud est déjà dans la liste ouverte on vérifie sa qualité et on la met à jour si elle est meilleure
             if (tempKnown < next.getKnownDistance()) {
                 next.setKnownDistance(tempKnown);
                 next.setParent(current);
