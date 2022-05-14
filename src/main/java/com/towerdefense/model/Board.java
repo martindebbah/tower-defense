@@ -117,6 +117,7 @@ public class Board {
     }
 
     public List<Tile> getNeighborsOf(Tile current, Enemy e) { // Renvoie les tuiles voisines accessibles de current
+
         List<Tile> neighbors = new ArrayList<Tile>();
 
         int x = current.getX() / size;

@@ -715,8 +715,14 @@ public class Wave implements ActionListener {
     public void waveTest(int countdownStarter){
         switch(currentWave){
             case 1 :
-                if (countdownStarter % 2 == 0) {
+                if (countdownStarter % 5 == 0) {
                     createEnemy(0, 0);
+                }
+                if (countdownStarter % 6 == 0) {
+                    createEnemy(1, 0);
+                }
+                if (countdownStarter % 8 == 0) {
+                    createEnemy(2, 0);
                 }
                 break;
         }

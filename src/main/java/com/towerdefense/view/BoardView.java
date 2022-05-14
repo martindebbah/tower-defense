@@ -51,7 +51,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } 
 
     public Board getBoard() {
         return board;
@@ -77,7 +77,7 @@ public class BoardView extends JPanel implements MouseInputListener {
         super.paintComponent(g);
         this.paintComponentInit(g);
 
-        for (int x = 0; x < board.getNbCases(); x++) {
+          for (int x = 0; x < board.getNbCases(); x++) {
             for (int y = 0; y < board.getNbCases(); y++) {
                 if (board.getGame().getLevel() == com.towerdefense.level.Level.DIFFICULT) {
                     if (x == 5 && y == 0) {
