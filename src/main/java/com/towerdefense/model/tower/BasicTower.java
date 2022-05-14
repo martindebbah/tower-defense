@@ -90,6 +90,11 @@ public class BasicTower extends Tower {
     public int getPrice() {
         return 50;
     }
+    
+    @Override
+    public int getRange() {
+        return 5;
+    }
 
     @Override
     public int getUpgradePrice() {
@@ -98,11 +103,6 @@ public class BasicTower extends Tower {
             case 1: return 200;
             default: return 300;
         }
-    }
-
-    @Override
-    public int getRange() {
-        return 5;
     }
 
     @Override
