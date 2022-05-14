@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.towerdefense.level.Level;
+import com.towerdefense.model.enemy.AerialEnemy;
 import com.towerdefense.model.enemy.BasicEnemy;
 import com.towerdefense.model.enemy.Enemy;
 import com.towerdefense.model.tower.BasicTower;
@@ -115,26 +116,26 @@ public class Board {
         setPath();
     }
 
-    public List<Tile> getNeighborsOf(Tile current) { // Renvoie les tuiles voisines accessibles de current
+    public List<Tile> getNeighborsOf(Tile current, Enemy e) { // Renvoie les tuiles voisines accessibles de current
         List<Tile> neighbors = new ArrayList<Tile>();
 
         int x = current.getX() / size;
         int y = current.getY() / size;
 
-        add(current, x - 1, y - 1, neighbors);
-        add(current, x, y - 1, neighbors);
-        add(current, x + 1, y - 1, neighbors);
-        add(current, x - 1, y, neighbors);
-        add(current, x + 1, y, neighbors);
-        add(current, x - 1, y + 1, neighbors);
-        add(current, x, y + 1, neighbors);
-        add(current, x + 1, y + 1, neighbors);
+        add(current, x - 1, y - 1, neighbors, e);
+        add(current, x, y - 1, neighbors, e);
+        add(current, x + 1, y - 1, neighbors, e);
+        add(current, x - 1, y, neighbors, e);
+        add(current, x + 1, y, neighbors, e);
+        add(current, x - 1, y + 1, neighbors, e);
+        add(current, x, y + 1, neighbors, e);
+        add(current, x + 1, y + 1, neighbors, e);
 
         return neighbors;
     }
 
-    public void add(Tile current, int x, int y, List<Tile> list) {
-        if (outOfBoard(x, y) || wall(current, x, y) || cases[x][y].containsTower())
+    public void add(Tile current, int x, int y, List<Tile> list, Enemy e) {
+        if (outOfBoard(x, y) || wall(current, x, y) || (cases[x][y].containsTower() && !(e instanceof AerialEnemy)))
             return;
         list.add(cases[x][y]);
     }
