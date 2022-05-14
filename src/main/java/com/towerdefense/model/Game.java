@@ -48,19 +48,19 @@ public class Game {
                 if (!e.isAlive()){
                     board.addKillEnemy(e);
                     player.setMoney(player.getMoney()+e.getGold());
+                    player.increaseScore(e.getScore());
                 }
             }
-            //System.out.println(e.getHealth()+"/"+e.getMaxHealth());
             e.move();
         }
     }
 
-    public void projectileAction() { // * = bug concurrentModificationException
+    public void projectileAction() {
         for (Tile[] tab : board.getBoard()) // Tous les projectiles se déplacent
             for (Tile t : tab)
                 if (t.containsTower()) {
                     Tower tower = t.getTower();
-                    for (Projectile p : tower.getProjectiles()) { //*
+                    for (Projectile p : tower.getProjectiles()) {
                         p.move();
                         if (p.hit())
                             tower.addKillProjectile(p);

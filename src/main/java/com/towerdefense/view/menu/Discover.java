@@ -1,14 +1,8 @@
 package com.towerdefense.view.menu;
 
 import java.awt.Color;
-import java.io.IOException;
 
 import javax.swing.*;
-
-
-
-
-
 
 public class Discover extends JFrame {
 	private ImageIcon img ;
@@ -17,7 +11,7 @@ public class Discover extends JFrame {
 	
 	public Discover() {
 	
-		img= new ImageIcon("src/main/resources/images/DiscoverFinal/disco1.png");
+		img= new ImageIcon("src/main/resources/Images/DiscoverFinal/disco1.png");
 		labelDisc=new JLabel(img);
 		labelDisc.setSize(1464,780);
 
@@ -27,7 +21,7 @@ public class Discover extends JFrame {
 		labelDisc.add(next);
 		next.addActionListener(e -> {
 			this.dispose();
-			new Step2( "src/main/resources/images/DiscoverFinal/disco2.png" );
+			new Step2( "src/main/resources/Images/DiscoverFinal/disco2.png" );
 		});
 		setTitle("You need help to discover the game?Here we go!");
 		setSize(1464,780);
@@ -49,7 +43,7 @@ public class Discover extends JFrame {
 		public Step2(String s ) {
 			img= new ImageIcon(s);
 			labelDisc=new JLabel(img);
-			labelDisc.setSize(1464,780);
+			labelDisc.setSize(1500,1000);
 
 			   
 			    next= new JButton("Next");
@@ -58,12 +52,12 @@ public class Discover extends JFrame {
 				labelDisc.add(next);
 				next.addActionListener(e -> {
 					this.dispose();
-						new Step3( "src/main/resources/images/DiscoverFinal/disco3.png" );
+						new Step3( "src/main/resources/Images/DiscoverFinal/disco3.png" );
 				});
 				
 				
 			   setTitle("You need help to discover the game?Here we go!");
-			   setSize(img.getIconWidth(),img.getIconHeight());
+			   setSize(1500,1000);
 			   add(labelDisc);
 			   setLayout(null);
 			   setLocationRelativeTo(null);
@@ -80,7 +74,7 @@ public class Discover extends JFrame {
 		public Step3(String s ) {
 			img= new ImageIcon(s);
 			labelDisc=new JLabel(img);
-			   labelDisc.setSize(1464,986);
+			   labelDisc.setSize(1500,1000);
 			   
 			   next= new JButton("Next");
 			    next.setBackground(Color.RED); 
@@ -88,10 +82,10 @@ public class Discover extends JFrame {
 				labelDisc.add(next);
 				next.addActionListener(e ->{
 						this.dispose();
-						 new Step4( "src/main/resources/images/DiscoverFinal/disco4.png" );
+						 new Step4( "src/main/resources/Images/DiscoverFinal/disco4.png" );
 					      
 				});
-			   setSize(1464,986);
+			   setSize(1500,1000);
 			   add(labelDisc);
 			   setLayout(null);
 			   setLocationRelativeTo(null);
@@ -111,7 +105,7 @@ public class Discover extends JFrame {
 		public Step4(String s ) {
 				   img= new ImageIcon(s);
 				   labelDisc=new JLabel(img);
-				   labelDisc.setSize(1464,802);
+				   labelDisc.setSize(1500,1000);
 				   
 				    next= new JButton("Next");
 				    next.setBackground(Color.RED); 
@@ -119,7 +113,7 @@ public class Discover extends JFrame {
 					labelDisc.add(next);
 					next.addActionListener(e-> {
 					 		 this.dispose();
-							 new Step5( "src/main/resources/images/DiscoverFinal/disco5.png" );
+							 new Step5( "src/main/resources/Images/DiscoverFinal/disco5.png" );
 						   	   
 					} );
 				   setSize(1500,1000);
@@ -142,7 +136,7 @@ public class Discover extends JFrame {
 		public Step5(String s ) {
 				   img= new ImageIcon(s);
 				   labelDisc=new JLabel(img);
-				   labelDisc.setSize(1464,986);
+				   labelDisc.setSize(1500,1000);
 				   
 				    next= new JButton("Next");
 				    next.setBackground(Color.BLUE); 
@@ -150,10 +144,10 @@ public class Discover extends JFrame {
 					labelDisc.add(next);
 					next.addActionListener(e-> {
 					 		 this.dispose();
-							 new Step6( "src/main/resources/images/DiscoverFinal/disco6.png" );
+							 new Step6( "src/main/resources/Images/DiscoverFinal/disco6.png" );
 						   	   
 					} );
-				   setSize(1464,1000);
+				   setSize(1500,1000);
 				   add(labelDisc);
 				   setLayout(null);
 				   setLocationRelativeTo(null);
@@ -172,7 +166,7 @@ public class Discover extends JFrame {
 		public Step6(String s ) {
 				   img= new ImageIcon(s);
 				   labelDisc=new JLabel(img);
-				   labelDisc.setSize(1464,802);
+				   labelDisc.setSize(1500,1000);
 				   
 				    next= new JButton("Next");
 				    next.setBackground(Color.BLUE); 
@@ -180,7 +174,7 @@ public class Discover extends JFrame {
 					labelDisc.add(next);
 					next.addActionListener(e-> {
 					 		 this.dispose();
-							 new Step7( "src/main/resources/images/DiscoverFinal/disco7.png" );
+							 new Step7( "src/main/resources/Images/DiscoverFinal/disco7.png" );
 						   	   
 					} );
 				   setSize(1500,1000);
@@ -202,7 +196,7 @@ public class Discover extends JFrame {
 		public Step7(String s ) {
 				   img= new ImageIcon(s);
 				   labelDisc=new JLabel(img);
-				   labelDisc.setSize(1464,802);
+				   labelDisc.setSize(1500,1000);
 				   
 				    next= new JButton("Next");
 				    next.setBackground(Color.BLUE); 
@@ -210,7 +204,7 @@ public class Discover extends JFrame {
 					labelDisc.add(next);
 					next.addActionListener(e-> {
 					 		 this.dispose();
-							 new Step8( "src/main/resources/images/DiscoverFinal/disco8.png" );
+							 new Step8( "src/main/resources/Images/DiscoverFinal/disco8.png" );
 						   	   
 					} );
 				   setSize(1500,1000);
@@ -231,7 +225,7 @@ public class Discover extends JFrame {
 		public Step8(String s ) {
 				   img= new ImageIcon(s);
 				   labelDisc=new JLabel(img);
-				   labelDisc.setSize(1464,802);
+				   labelDisc.setSize(1500,1000);
 				   
 				    next= new JButton("Next");
 				    next.setBackground(Color.BLUE); 
@@ -239,7 +233,7 @@ public class Discover extends JFrame {
 					labelDisc.add(next);
 					next.addActionListener(e-> {
 					 		 this.dispose();
-							 new Step9( "src/main/resources/images/DiscoverFinal/disco9.png" );
+							 new Step9( "src/main/resources/Images/DiscoverFinal/disco9.png" );
 						   	   
 					} );
 				   setSize(1500,1000);
@@ -260,7 +254,7 @@ public class Discover extends JFrame {
 		public Step9(String s ) {
 				   img= new ImageIcon(s);
 				   labelDisc=new JLabel(img);
-				   labelDisc.setSize(1464,802);
+				   labelDisc.setSize(1500,1000);
 				   
 				    next= new JButton("Next");
 				    next.setBackground(Color.BLUE); 
@@ -268,7 +262,7 @@ public class Discover extends JFrame {
 					labelDisc.add(next);
 					next.addActionListener(e-> {
 					 		 this.dispose();
-							 new Step10( "src/main/resources/images/DiscoverFinal/disco10.png" );
+							 new Step10( "src/main/resources/Images/DiscoverFinal/disco10.png" );
 						   	   
 					} );
 				   setSize(1500,1000);
@@ -289,7 +283,7 @@ public class Discover extends JFrame {
 		public Step10(String s ) {
 				   img= new ImageIcon(s);
 				   labelDisc=new JLabel(img);
-				   labelDisc.setSize(1464,802);
+				   labelDisc.setSize(1500,1000);
 				   
 				    next= new JButton("Next");
 				    next.setBackground(Color.BLUE); 

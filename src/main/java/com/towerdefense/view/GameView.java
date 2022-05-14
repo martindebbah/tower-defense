@@ -12,6 +12,7 @@ import com.towerdefense.level.Level;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Wave;
+import com.towerdefense.model.enemy.Enemy;
 
 public class GameView extends JPanel implements ActionListener {
 
@@ -33,7 +34,8 @@ public class GameView extends JPanel implements ActionListener {
 
         // Création du plateau de jeu
         this.player = new Player();
-        this.game = new Game(32, 20, player, level);
+        player.setMode(level);
+        this.game = new Game(40, 20, player, level);
         createShop();
         createBoard();
         this.shop.setBoard(board.getBoard());
@@ -51,7 +53,7 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     private void createShop() {
-        shop = new Shop(player);
+        shop = new Shop(player, window, this);
         add(shop, BorderLayout.EAST);
     }
 
@@ -64,7 +66,7 @@ public class GameView extends JPanel implements ActionListener {
             case 5: timer5.start();
                 break;
         }
-        board.start();
+        board.start(wave.getMute());
         window.refresh();
     }
 
@@ -99,7 +101,7 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) { // soucis avec fin de game
+    public void actionPerformed(ActionEvent e) {
         wave.actionPerformed(e);
         if (player.isAlive()){ // condition d'arrêter wave supérieure au max de wave + aucun enemy sur le board
             if(wave.getCurrentWave() < wave.getNbWaves()){
@@ -124,8 +126,40 @@ public class GameView extends JPanel implements ActionListener {
     }
 
     public void endGame(int status) {
-        pause();
+        killBoard();
         window.endGame(status, game.getPlayer());
+    }
+
+    public void killBoard(){
+        pause();
+        for(Enemy e : board.getBoard().getEnemies()){
+            board.getBoard().addKillEnemy(e);
+        }
+        board.getBoard().kill();
+        for(int i = 0; i < board.getBoard().getBoard().length; i++){
+            for(int j = 0; j < board.getBoard().getBoard().length; j++){
+                if(board.getBoard().getBoard()[i][j].containsTower()){
+                    board.getBoard().removeTower(i, j);
+                }
+            }
+        }
+        window.refresh();
+    }
+
+    public void muteEnemies(){
+        for(Enemy e : board.getBoard().getEnemies()){
+            e.stop();
+        }
+    }
+
+    public void demuteEnemies(){
+        for(Enemy e : board.getBoard().getEnemies()){
+            e.sound();
+        }
+    }
+
+    public BoardView getBoardView(){
+        return board;
     }
 
 }

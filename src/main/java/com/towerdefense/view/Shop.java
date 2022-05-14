@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,16 +32,24 @@ public class Shop extends JPanel {
     private boolean wantPurchase;
     protected Player player;
     protected Board board;
+    private Window window;
 
-    public Shop(Player player) {
+    public Shop(Player player, Window window, GameView g) {
         setPreferredSize(new Dimension(300, 700));
         setLayout(new BorderLayout());
 
         this.player = player;
+        this.window = window;
+        JButton back = new JButton("Quitter");
+        back.addActionListener(e -> {
+			g.killBoard();
+            this.window.setMenu();
+		});
         towerPanel = new TowerPanel();
         add(towerPanel, BorderLayout.NORTH);
         description = new Description(player);
-        add(description, BorderLayout.SOUTH);
+        add(description, BorderLayout.CENTER);
+        add(back, BorderLayout.SOUTH);
     }
 
     public TowerPanel getTowerPanel(){
@@ -79,10 +89,6 @@ public class Shop extends JPanel {
 
     public Tower addNewTower() {
         return towerPanel.getSelected().newTower();
-    }
-
-    public Color getPreviewColor() {
-        return towerPanel.getSelected().getTower().getPreviewColor();
     }
 
     public class TowerPanel extends JPanel {
@@ -140,8 +146,8 @@ public class Shop extends JPanel {
         private Tower selected;
 
         public Description(Player player) {
-            setPreferredSize(new Dimension(500, 500));
-            setLayout(new FlowLayout(FlowLayout.CENTER, 0, 200));
+            setPreferredSize(new Dimension(900, 900));
+            setLayout(new FlowLayout(FlowLayout.CENTER, 300, 0));
 
             this.name = new JLabel();
             this.damage = new JLabel();
@@ -153,7 +159,7 @@ public class Shop extends JPanel {
             this.cancel = new JButton("Annuler");
             upgrade.setVisible(false);
             upgrade.addActionListener(e -> {
-                player.setMoney(player.getMoney()-selected.moneyOnLevel());
+                player.setMoney(player.getMoney() - selected.getUpgradePrice());
                 selected.upgrade();
                 refresh(selected);
             });
@@ -175,16 +181,23 @@ public class Shop extends JPanel {
             labels.add(range);
             labels.add(attackSpeed);
             labels.add(price);
-            labels.add(upgrade);
-            labels.add(sellTower);
-            labels.add(cancel);
+
+            // Boutons
+            JPanel buttons = new JPanel();
+            buttons.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
+            buttons.add(upgrade, gbc);
+            buttons.add(sellTower, gbc);
+            buttons.add(cancel, gbc);
 
             JPanel border = new JPanel();
-            border.setPreferredSize(new Dimension(150, 150));
+            border.setPreferredSize(new Dimension(160, 90));
             border.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             border.add(labels);
 
             add(border);
+            add(buttons);
 
             refresh(null);
         }
@@ -194,16 +207,46 @@ public class Shop extends JPanel {
             
             if (t == null) {
                 labels.setVisible(false);
+                upgrade.setVisible(false);;
+                sellTower.setVisible(false);;
+                cancel.setVisible(false);;
             }else {
+                cancel.setVisible(true);
                 name.setText(t.toString());
-                damage.setText("Dégâts : " + t.getDamage());
+                if(t.getDamage() == 0 && t instanceof BasicTower || t instanceof AerialTower){
+                    damage.setText("Dégâts : 20");
+                } else if(t.getDamage() == 0 && t instanceof RapidTower){
+                    damage.setText("Dégâts : 10");
+                } else if(t.getDamage() == 0 && t instanceof InfernalTower){
+                    damage.setText("Dégâts : 5->2000");
+                } else if(t.getDamage() == 0 && t instanceof SuperTower){
+                    damage.setText("Dégâts : 50");
+                } else if(t.getDamage() == 0 && t instanceof DestructiveTower){
+                    damage.setText("Dégâts : 150");
+                } else {
+                    damage.setText("Dégâts : " + t.getDamage());
+                }
+                if(t.getDamage() != 0){
+                    damage.setText("Dégâts : " + t.getDamage());
+                }
                 attackSpeed.setText("Vitesse d'attaque : " + t.getAttackSpeed());
                 range.setText("Portée : " + t.getRange() + " cases");
-                price.setText("Prix : " + t.getPrice());
-                upgrade.setVisible(true);
-                upgrade.setText("Améliorer "+selected.moneyOnLevel());
-                upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player)); // changer la premiere condition
-                sellTower.setVisible(true);
+                if(t.getDamage() != 0){
+                    price.setText("Amélioration : " + t.getUpgradePrice() + "$");
+                    sellTower.setVisible(true);
+                    upgrade.setVisible(true);
+                } else {
+                    price.setText("Prix : " + t.getPrice() + "$");
+                    sellTower.setVisible(false);
+                    upgrade.setVisible(false);
+                }
+                if(selected.getLevel() >= 3){
+                    upgrade.setText("MAX");
+                } else {
+                    upgrade.setText("Améliorer : " + selected.getUpgradePrice() + "$");
+                }
+                upgrade.setEnabled(selected.getDamage() != 0 && selected.canUpgrade(player));
+                sellTower.setText("Vendre : +" + selected.getPrice() / 2 + "$");
                 sellTower.setEnabled(selected.getDamage() != 0);
 
                 labels.setVisible(true);

@@ -3,23 +3,18 @@ package com.towerdefense.model.tower;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Player;
 import com.towerdefense.model.Projectile;
 import com.towerdefense.model.enemy.Enemy;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Tower {
 
     protected Enemy target;
-    private int[] coord;
+    protected int[] coord;
     protected boolean newTarget;
     private List<Projectile> projectiles;
     private List<Projectile> killProjectiles;
@@ -63,9 +58,12 @@ public class Tower {
         return 0;
     }
 
+    public int getUpgradePrice() {
+        return 0;
+    }
+
     public int getAttackSpeed() { // Dans chaque classe
-        return 0; // La fonction retourne n tel que la tour attaque toutes les n * 50
-                  // millisecondes
+        return 0; // La fonction retourne n tel que la tour attaque toutes les n * 50 millisecondes
     }
 
     public boolean isNewTarget() {
@@ -74,6 +72,10 @@ public class Tower {
 
     public Tower getSource() {
         return this;
+    }
+
+    public Enemy getTarget(){
+        return target;
     }
 
     public int getDamage() { // Dans chaque classe
@@ -85,9 +87,9 @@ public class Tower {
             return;
 
         if (coolDown == 0) {
-            addProjectile(new Projectile(getSource(), target));
+            addProjectile(new Projectile(getSource(), target, getColor()));
         }
-        if (coolDown <= getAttackSpeed()) { // tire toutes les 20 * 50 millisecondes
+        if (coolDown <= getAttackSpeed()) { // tire toutes les n * 50 millisecondes
             coolDown++;
         } else {
             coolDown = 0;
@@ -102,19 +104,22 @@ public class Tower {
         return projectiles;
     }
 
+    public List<Projectile> getKillProjectiles() {
+        return killProjectiles;
+    }
+
     public boolean canAttack() {
         return target != null;
     }
 
     public boolean canFocusAerial(Enemy e) {
-        return !e.isAerial(); 
+        return !e.isAerial(); // true si e n'est pas un ennemi aérien
     } // est overriden dans AerialTower
 
     public void focus(Board board) {
         if (target != null) {
             newTarget = false;
-            if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou
-                                                                                     // meurt
+            if (!isInRange(target.getCoord(), board.getSize()) || !target.isAlive()) // Si l'unité sort de la range ou meurt
                 target = null;
 
             return; // On ne change pas de cible
@@ -122,11 +127,14 @@ public class Tower {
         List<Enemy> enemies = board.getEnemies();
         for (Enemy e : enemies) {
             if (isInRange(e.getCoord(), board.getSize()) && canFocusAerial(e)) {
-                target = e;
-                newTarget = true;
-                return;
-            } else {
-                target = null;
+                if (target == null) {
+                    target = e;
+                    newTarget = true;
+                }else { // On prend l'ennemi le plus proche de la sortie
+                    if (e.distToEnd() < target.distToEnd()) {
+                        target = e;
+                    }
+                }
             }
         }
     }
@@ -142,24 +150,15 @@ public class Tower {
 
     public void killProjectiles() {
         projectiles.removeAll(killProjectiles);
-        killProjectiles.clear();
+        //killProjectiles.clear();
     }
 
-    public Color getColor() { // Première méthode pour afficher une tour
-        return null;
-    }
-
-    public Color getPreviewColor() {
-        return null;
+    public Color getColor() { // Pour la couleur des projectiles, bleus par défaut
+        return Color.BLUE;
     }
 
     public BufferedImage getImage() { // Dans chaque classe
         return null;
-    }
-    //g.drawImage(image, x, y, 35, 35, null);
-
-    public int moneyOnLevel() {
-        return (level + 1) * 100;
     }
 
     public int getLevel() {
@@ -167,13 +166,17 @@ public class Tower {
     }
 
     public boolean canUpgrade(Player p) {
-        if (p.getMoney() < moneyOnLevel() || level >= 3) {
+        if (p.getMoney() < getUpgradePrice() || level >= 3) {
             return false;
         }
         return true;
     }
 
     public void upgrade() {
+        return;
+    }
+
+    public void rotateTower(){
         return;
     }
 

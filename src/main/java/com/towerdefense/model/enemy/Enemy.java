@@ -4,28 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 import com.towerdefense.model.Board;
 import com.towerdefense.model.Game;
 import com.towerdefense.model.Tile;
+import com.towerdefense.view.menu.SoundManager;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Enemy {
 
-    private Game game;
+    protected Game game;
     protected int health;
     protected int maxHealth;
     private int x;
     private int y;
-    private Stack<Tile> path;
+    protected Stack<Tile> path;
     private int direction;
+    private SoundManager s = new SoundManager();
 
     public Enemy(Game game, int x, int y, int maxHealth, int health) { // x et y donnent l'endroit où apparaît l'unité
         this.maxHealth = maxHealth;
@@ -81,6 +76,10 @@ public class Enemy {
     }
 
     public int getGold() {// Fonction définie dans chaque classe qui hérite de Enemy
+        return 0;
+    }
+
+    public int getScore() {
         return 0;
     }
 
@@ -161,8 +160,14 @@ public class Enemy {
         move(-1, 0);
     }
 
-    public double dist(int x1, int y1, int x2, int y2) { // renvoie la distance entre l'ennemi et le point d'arrivée
+    public double dist(int x1, int y1, int x2, int y2) { // renvoie la distance entre deux cases
         return (double) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    public double distToEnd() { // Renvoie la distance entre l'ennemi et le point d'arrivée
+        if (path == null)
+            return 0;
+        return path.size();
     }
 
     public void validNode(int x, int y, int fx, int fy, Board board, ArrayList<Tile> closed, ArrayList<Tile> open,
@@ -210,8 +215,9 @@ public class Enemy {
 
             neighbors = board.getNeighborsOf(current);
 
-            for (Tile t : neighbors)
+            for (Tile t : neighbors){
                 validNode(t.getX() / board.getSize(), t.getY() / board.getSize(), fx, fy, board, closed, open, current);
+            }
 
             Tile best = open.get(0);
             for (int i = 1; i < open.size(); i++) // check le noeud qui possède la meilleure qualité
@@ -227,32 +233,11 @@ public class Enemy {
         return current;
     }
 
-    public Tile getFirstTile(Board board) {
-        /*
-         * Donne la première case que l'ennemi doit visiter
-         * en fonction de la direction dans laquelle il se dirige
-         */
-        switch (direction) {
-            case 1:
-                return board.getBoard()[x / board.getSize()][y / board.getSize()];
-            case 2:
-                return board.getBoard()[x / board.getSize() + 1][y / board.getSize()];
-            case 3:
-                return board.getBoard()[x / board.getSize()][y / board.getSize()];
-            case 4:
-                return board.getBoard()[x / board.getSize()][y / board.getSize() + 1];
-            case 5:
-                return board.getBoard()[x / board.getSize() + 1][y / board.getSize() + 1];
-            case 6:
-                return board.getBoard()[x / board.getSize()][y / board.getSize() + 1];
-            case 7:
-                if (x >= (board.getNbCases() - 1) * board.getSize()) // S'il a atteint la sortie pour éviter ArrayIndexOutOfBoundsException
-                    return board.getBoard()[board.getNbCases() - 1][board.getNbCases() / 2];
-                return board.getBoard()[x / board.getSize() + 1][y / board.getSize()];
-            case 8:
-                return board.getBoard()[x / board.getSize()][y / board.getSize()];
-        }
-        return board.getBoard()[x / board.getSize()][y / board.getSize()];
+    public Tile getFirstTile(Board board) { // Donne la première case que l'ennemi doit visiter
+        if (path != null && !path.isEmpty())
+            return path.peek();
+        else
+            return board.getBoard()[0][board.getNbCases() / 2];
     }
 
     public Stack<Tile> goodPath(Tile tile, Stack<Tile> path) {
@@ -321,6 +306,14 @@ public class Enemy {
 
     public BufferedImage getImage() { // Dans chaque classe
         return null;
+    }
+
+    public void stop() {
+        s.stop();
+    }
+
+    public void sound(){
+        s.play(3);
     }
 
 }

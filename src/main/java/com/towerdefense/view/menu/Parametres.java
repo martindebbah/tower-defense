@@ -1,7 +1,11 @@
 package com.towerdefense.view.menu;
 
 import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -12,11 +16,17 @@ public class Parametres extends JPanel { //implements Music, Sound {
 	
 	private JPanel panel;
 	private boolean soundCut = false;
-	private boolean musicCut = false;
+	private boolean musicCut;
+	private JButton cutMusic;
+	private JButton cutSound;
+
+	private ImageIcon background;
 	
-	public Parametres(Window window) {	
+	public Parametres(Window window, SoundManager s, String filename) {	
 		setSize(1000, 1000);
-		setLayout(new GridLayout(0, 1));
+		setLayout(new GridBagLayout());
+
+		this.background = new ImageIcon(filename);
 
 		JSlider sound = new JSlider(JSlider.HORIZONTAL, 0, 100, 50); // Valeur de base à définir
 		sound.setMinorTickSpacing(10);
@@ -26,18 +36,30 @@ public class Parametres extends JPanel { //implements Music, Sound {
 		music.setMinorTickSpacing(10);
 		music.setPaintTicks(true);
 		
-		JButton cutSound = new JButton("Couper le son");
+		this.cutSound = new JButton();
 		cutSound.addActionListener(e -> {
 			soundCut = !soundCut;
+			setButtonsText();
 		});
 
-		JButton cutMusic = new JButton("Couper la musique");
+		this.musicCut = !s.isRunning();
+		this.cutMusic = new JButton();
 		cutMusic.addActionListener(e -> {
+			//s.stop();
+			if (!musicCut) { // Le bouton coupe la musique
+				s.stop();
+			}else { // Le bouton remet la musique
+				s.play(2);
+			}
 			musicCut = !musicCut;
+			setButtonsText();
 		});
+
+		setButtonsText();
 
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(0, 1));
+		panel.setOpaque(false);
 		panel.add(cutSound);
 		panel.add(sound);
 		panel.add(cutMusic);
@@ -46,22 +68,30 @@ public class Parametres extends JPanel { //implements Music, Sound {
 		JButton back = new JButton("Retour");
 		back.addActionListener(e -> {
 			window.setMenu();
-		});
+		});;
+		panel.add(back);
 
-		JButton save = new JButton("Enregistrer");
-		save.addActionListener(e -> {
-			// save();
-			// On récupère les données des JSlider
-			// et des boolean
-		});
+		add(panel, new GridBagConstraints());
+	}
 
-		JPanel buttons = new JPanel();
-		buttons.add(back);
-		buttons.add(save);
+	public void setButtonsText() {
+		if (musicCut) {
+			cutMusic.setText("Activer la musique");
+		}else {
+			cutMusic.setText("Désactiver la musique");
+		}
+		if (soundCut) {
+			cutSound.setText("Activer le son");
+		}else {
+			cutSound.setText("Désactiver le son");
+		}
+	}
 
-		add(panel);
-		add(buttons);
-	}	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(background.getImage(), 0, 0, 1200, 1000, this);
+	}
 
 }
 

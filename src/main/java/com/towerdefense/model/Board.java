@@ -34,7 +34,7 @@ public class Board {
         cases = new Tile[n][m];
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
-                cases[i][j] = new Tile(i, j);
+                cases[i][j] = new Tile(i, j,size);
             }
         }
     }
@@ -88,6 +88,7 @@ public class Board {
     }
 
     public void addKillEnemy(Enemy enemy) {
+        enemy.stop();
         killEnemies.add(enemy);
     }
 
@@ -193,6 +194,11 @@ public class Board {
 
     public void removeTower(int x, int y) {
         cases[x][y].setTower(null);
+        refresh();
+    }
+
+    public List<Enemy> getKillEnemies(){
+        return killEnemies;
     }
 
 }
