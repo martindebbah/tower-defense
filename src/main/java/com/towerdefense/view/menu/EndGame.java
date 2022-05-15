@@ -23,6 +23,7 @@ public class EndGame extends JPanel{
     
     public EndGame(Window w, int status, Player p){
 		super();
+		this.background = new ImageIcon("src/main/resources/Images/towerDefense_tile5000.png");
 		if(status == 0){
 			sound.play(0);
 		} else {
@@ -50,11 +51,9 @@ public class EndGame extends JPanel{
         JLabel label = new JLabel();
 
         if(status == 0){
-			this.background = null;
             label = new JLabel("Vous avez gagné !");
         }
         if(status == 1){
-			this.background = new ImageIcon("src/main/resources/Images/defeat.png");
             label = new JLabel("Vous avez perdu :(");
         }
 
