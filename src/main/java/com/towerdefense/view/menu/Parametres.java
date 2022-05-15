@@ -8,17 +8,14 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 
 import com.towerdefense.view.Window;
 
 public class Parametres extends JPanel { //implements Music, Sound {
 	
 	private JPanel panel;
-	private boolean soundCut = false;
 	private boolean musicCut;
 	private JButton cutMusic;
-	private JButton cutSound;
 
 	private ImageIcon background;
 	
@@ -27,20 +24,6 @@ public class Parametres extends JPanel { //implements Music, Sound {
 		setLayout(new GridBagLayout());
 
 		this.background = new ImageIcon(filename);
-
-		JSlider sound = new JSlider(JSlider.HORIZONTAL, 0, 100, 50); // Valeur de base à définir
-		sound.setMinorTickSpacing(10);
-		sound.setPaintTicks(true);
-
-		JSlider music = new JSlider(JSlider.HORIZONTAL, 0, 100, 50); // Valeur de base à définir
-		music.setMinorTickSpacing(10);
-		music.setPaintTicks(true);
-		
-		this.cutSound = new JButton();
-		cutSound.addActionListener(e -> {
-			soundCut = !soundCut;
-			setButtonsText();
-		});
 
 		this.musicCut = !s.isRunning();
 		this.cutMusic = new JButton();
@@ -60,10 +43,7 @@ public class Parametres extends JPanel { //implements Music, Sound {
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(0, 1));
 		panel.setOpaque(false);
-		panel.add(cutSound);
-		panel.add(sound);
 		panel.add(cutMusic);
-		panel.add(music);
 
 		JButton back = new JButton("Retour");
 		back.addActionListener(e -> {
@@ -79,11 +59,6 @@ public class Parametres extends JPanel { //implements Music, Sound {
 			cutMusic.setText("Activer la musique");
 		}else {
 			cutMusic.setText("Désactiver la musique");
-		}
-		if (soundCut) {
-			cutSound.setText("Activer le son");
-		}else {
-			cutSound.setText("Désactiver le son");
 		}
 	}
 
