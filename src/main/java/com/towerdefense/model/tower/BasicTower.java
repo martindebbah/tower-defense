@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import com.towerdefense.model.Board;
-import com.towerdefense.model.Projectile;
 import com.towerdefense.model.enemy.Enemy;
 
 public class BasicTower extends Tower {
